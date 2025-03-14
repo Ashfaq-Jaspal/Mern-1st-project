@@ -100,17 +100,17 @@ const CreateProject = () => {
         }
     }
     return (
-        <div>
+        <div className='items-center'>
             <form
                 action="/create-project"
                 method="post"
                 onSubmit={(e) => {
                     submitHandler(e);
                 }}
-                className="flex flex-col px-10 py-12  rounded-lg gap-2 border border-emerald-900 items-center justify-center"
+                className="h-[80vh] text-2xl flex flex-col px-10  rounded-lg gap-2 border border-emerald-900 items-center justify-center"
             >
-                <div className="flex gap-5">
-                    <div className="flex flex-col gap-5 pt-6">
+                <div className="flex gap-10">
+                    <div className="flex flex-col gap-5 pt-8">
                         <input
                             onChange={(e) => {
                                 setProjectName(e.target.value);
@@ -120,7 +120,7 @@ const CreateProject = () => {
                             type="text"
                             required
                             placeholder="Project name"
-                            className="text-gray-400 italic border border-emerald-900 outline-none text-md bg-transparent px-3 py-2 rounded-lg w-80"
+                            className="text-gray-400 italic border border-emerald-900 outline-none bg-transparent px-3 py-2 rounded-lg w-80"
                         />
                         <textarea
                             onChange={(e) => {
@@ -130,11 +130,11 @@ const CreateProject = () => {
                             value={description}
                             required
                             placeholder="Project description"
-                            className="text-gray-400 italic border border-emerald-900 outline-none text-md bg-transparent px-3 max-h-28 min-h-28 py-1 rounded-lg w-80"
+                            className="text-gray-400 italic border border-emerald-900 outline-none bg-transparent px-3 max-h-32 min-h-32 py-1 rounded-lg w-80"
                         />
                     </div>
                     <div className="flex flex-col gap-4">
-                        <label className="text-gray-400">
+                        <label className="text-green-500 text-lg">
                             Start date
                             <br />
                             <input
@@ -145,10 +145,10 @@ const CreateProject = () => {
                                 value={startDate}
                                 type="date"
                                 required
-                                className="w-80 italic border border-emerald-900 text-gray-400 bg-transparent p-1.5 rounded-lg focus:outline-none "
+                                className="w-80 italic border border-emerald-900 text-gray-400 bg-transparent text-2xl p-1.5 rounded-lg focus:outline-none "
                             />
                         </label>
-                        <label className="text-gray-400">
+                        <label className="text-red-600 text-lg">
                             Due date
                             <br />
                             <input
@@ -159,7 +159,7 @@ const CreateProject = () => {
                                 value={endDate}
                                 type="date"
                                 required
-                                className="w-80 italic border  border-emerald-900 text-gray-400 bg-transparent p-1.5 rounded-lg focus:outline-none"
+                                className="w-80 italic border  border-emerald-900 text-gray-400 bg-transparent text-2xl p-1.5 rounded-lg focus:outline-none"
                             />
                         </label>
                         {loading ? (
@@ -169,7 +169,7 @@ const CreateProject = () => {
                         ) : (
                             <>
                                 <Select
-                                    className="w-full"
+                                    className="w-80 text-2xl"
                                     options={formattedEmployeesForReactSelect}
                                     value={selectedEmployees}
                                     placeholder="Select employees..."
@@ -178,6 +178,7 @@ const CreateProject = () => {
                                     styles={{
                                         control: (base) => ({
                                             ...base,
+                                            fontSize: '1.5rem',
                                             background: 'transparent',
                                             borderColor: '#064e3b',
                                             padding: '2px',
@@ -200,6 +201,7 @@ const CreateProject = () => {
                                         }),
                                         option: (base, { isFocused, isSelected }) => ({
                                             ...base,
+                                            fontSize: '1.25rem',
                                             backgroundColor: isSelected ? 'blue' : isFocused ? 'lightgray' : 'white',
                                             cursor: 'pointer',
                                         }),
@@ -211,7 +213,7 @@ const CreateProject = () => {
                 </div>
 
                 <div className="flex">
-                    <button type="submit" className="px-3 py-1.5 mt-2 w-80 text-white bg-emerald-900 border-none rounded-xl">
+                    <button type="submit" className="px-3 text-2xl py-1.5 mt-2 w-80 text-gray-300 bg-emerald-900 border-none rounded-xl">
                         Create project
                     </button>
                 </div>

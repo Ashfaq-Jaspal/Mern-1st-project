@@ -58,7 +58,7 @@ function Login() {
                 onSubmit={(e) => {
                     submitHandler(e);
                 }}
-                className="flex flex-col px-10 py-12 rounded-xl gap-4 border-2 border-emerald-900 items-center justify-center"
+                className="flex flex-col text-2xl px-36 py-12 rounded-xl gap-4 border border-emerald-900 items-center justify-center"
             >
                 <input
                     onChange={(e) => {
@@ -69,7 +69,7 @@ function Login() {
                     type="email"
                     required
                     placeholder="Enter email"
-                    className="text-white border-2 border-emerald-900 outline-none text-md bg-transparent px-3 py-1 rounded-full w-80"
+                    className="text-white border border-emerald-900 outline-none text-md bg-transparent px-3 py-2 rounded-lg w-96"
                 />
                 <input
                     onChange={(e) => {
@@ -80,7 +80,7 @@ function Login() {
                     type="password"
                     required
                     placeholder="Enter password"
-                    className="text-white border-2 border-emerald-900 outline-none text-md bg-transparent px-3 py-1 rounded-full w-80"
+                    className="text-white border border-emerald-900 outline-none text-md bg-transparent px-3 py-2 rounded-lg w-96"
                 />
                 <button type="submit" className="px-3 py-1.5 mt-5 w-80 text-white bg-emerald-900 border-none rounded-full">
                     Log in

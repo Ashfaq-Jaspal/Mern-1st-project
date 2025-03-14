@@ -8,9 +8,9 @@ const Navbar = () => {
     if (!loading) {
         if (user.isAdmin) {
             return (
-                <nav className="bg-gray-400 shadow-md fixed w-full top-0 left-0 z-50 flex justify-around py-2 text-black border border-gray-600">
+                <nav className="bg-gray-400 text-[22px] shadow-md fixed w-full top-0 left-0 z-50 flex  justify-between px-24 py-2 text-black border border-gray-600">
                     <div>
-                        <h1>Logo</h1>
+                        <h1 className='text-3xl'>Logo</h1>
                     </div>
                     <div className="flex justify-between gap-4">
                         <NavLink
@@ -19,7 +19,7 @@ const Navbar = () => {
                                 ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
                             }
                         >
-                            admin-panel
+                            Dashboard
                         </NavLink>
                         <NavLink
                             to="/create-project"
@@ -27,7 +27,7 @@ const Navbar = () => {
                                 ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
                             }
                         >
-                            create-project
+                            New Project
                         </NavLink>
                         <NavLink
                             to="/create"
@@ -35,7 +35,7 @@ const Navbar = () => {
                                 ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
                             }
                         >
-                            CreateUser
+                            Add User
                         </NavLink>
                         <NavLink
                             to="/employees"
@@ -43,7 +43,7 @@ const Navbar = () => {
                                 ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
                             }
                         >
-                            employees
+                            Team
                         </NavLink>
                         <NavLink
                             to="/projects"
@@ -51,13 +51,13 @@ const Navbar = () => {
                                 ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
                             }
                         >
-                            projects
+                            Projects
                         </NavLink>
                         <NavLink
                             to="/logout"
                             className="px-2 pb-1 bg-gray-400 text-red-800 font-medium shadow-md transition-all duration-300 hover:text-blue-600 border-b-2 border-b-red-800 hover:border-b-blue-800"
                         >
-                            logout
+                            Sign Out
                         </NavLink>
                     </div>
                 </nav>
@@ -65,25 +65,25 @@ const Navbar = () => {
         }
         if (!user.isAdmin) {
             return (
-                <nav className="bg-gray-400 shadow-md fixed w-full top-0 left-0 z-50 flex justify-around py-2 text-black border border-gray-600">
+                <nav className="bg-gray-400 text-[22px] shadow-md fixed w-full top-0 left-0 z-50 flex justify-between px-24 py-2 text-black border border-gray-600">
                     <div>
-                        <h1>Logo</h1>
+                        <h1 className='text-3xl'>Logo</h1>
                     </div>
                     <div className="flex justify-between gap-4">
                         <NavLink
                             to="/employee-dashboard"
                             className={({ isActive }) =>
-                                ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
+                                ` hover:text-blue-600 ${isActive ? 'font-semibold mr-5 border-b-2 border-blue-800' : ''}`
                             }
                         >
-                            employee-dashboard
+                            Dashboard
                         </NavLink>
 
                         <NavLink
                             to="/logout"
                             className="px-2 pb-1 bg-gray-400 text-red-800 font-medium shadow-md transition-all duration-300 hover:text-blue-600 border-b-2 border-b-red-800 hover:border-b-blue-800"
                         >
-                            logout
+                            Sign Out
                         </NavLink>
                     </div>
                 </nav>

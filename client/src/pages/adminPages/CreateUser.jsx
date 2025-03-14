@@ -14,6 +14,7 @@ function SignUp() {
         { label: 'Android Developer', value: 'Android Developer' },
         { label: 'Web Developer', value: 'Web Developer' },
         { label: 'UI/UX Designer', value: 'UI/UX Designer' },
+        { label: 'Video Editor', value: 'Video Editor' },
         { label: 'Project Manager', value: 'Project Manager' },
     ]);
     const { user, setUser, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
@@ -93,7 +94,7 @@ function SignUp() {
             onSubmit={(e) => {
                 submitHandler(e);
             }}
-            className="flex flex-col px-10 py-12 rounded-xl gap-4 border-2 border-emerald-900 items-center justify-center"
+            className="flex flex-col text-2xl px-36 py-12 rounded-xl gap-4 border border-emerald-900 items-center justify-center"
         >
             <input
                 onChange={(e) => {
@@ -104,7 +105,7 @@ function SignUp() {
                 type="text"
                 required
                 placeholder="Enter full name"
-                className="text-white border-2 border-emerald-900 outline-none text-md bg-transparent px-3 py-1 rounded-full w-80"
+                className="text-white border border-emerald-900 outline-none text-md bg-transparent px-3 py-2 rounded-lg w-96"
             />
             <input
                 onChange={(e) => {
@@ -115,7 +116,7 @@ function SignUp() {
                 type="email"
                 required
                 placeholder="Enter email"
-                className="text-white border-2 border-emerald-900 outline-none text-md bg-transparent px-3 py-1 rounded-full w-80"
+                className="text-white border border-emerald-900 outline-none text-md bg-transparent px-3 py-2 rounded-lg w-96"
             />
             <input
                 onChange={(e) => {
@@ -126,7 +127,7 @@ function SignUp() {
                 type="password"
                 required
                 placeholder="Enter password"
-                className="text-white border-2 border-emerald-900 outline-none text-md bg-transparent px-3 py-1 rounded-full w-80"
+                className="text-white border border-emerald-900 outline-none text-md bg-transparent px-3 py-2 rounded-lg w-96"
             />
 
             <Select
@@ -165,7 +166,7 @@ function SignUp() {
                     }),
                 }}
             ></Select>
-            <button type="submit" className="px-3 py-1.5 mt-5 w-80 text-white bg-emerald-900 border-none rounded-full">
+            <button type="submit" className="px-3 py-2 mt-5 w-80 text-white bg-emerald-900 border-none rounded-lg">
                 Create user
             </button>
         </form>

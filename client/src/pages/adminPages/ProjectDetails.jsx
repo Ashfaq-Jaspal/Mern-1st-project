@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { Link, data, useLocation, useParams } from 'react-router';
 import { toast } from 'react-hot-toast';
-import { BriefcaseIcon, UsersIcon, XCircleIcon, UserIcon } from "@heroicons/react/24/solid";
+import { BriefcaseIcon, UsersIcon, XCircleIcon, UserIcon } from '@heroicons/react/24/solid';
 
 const ProjectDetails = () => {
     const {
@@ -55,9 +55,11 @@ const ProjectDetails = () => {
     return (
         <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-gradient-to-b from-gray-900 to-black min-h-screen text-white flex items-center justify-center p-6 w-full">
             <div className="bg-gray-900 bg-opacity-80 backdrop-blur-md shadow-2xl rounded-lg p-8 w-full max-w-3xl">
-                
                 {/* Close Button */}
-                <Link to={'/projects'} className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
+                <Link
+                    to={user.isAdmin ? '/projects' : '/employee-dashboard'}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition"
+                >
                     <XCircleIcon className="h-8 w-8" />
                 </Link>
 
@@ -78,7 +80,10 @@ const ProjectDetails = () => {
 
                 <div className="mt-4 space-y-4">
                     {employees.map((employee) => (
-                        <div key={employee._id} className="p-5 bg-gray-800 rounded-md shadow-md transition duration-300 flex items-center space-x-4">
+                        <div
+                            key={employee._id}
+                            className="p-5 bg-gray-800 rounded-md shadow-md transition duration-300 flex items-center space-x-4"
+                        >
                             <UserIcon className="h-8 w-8 text-blue-400" />
                             <div>
                                 <h3 className="text-xl font-semibold text-blue-400">{employee.name}</h3>
@@ -89,7 +94,6 @@ const ProjectDetails = () => {
                 </div>
             </div>
         </div>
-
     );
 };
 

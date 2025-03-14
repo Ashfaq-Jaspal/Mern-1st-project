@@ -25,6 +25,6 @@ router.route('/create-project').post(validateProject, postCreateProject);
 router.route('/projects').get(verifyJwt, isAdmin, allProjects);
 router.route('/employees').get(verifyJwt, isAdmin, allEmployees);
 router.route('/employees/:employeeId').get(verifyJwt, isAdmin, projectsOfClickedEmployee);
-router.route('/projects/:projectId').get(verifyJwt, isAdmin, clickedProject);
+router.route('/projects/:projectId').get(verifyJwt, clickedProject);
 
 export default router;
