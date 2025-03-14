@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type='date']::-webkit-calendar-picker-indicator {
+    background-color: #9ca3af;
+    border-radius: 3px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+body {
+    background-color: rgb(3, 7, 18);
+}
+::-webkit-scrollbar {
+    display: none;
+}
+#date::-webkit-calendar-picker-indicator {
+    background-color: rgb(136, 142, 142);
+    border-radius: 5px;
+}
+#date::-webkit-calendar-picker-indicator:hover {
+    cursor: pointer;
+}
+li {
+    list-style-type: disc;
+}
