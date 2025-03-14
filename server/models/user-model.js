@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import { DB_CONNECTION_STRING } from '../config/index.js';
+import { MONGO_URI } from '../config/index.js';
 const { Schema, model } = mongoose;
 
 // Create database
-mongoose.connect(DB_CONNECTION_STRING);
+mongoose.connect(MONGO_URI);
 
 // Create Schema
 const userSchema = new Schema({
