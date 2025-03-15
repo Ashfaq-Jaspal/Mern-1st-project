@@ -58,7 +58,7 @@ const Employees = () => {
             ) : employees?.length ? (
                 employees.map((emp) => (
                     <div key={emp._id} onClick={() => handleEmployeeClick(emp._id)} className="cursor-pointer">
-                        <div className="w-64 p-6 rounded-lg bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-3 justify-center items-center border border-gray-700 hover:bg-gray-700 active:scale-95">
+                        <div className="w-64 h-[187px] p-6 rounded-lg bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-3 justify-center items-center border border-gray-700 hover:bg-gray-700 active:scale-95">
                             {/* Employee Icon */}
                             <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-16 w-16 flex items-center justify-center rounded-full shadow-lg">
                                 <UserIcon className="h-8 w-8 text-white" />
