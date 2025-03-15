@@ -7,11 +7,12 @@ import cookieParser from 'cookie-parser';
 
 // Call middlewares
 const corsOptions = {
-    origin: 'http://localhost:5173',
-    methods: 'GET, PUT, POST, DELETE, PATCH, HEAD',
+    origin: ['http://localhost:5173'],
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
     credentials: true,
 };
 app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
