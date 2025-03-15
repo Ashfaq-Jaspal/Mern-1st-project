@@ -75,7 +75,7 @@ const Employees = () => {
                     </div>
                 ))
             ) : (
-                <p className="text-white text-lg">No Employees available</p>
+                <p className="text-white text-4xl">No Employees available</p>
             )}
         </div>
     );

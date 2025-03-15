@@ -75,7 +75,7 @@ const Projects = () => {
                     </div>
                 ))
             ) : (
-                <p className="text-white text-lg">No projects available</p>
+                <p className="text-white text-4xl">No projects available</p>
             )}
         </div>
     );
