@@ -16,7 +16,9 @@ const Projects = () => {
             });
             const data = await response.json();
             if (!response.ok) {
-                navigate('/');
+                setLoading(false);
+                setUser(data.user.decodedToken);
+                console.log(data);
                 toast.error(data.message);
             }
             if (response.ok) {
