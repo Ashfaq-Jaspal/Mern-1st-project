@@ -31,13 +31,14 @@ const Employees = () => {
                 toast.error(data.message);
             }
             if (response.ok) {
-                setLoading(false);
                 setUser(data.user.decodedToken);
                 setEmployees(data.employees);
             }
         } catch (error) {
             console.log(error);
             toast.error('Internal frontend side error');
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -50,11 +51,11 @@ const Employees = () => {
         fetchData();
     }, []);
 
-    if (loading)  return(<p className="text-white text-4xl" > Loading... </p>);
-
     return (
         <div className="w-screen min-h-screen absolute top-14 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">
-            {employees?.length ? (
+            {loading ? (
+                <p className="text-white text-4xl">Loading...</p>
+            ) : employees?.length ? (
                 employees.map((emp) => (
                     <div key={emp._id} onClick={() => handleEmployeeClick(emp._id)} className="cursor-pointer">
                         <div className="w-64 p-6 rounded-lg bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-3 justify-center items-center border border-gray-700 hover:bg-gray-700 active:scale-95">

@@ -16,11 +16,9 @@ const Projects = () => {
             });
             const data = await response.json();
             if (!response.ok) {
-                setLoading(false);
                 setUser(data.user.decodedToken);
             }
             if (response.ok) {
-                setLoading(false);
                 setUser(data.user.decodedToken);
                 setProjects(data.projects);
             }
