@@ -6,11 +6,11 @@ mongoose
     .connect(MONGO_URI)
     .then(() => {
         console.log('✅ MongoDB connected successfully');
-        // process.exit(0); // Exit the process after successful connection
+        process.exit(0); // Exit the process after successful connection
     })
     .catch((err) => {
         console.error('❌ MongoDB connection error:', err);
-        // process.exit(1); // Exit with an error
+        process.exit(1); // Exit with an error
     });
 
 // Create Schema

@@ -24,6 +24,6 @@ employees: [{
 }]
 })
 
-const Project = model('Project', projectSchema)
+const Project = model('Project', projectSchema, 'projects')
 
 export default Project
