@@ -28,6 +28,7 @@ function Login() {
             let data = await response.json();
             if (!response.ok) {
                 // Checking for validation error
+                console.log('res not ok');
                 if (data.error) {
                     toast.error(data.error.details[0].message);
                 } else {
@@ -35,6 +36,7 @@ function Login() {
                 }
             }
             if (response.ok) {
+                console.log('res ok');
                 toast.success(data.message);
                 if (data.user.isAdmin) {
                     navigate('/admin-panel');
@@ -45,6 +47,7 @@ function Login() {
             }
         } catch (error) {
             console.log(error);
+            console.log('catch err');
             toast.error('Internal frontend side error');
         }
 

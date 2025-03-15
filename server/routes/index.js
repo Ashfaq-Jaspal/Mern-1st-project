@@ -16,7 +16,7 @@ const router = express.Router();
 router.route('/').get(verifyJwt, Home);
 router.route('/employee-dashboard').get(verifyJwt, isEmployee, Employee);
 router.route('/admin-panel').get(verifyJwt, isAdmin, Admin);
-router.route('/create').get( getCreate);
+router.route('/create').get( verifyJwt, isAdmin, getCreate);
 router.route('/create').post(validateSignup, postCreate);
 router.route('/login').post(validateLogin, login);
 router.route('/logout').post(logout);

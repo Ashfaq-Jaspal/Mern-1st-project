@@ -82,9 +82,7 @@ function SignUp() {
     };
 
     useEffect(() => {
-        if (!user) {
             authenticate();
-        }
     }, []);
 
     return (
