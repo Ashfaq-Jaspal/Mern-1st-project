@@ -30,6 +30,6 @@ const userSchema = new Schema({
 });
 
 // Create Collection
-const User = new model('User', userSchema);
+const User = new model('User', userSchema, 'users');
 
 export default User;
