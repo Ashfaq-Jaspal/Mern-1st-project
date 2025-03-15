@@ -18,9 +18,11 @@ const Home = () => {
             });
             const data = await response.json();
             if (!response.ok) {
+                console.log('res not ok');
                 navigate('/login');
             }
             if (response.ok) {
+                console.log('res ok');
                 if (data.user.decodedToken.isAdmin) {
                     navigate('/admin-panel');
                 } else {
@@ -31,7 +33,7 @@ const Home = () => {
                 setEmployees(false);
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
             toast.error('Internal frontend side error');
         }
     };
