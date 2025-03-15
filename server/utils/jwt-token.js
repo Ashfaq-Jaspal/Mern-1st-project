@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET_KEY } from '../index.js';
+import { JWT_SECRET_KEY } from '../config/index.js';
 
 // Generate token method
 const generateToken = async (user) => {
