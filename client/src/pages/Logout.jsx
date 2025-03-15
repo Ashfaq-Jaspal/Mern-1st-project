@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
 
 const Logout = () => {
-    const { user, setUser, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
+    const {backendUrl,  user, setUser, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const logOutUser = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/logout`, {
+            const response = await fetch(`${backendUrl}/logout`, {
                 method: 'POST',
                 credentials: 'include',
             });

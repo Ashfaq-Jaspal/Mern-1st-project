@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../context/AuthContext';
 
 function Login() {
+    const {backendUrl} = useContext(AuthContext)
     const navigate = useNavigate();
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
@@ -15,7 +17,7 @@ function Login() {
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:5000/login`, {
+            const response = await fetch(`${backendUrl}/login`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

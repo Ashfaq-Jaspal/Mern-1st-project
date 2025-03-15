@@ -7,6 +7,7 @@ import { UserIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
 const Employees = () => {
     const navigate = useNavigate();
     const {
+        backendUrl, 
         user,
         setUser,
         projects,
@@ -20,7 +21,7 @@ const Employees = () => {
     } = useContext(AuthContext);
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:5000/employees', {
+            const response = await fetch(`${backendUrl}/employees`, {
                 method: 'GET',
                 credentials: 'include',
             });

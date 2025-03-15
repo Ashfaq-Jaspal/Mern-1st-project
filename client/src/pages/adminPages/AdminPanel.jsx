@@ -4,12 +4,12 @@ import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
 
 const AdminPanel = () => {
-    const { user, setUser, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
+    const {backendUrl, user, setUser, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const authenticate = async () => {
         try {
-            const response = await fetch('http://localhost:5000/admin-panel', {
+            const response = await fetch(`${backendUrl}/admin-panel`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {

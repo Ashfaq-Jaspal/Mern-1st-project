@@ -5,11 +5,11 @@ import { AuthContext } from '../context/AuthContext';
 
 const Home = () => {
     const navigate = useNavigate();
-    const { setUser, setLoading, setEmployees } = useContext(AuthContext);
+    const { backendUrl, setUser, setLoading, setEmployees } = useContext(AuthContext);
 
     const fetchUserData = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/`, {
+            const response = await fetch(`${backendUrl}/`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {

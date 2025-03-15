@@ -6,6 +6,7 @@ import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, UserIcon } 
 
 const EmployeeDetails = () => {
     const {
+        backendUrl, 
         user,
         setUser,
         projects,
@@ -21,7 +22,7 @@ const EmployeeDetails = () => {
 
     const fetchProjects = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/employees/${employeeId}`, {
+            const response = await fetch(`${backendUrl}/employees/${employeeId}`, {
                 method: 'GET',
                 credentials: 'include',
             });

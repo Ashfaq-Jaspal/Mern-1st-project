@@ -6,6 +6,7 @@ import { BriefcaseIcon, UsersIcon, XCircleIcon, UserIcon } from '@heroicons/reac
 
 const ProjectDetails = () => {
     const {
+        backendUrl, 
         user,
         setUser,
         projects,
@@ -23,7 +24,7 @@ const ProjectDetails = () => {
 
     const fetchProjects = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/projects/${projectId}`, {
+            const response = await fetch(`${backendUrl}/projects/${projectId}`, {
                 method: 'GET',
                 credentials: 'include',
             });

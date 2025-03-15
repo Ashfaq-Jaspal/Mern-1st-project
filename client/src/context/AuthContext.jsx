@@ -3,6 +3,7 @@ import { createContext, useState } from 'react';
 export const AuthContext = createContext();
 // Create provider
 export const AuthProvider = ({ children }) => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [clickedEmployee, setClickedEmployee] = useState('');
@@ -13,6 +14,7 @@ export const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider
             value={{
+                backendUrl,
                 user,
                 setUser,
                 loading,

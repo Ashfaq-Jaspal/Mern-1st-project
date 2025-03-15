@@ -6,10 +6,10 @@ import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/solid";
 
 const Projects = () => {
     const navigate = useNavigate()
-    const { user, setUser, employees, setEmployees, loading, setLoading, projects, setProjects } = useContext(AuthContext);
+    const { backendUrl, user, setUser, employees, setEmployees, loading, setLoading, projects, setProjects } = useContext(AuthContext);
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:5000/projects', {
+            const response = await fetch(`${backendUrl}/projects`, {
                 method: 'GET',
                 credentials: 'include',
             });

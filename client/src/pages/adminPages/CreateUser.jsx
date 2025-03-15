@@ -17,7 +17,7 @@ function SignUp() {
         { label: 'Video Editor', value: 'Video Editor' },
         { label: 'Project Manager', value: 'Project Manager' },
     ]);
-    const { user, setUser, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
+    const { backendUrl, user, setUser, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -30,7 +30,7 @@ function SignUp() {
         };
         // Post request
         try {
-            const response = await fetch(`http://localhost:5000/create`, {
+            const response = await fetch(`${backendUrl}/create`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -59,7 +59,7 @@ function SignUp() {
     // Get request
     const authenticate = async () => {
         try {
-            const response = await fetch('http://localhost:5000/create', {
+            const response = await fetch(`${backendUrl}/create`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {

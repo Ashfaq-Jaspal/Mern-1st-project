@@ -5,12 +5,12 @@ import { AuthContext } from '../../context/AuthContext';
 import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/solid";
 
 const EmployeeDashboard = () => {
-    const { user, setUser, employees, setEmployees, loading, setLoading, projects, setProjects } = useContext(AuthContext);
+    const { backendUrl, user, setUser, employees, setEmployees, loading, setLoading, projects, setProjects } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const authenticate = async () => {
         try {
-            const response = await fetch('http://localhost:5000/employee-dashboard', {
+            const response = await fetch(`${backendUrl}/employee-dashboard`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {

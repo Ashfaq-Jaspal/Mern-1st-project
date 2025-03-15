@@ -10,7 +10,7 @@ const CreateProject = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [selectedEmployees, setSelectedEmployees] = useState([]);
-    const { user, setUser, status, setStatus, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
+    const { backendUrl, user, setUser, status, setStatus, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
     let formattedEmployeesForReactSelect = [];
     let reFormattedEmployeesForBackend = [];
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ const CreateProject = () => {
         };
 
         try {
-            const response = await fetch(`http://localhost:5000/create-project`, {
+            const response = await fetch(`${backendUrl}/create-project`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -65,7 +65,7 @@ const CreateProject = () => {
 
     const fetchEmployeesData = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/create-project`, {
+            const response = await fetch(`${backendUrl}/create-project`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
