@@ -1,11 +1,3 @@
-process.on('uncaughtException', (err) => {
-    console.error('Uncaught Exception:', err);
-});
-
-process.on('unhandledRejection', (reason, promise) => {
-    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-});
-
 import express from 'express';
 const app = express();
 import cors from 'cors';
@@ -20,7 +12,6 @@ const corsOptions = {
     credentials: true,
 };
 app.use(cors(corsOptions));
-app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
@@ -28,6 +19,6 @@ app.use(cookieParser());
 app.use('/', router);
 
 // Listener
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`server is running on port ${PORT}`);
 });
