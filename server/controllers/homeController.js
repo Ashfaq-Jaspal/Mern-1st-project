@@ -1,5 +1,6 @@
 import User from '../models/user-model.js'
-// Home route
+
+// Home
 const Home = async (req, res) => {
     try {
         const employees = await User.find({isAdmin: 'false'}).select('_id name')

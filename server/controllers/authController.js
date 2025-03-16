@@ -2,7 +2,7 @@ import User from '../models/user-model.js';
 import bcrypt from 'bcrypt';
 import { generateToken } from '../utils/jwt-token.js';
 
-// Login route
+// Login
 const login = async (req, res) => {
     let { email, password } = req.body;
     try {
@@ -33,9 +33,10 @@ const login = async (req, res) => {
     }
 };
 
+// Logout
 const logout = async (req, res) => {
     try {
-        res.clearCookie('token'); // Clears auth token
+        res.clearCookie('token');
         return res.json({ message: 'Logged out successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });

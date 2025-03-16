@@ -1,4 +1,4 @@
-// admin-panel route
+// Admin Dashboard
 const Admin = async (req, res) => {
     try {
         res.status(200).json({ user: req.user });

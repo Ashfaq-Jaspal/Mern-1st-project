@@ -1,7 +1,7 @@
 import Project from '../models/project-model.js';
 import User from '../models/user-model.js';
 
-// Get request for create-project page
+// Get request for create project page
 const getCreateProject = async (req, res) => {
     try {
         const employees = await User.find({ isAdmin: 'false' }).select('_id name status');
@@ -11,7 +11,7 @@ const getCreateProject = async (req, res) => {
     }
 };
 
-// Post request for create-project page
+// Create project
 const postCreateProject = async (req, res) => {
     try {
         const { name, description, startDate, endDate, employeeIds } = req.body;
@@ -41,7 +41,7 @@ const postCreateProject = async (req, res) => {
     }
 };
 
-// Get request for all-projects page
+// Get all projects
 const allProjects = async (req, res) => {
     try {
         const projects = await Project.find();
@@ -54,7 +54,7 @@ const allProjects = async (req, res) => {
     }
 };
 
-// Get request for all-projects assigned to a specific employee
+// Get all projects of a specific employee
 const projectsOfClickedEmployee = async (req, res) => {
     try {
         const { employeeId } = req.params;
