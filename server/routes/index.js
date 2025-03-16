@@ -1,15 +1,10 @@
 import express from 'express';
-import { login, logout } from '../controllers/authController.js';
-import Home from '../controllers/homeController.js';
-import Admin from '../controllers/adminController.js';
-import Employee from '../controllers/employeeController.js';
-import { allEmployees, getCreate, postCreate, clickedProject } from '../controllers/userController.js';
-import {
-    allProjects,
-    getCreateProject,
-    postCreateProject,
-    projectsOfClickedEmployee,
-} from '../controllers/projectController.js';
+import { login, logout } from '../controllers/authController.js';ok
+import Home from '../controllers/homeController.js';ok
+import Admin from '../controllers/adminController.js';ok
+import {Employee, allEmployees, clickedProject} from '../controllers/employeeController.js';ok
+import { getCreate, postCreate } from '../controllers/userController.js';ok
+import { getCreateProject, postCreateProject, allProjects, projectsOfClickedEmployee } from '../controllers/projectController.js';ok
 import { validateSignup, validateLogin } from '../middlewares/input-validation.js';
 import verifyJwt from '../middlewares/verify-jwt.js';
 import isAdmin from '../middlewares/isAdmin.js';
