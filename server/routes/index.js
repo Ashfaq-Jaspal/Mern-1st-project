@@ -4,7 +4,7 @@ import Home from '../controllers/homeController.js';
 import Admin from '../controllers/adminController.js';
 import {Employee, allEmployees, clickedProject} from '../controllers/employeeController.js';
 import { getCreate, postCreate } from '../controllers/userController.js';
-import { getCreateProject, postCreateProject, allProjects, projectsOfClickedEmployee } from '../controllers/projectController.js';ok
+import { getCreateProject, postCreateProject, allProjects, projectsOfClickedEmployee } from '../controllers/projectController.js';
 import { validateSignup, validateLogin } from '../middlewares/input-validation.js';
 import verifyJwt from '../middlewares/verify-jwt.js';
 import isAdmin from '../middlewares/isAdmin.js';
