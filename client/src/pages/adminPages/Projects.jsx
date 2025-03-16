@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
 
 const Projects = () => {

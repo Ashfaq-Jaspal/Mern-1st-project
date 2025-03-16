@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { Link, data, useLocation, useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import { toast } from 'react-hot-toast';
 import { BriefcaseIcon, UsersIcon, XCircleIcon, UserIcon } from '@heroicons/react/24/solid';
 
