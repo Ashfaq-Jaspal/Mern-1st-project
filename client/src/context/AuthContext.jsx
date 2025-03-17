@@ -11,33 +11,6 @@ export const AuthProvider = ({ children }) => {
     const [employees, setEmployees] = useState([]);
     const [projects, setProjects] = useState([]);
 
-    // Fetching user details
-    const fetchUser = async () => {
-        try {
-            const response = await fetch(`${backendUrl}/`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                setUser(false);
-            }
-            if (response.ok) {
-                setUser(data.user.decodedToken);
-            }
-        } catch (error) {
-            console.error(error);
-            setUser(null);
-        }
-    };
-
-    useEffect(() => {
-        fetchUser();
-    }, []);
-
     return (
         <AuthContext.Provider
             value={{
@@ -54,7 +27,6 @@ export const AuthProvider = ({ children }) => {
                 setClickedEmployee,
                 clickedProject,
                 setClickedProject,
-                fetchUser
             }}
         >
             {children}

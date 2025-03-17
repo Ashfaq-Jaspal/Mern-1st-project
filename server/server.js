@@ -6,9 +6,10 @@ import { PORT } from './config/index.js';
 import cookieParser from 'cookie-parser';
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
-    methods: 'GET, PUT, POST, DELETE',
-    credentials: true,
+    origin: 'http://localhost:5173', // Allow frontend URL
+    credentials: true, // Allow cookies (important for authentication)
+    methods: 'GET,POST,PUT,DELETE', // Allow these HTTP methods
+    allowedHeaders: 'Content-Type,Authorization', // Allow these headers
 };
 
 // Middlewares
@@ -20,6 +21,6 @@ app.use(cookieParser());
 app.use('/', router);
 
 // Listener
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`server is running on port ${PORT}`);
 });
