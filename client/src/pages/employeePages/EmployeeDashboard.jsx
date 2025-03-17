@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
 import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/solid";
+import { fetchUsersProjects } from '../../api/internal';
 
 const EmployeeDashboard = () => {
     const navigate = useNavigate();
@@ -23,41 +24,21 @@ const EmployeeDashboard = () => {
         fetchUser,
     } = useContext(AuthContext);
 
-    const authenticate = async () => {
-        try {
-            const response = await fetch(`${backendUrl}/employee-dashboard`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                navigate('/login');
-                console.log(data.message);
-                console.log('res not ok');
-            }
-            if (response.ok) {
-                console.log(data);
-                console.log('res ok');
-                // setUser(data.user.decodedToken);
-                // setLoading(false);
-                // setProjects(data.projects)
-            }
-        } catch (error) {
-            console.log(error);
-            console.log('catch error');
-        }
-    };
-
     const handleProjectClick = async (projectId) => {
         setLoading(true)
         navigate(`/projects/${projectId}`);
     };
 
     useEffect(() => {
-            authenticate();
+            const userProjects = async () => {
+                try {
+                    const response = await fetchUsersProjects()
+                    console.log(response);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            userProjects()
     }, []);
 
     if (!loading) {

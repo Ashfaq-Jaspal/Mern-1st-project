@@ -27,7 +27,7 @@ const login = async (req, res) => {
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
-        res.status(200).json({ message: 'You logged in successfully', Token: token, user: userWithOutPassword });
+        res.status(200).json({ message: 'You logged in successfully', user: userWithOutPassword });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }

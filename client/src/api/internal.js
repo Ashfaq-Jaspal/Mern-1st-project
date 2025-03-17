@@ -47,3 +47,12 @@ export const fetchUser = async () => {
         return error;
     }
 };
+
+export const fetchUsersProjects = async () => {
+    try {
+        const response = await api.get('/employee-dashboard');
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
