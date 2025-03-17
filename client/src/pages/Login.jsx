@@ -17,24 +17,26 @@ function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
-        const response = await login(user);
-
-        if (response.status === 200) {
-            // success
-            toast.success(response.data.message);
-
-            setUser(response.data.user);
-
-            if (response.data.user.isAdmin) {
-                navigate('/admin-panel');
+        try {
+            const response = await login(user);
+            if (response.status === 200) {
+                // success
+                toast.success(response.data.message);
+    
+                setUser(response.data.user);
+    
+                if (response.data.user.isAdmin) {
+                    navigate('/admin-panel');
+                } else {
+                    navigate('/employee-dashboard');
+                }
             } else {
-                navigate('/employee-dashboard');
+                // error
+                toast.error(response);
             }
-        } else {
-            // error
-            toast.error(response);
-        }
+        } catch (error) {
+            console.error(error);
+        }    
 
         setEmail('');
         setPassword('');

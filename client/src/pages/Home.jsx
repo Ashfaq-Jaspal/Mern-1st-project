@@ -2,10 +2,11 @@ import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
 import { fetchUser } from '../api/internal';
+import { toast } from 'react-hot-toast';
 
 const Home = () => {
     const navigate = useNavigate();
-    const { user, setUser } = useContext(AuthContext);
+    const { setUser } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,7 +24,8 @@ const Home = () => {
                 if (response.status === 401) {
                     // invalid user
                     setUser(null);
-                    console.log(response);
+                    navigate('/login')
+                    toast.error(response.response.data.message);
                 }
             } catch (error) {
                 console.error(error);
@@ -31,14 +33,6 @@ const Home = () => {
         };
 
         fetchData();
-
-        // if (!user) {
-        //     navigate('/login');
-        // } else if (user.isAdmin) {
-        //     navigate('/admin-panel');
-        // } else if (!user.isAdmin) {
-        //     navigate('/employee-dashboard');
-        // }
     }, []);
 
     return (

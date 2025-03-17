@@ -32,7 +32,7 @@ export const login = async (data) => {
 export const logout = async () => {
     try {
         const response = await api.post(`/logout`);
-        return response.data.message;
+        return response;
     } catch (error) {
         return error;
     }
@@ -44,6 +44,6 @@ export const fetchUser = async () => {
         const response = await api.get('/');
         return response;
     } catch (error) {
-            return error;
+        return error;
     }
 };

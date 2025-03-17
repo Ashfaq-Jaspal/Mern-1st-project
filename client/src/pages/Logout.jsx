@@ -11,7 +11,7 @@ const Logout = () => {
             try {
                 const response = await logout();
                 navigate('/login');
-                toast.success(response);
+                toast.success(response.data.message);
             } catch (error) {
                 console.error('Logout failed:', error);
             }
