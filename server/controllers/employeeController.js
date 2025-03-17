@@ -6,7 +6,7 @@ const Employee = async (req, res) => {
         const userId = req.user.id;
         const projects = await Project.find({ employees: { $in: userId } });
         if (projects.length === 0) {
-            return res.status(404).json({message: 'Projects not found'})
+            return res.status(404).json({user: req.user, message: 'Projects not found'})
         }
         res.status(200).json({ user: req.user, projects});
     } catch (error) {

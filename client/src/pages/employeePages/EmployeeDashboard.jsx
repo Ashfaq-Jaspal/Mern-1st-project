@@ -33,7 +33,14 @@ const EmployeeDashboard = () => {
             const userProjects = async () => {
                 try {
                     const response = await fetchUsersProjects()
-                    console.log(response);
+                    if (response.status === 200) {
+                        setUser(response.data.user)
+                        setProjects(response.data.projects)
+                    } else if (response.status === 404) {
+                        // setUser(response.data.user)
+                        console.log(response);
+                        setProjects(null)
+                    }
                 } catch (error) {
                     console.log(error);
                 }
