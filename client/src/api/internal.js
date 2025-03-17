@@ -48,6 +48,7 @@ export const fetchUser = async () => {
     }
 };
 
+// employee dashboard
 export const fetchUsersProjects = async () => {
     try {
         const response = await api.get('/employee-dashboard');
@@ -56,3 +57,13 @@ export const fetchUsersProjects = async () => {
         return error;
     }
 };
+
+// admin dashboard
+export const fetchUsersAndProjects = async () => {
+    try {
+        const response = await api.get('/admin-panel');
+        return response;
+    } catch (error) {
+        return error;
+    }
+};    

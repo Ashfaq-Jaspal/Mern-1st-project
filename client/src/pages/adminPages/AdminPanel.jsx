@@ -2,38 +2,28 @@ import React, { useContext, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
+import { fetchUsersAndProjects } from '../../api/internal';
 
 const AdminPanel = () => {
     const {backendUrl, user, setUser, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const authenticate = async () => {
-        try {
-            const response = await fetch(`${backendUrl}/admin-panel`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                navigate('/login');
-                console.log(data.message);
-                console.log('res not ok');
-                return
-            }
-                console.log('res ok');
-                // setUser(data.user.decodedToken);
-                // setLoading(false);
-        } catch (error) {
-            console.log(error);
-            console.log('catch error');
-        }
-    };
-
     useEffect(() => {
-            authenticate();
+        const allUsersAndProjects = async () => {
+            try {
+                const response = await fetchUsersAndProjects();
+                if (response.status === 200) {
+                    setUser(response.data.user);
+                    setProjects(response.data.projects);
+                } else if (response.status === 404) {
+                    setUser(response.response.data.user);
+                    setProjects(null);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        allUsersAndProjects();
     }, []);
 
     return (
