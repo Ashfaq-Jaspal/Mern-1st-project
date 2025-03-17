@@ -4,8 +4,23 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../context/AuthContext';
 
 function Login() {
-    const {backendUrl} = useContext(AuthContext)
     const navigate = useNavigate();
+    const {
+        backendUrl,
+        // user,
+        setUser,
+        loading,
+        setLoading,
+        employees,
+        setEmployees,
+        projects,
+        setProjects,
+        clickedEmployee,
+        setClickedEmployee,
+        clickedProject,
+        setClickedProject,
+        fetchUser,
+    } = useContext(AuthContext);
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
 
@@ -27,28 +42,30 @@ function Login() {
             });
             let data = await response.json();
             if (!response.ok) {
-                // Checking for validation error
                 console.log('res not ok');
+                setUser(false)
+                // Checking for validation error
                 if (data.error) {
-                    toast.error(data.error.details[0].message);
+                    console.log(data.error.details[0].message);
                 } else {
-                    toast.error(data.message);
+                    console.log(data.message);
                 }
             }
             if (response.ok) {
                 console.log('res ok');
-                toast.success(data.message);
-                if (data.user.isAdmin) {
-                    navigate('/admin-panel');
-                }
-                if (!data.user.isAdmin) {
-                    navigate('/employee-dashboard');
-                }
+                console.log(data.message);
+                setUser(data.user)
+                // if (data.user.isAdmin) {
+                //     navigate('/admin-panel');
+                // }
+                // if (!data.user.isAdmin) {
+                //     navigate('/employee-dashboard');
+                // }
             }
         } catch (error) {
-            console.log(error);
+            setUser(null)
             console.log('catch err');
-            toast.error('Internal frontend side error');
+            console.log(error);
         }
 
         setEmail('');
