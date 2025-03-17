@@ -12,8 +12,8 @@ const api = axios.create({
 // login
 export const login = async (data) => {
     try {
-        const reponse = await api.post(`/login`, data);
-        return reponse;
+        const response = await api.post(`/login`, data);
+        return response;
     } catch (error) {
         if (error.response.status === 400) {
             // validation error
@@ -31,9 +31,19 @@ export const login = async (data) => {
 // logout
 export const logout = async () => {
     try {
-        const reponse = await api.post(`/logout`);
-        return reponse.data.message;
+        const response = await api.post(`/logout`);
+        return response.data.message;
     } catch (error) {
         return error;
+    }
+};
+
+// home
+export const fetchUser = async () => {
+    try {
+        const response = await api.get('/');
+        return response.data;
+    } catch (error) {
+            return error.response.data;
     }
 };

@@ -1,19 +1,31 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
+import { fetchUser } from '../api/internal';
 
 const Home = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        if (!user) {
-            navigate('/login');
-        } else if (user.isAdmin) {
-            navigate('/admin-panel');
-        } else if (!user.isAdmin) {
-            navigate('/employee-dashboard');
-        }
+        const fetchData = async () => {
+            try {
+                const response = await fetchUser();
+                console.log(response);
+            } catch (error) {
+                console.error('Fetching user error:', error);
+            }
+        };
+
+        fetchData();
+
+        // if (!user) {
+        //     navigate('/login');
+        // } else if (user.isAdmin) {
+        //     navigate('/admin-panel');
+        // } else if (!user.isAdmin) {
+        //     navigate('/employee-dashboard');
+        // }
     }, [user, navigate]);
 
     return (

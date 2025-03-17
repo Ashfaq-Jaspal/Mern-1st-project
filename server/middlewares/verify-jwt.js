@@ -10,7 +10,7 @@ const verifyJwt = async (req, res, next) => {
         if (err) {
             return res.status(403).json({ message: 'Invalid token, Please login again' });
         }
-        req.user = { decodedToken, isAuthorized: true };
+        req.user = decodedToken;
         next();
     });
 };
