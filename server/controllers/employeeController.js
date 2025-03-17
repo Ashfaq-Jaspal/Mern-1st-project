@@ -3,9 +3,9 @@ import Project from '../models/project-model.js';
 // Employee Dashboard
 const Employee = async (req, res) => {
     try {
-        // const userId = req.user.id;
+        const userId = req.user.id;
         // const projects = await Project.find({ employees: { $in: userId } });
-        res.status(200).json({ user: req.user, });
+        res.status(200).json({ userId});
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }
