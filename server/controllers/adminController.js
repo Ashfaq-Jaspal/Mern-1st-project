@@ -1,5 +1,5 @@
-import Project from "../models/project-model";
-import User from "../models/user-model";
+import Project from "../models/project-model.js";
+import User from "../models/user-model.js";
 
 // Admin Dashboard
 const Admin = async (req, res) => {

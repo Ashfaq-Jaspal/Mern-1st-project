@@ -12,13 +12,8 @@ const AdminPanel = () => {
         const allUsersAndProjects = async () => {
             try {
                 const response = await fetchUsersAndProjects();
-                if (response.status === 200) {
                     setUser(response.data.user);
-                    setProjects(response.data.projects);
-                } else if (response.status === 404) {
-                    setUser(response.response.data.user);
-                    setProjects(null);
-                }
+                    console.log(response);
             } catch (error) {
                 console.log(error);
             }
