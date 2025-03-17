@@ -4,8 +4,11 @@ import Project from '../models/project-model.js';
 const Employee = async (req, res) => {
     try {
         const userId = req.user.id;
-        // const projects = await Project.find({ employees: { $in: userId } });
-        res.status(200).json({ userId});
+        const projects = await Project.find({ employees: { $in: userId } });
+        if (projects.length === 0) {
+            return res.status(404).json({message: 'Projects not found'})
+        }
+        res.status(200).json({ user: req.user, projects});
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }
