@@ -6,22 +6,7 @@ import { login } from '../api/internal';
 
 function Login() {
     const navigate = useNavigate();
-    const {
-        backendUrl,
-        // user,
-        setUser,
-        loading,
-        setLoading,
-        employees,
-        setEmployees,
-        projects,
-        setProjects,
-        clickedEmployee,
-        setClickedEmployee,
-        clickedProject,
-        setClickedProject,
-        fetchUser,
-    } = useContext(AuthContext);
+    const { setUser } = useContext(AuthContext);
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
 
@@ -32,26 +17,27 @@ function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        
-        const response = await login(user)
+
+        const response = await login(user);
 
         if (response.status === 200) {
             // success
-            console.log("success", response);
-            // navigate('/')
-        } else if (response.status === 400) {
-            // validation error
-            console.log("validation", response.data.error.details[0].message);
-        } else if (response.status === 401) {
-            // Authentication error
-            console.log("Authentication", response);
+            toast.success(response.data.message);
+
+            setUser(response.data.user);
+
+            if (response.data.user.isAdmin) {
+                navigate('/admin-panel');
+            } else {
+                navigate('/employee-dashboard');
+            }
         } else {
-            // Any other error
-            console.log("other", response);
+            // error
+            toast.error(response);
         }
 
-        // setEmail('');
-        // setPassword('');
+        setEmail('');
+        setPassword('');
     };
 
     return (

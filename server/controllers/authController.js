@@ -27,7 +27,7 @@ const login = async (req, res) => {
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
-        res.json({ message: 'You logged in successfully', Token: token, user: userWithOutPassword });
+        res.status(200).json({ message: 'You logged in successfully', Token: token, user: userWithOutPassword });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }
@@ -36,8 +36,13 @@ const login = async (req, res) => {
 // Logout
 const logout = async (req, res) => {
     try {
-        res.clearCookie('token');
-        return res.json({ message: 'Logged out successfully' });
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production", // Secure in production
+            sameSite: "None", // Required for cross-origin cookies
+            path: "/", // Ensure it clears across the entire site
+        });
+        return res.status(200).json({ message: 'Logged out successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
     }

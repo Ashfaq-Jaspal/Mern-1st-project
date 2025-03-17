@@ -4,35 +4,14 @@ import { AuthContext } from '../context/AuthContext';
 
 const Home = () => {
     const navigate = useNavigate();
-    const {
-        backendUrl,
-        user,
-        setUser,
-        loading,
-        setLoading,
-        employees,
-        setEmployees,
-        projects,
-        setProjects,
-        clickedEmployee,
-        setClickedEmployee,
-        clickedProject,
-        setClickedProject,
-        fetchUser,
-    } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        if (user === null) {
-            console.log('user not set');
-            fetchUser();
-        } else if (user === false) {
-            console.log('token not available');
+        if (!user) {
             navigate('/login');
         } else if (user.isAdmin) {
-            console.log('user is admin');
             navigate('/admin-panel');
-        } else {
-            console.log('user is employee');
+        } else if (!user.isAdmin) {
             navigate('/employee-dashboard');
         }
     }, [user, navigate]);

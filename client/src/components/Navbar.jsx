@@ -5,8 +5,8 @@ import { AuthContext } from '../context/AuthContext';
 const Navbar = () => {
     const { user, setUser, setLoading, loading } = useContext(AuthContext);
 
-    if (!loading) {
-        if (user.isAdmin) {
+    // if (!loading) {
+        // if (user.isAdmin) {
             return (
                 <nav className="bg-gray-400 text-[22px] shadow-md fixed w-full top-0 left-0 z-50 flex  justify-between px-24 py-2 text-black border border-gray-600">
                     <div>
@@ -62,8 +62,8 @@ const Navbar = () => {
                     </div>
                 </nav>
             );
-        }
-        if (!user.isAdmin) {
+        // }
+        // if (!user.isAdmin) {
             return (
                 <nav className="bg-gray-400 text-[22px] shadow-md fixed w-full top-0 left-0 z-50 flex justify-between px-24 py-2 text-black border border-gray-600">
                     <div>
@@ -88,8 +88,8 @@ const Navbar = () => {
                     </div>
                 </nav>
             );
-        }
+        // }
     }
-};
+// };
 
 export default Navbar;
