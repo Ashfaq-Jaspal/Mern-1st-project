@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../context/AuthContext';
+import { login } from '../api/internal';
 
 function Login() {
     const navigate = useNavigate();
@@ -29,47 +30,28 @@ function Login() {
         password,
     };
 
-    const submitHandler = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        try {
-            const response = await fetch(`${backendUrl}/login`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(user),
-            });
-            let data = await response.json();
-            if (!response.ok) {
-                console.log('res not ok');
-                setUser(false)
-                // Checking for validation error
-                if (data.error) {
-                    console.log(data.error.details[0].message);
-                } else {
-                    console.log(data.message);
-                }
-            }
-            if (response.ok) {
-                console.log('res ok');
-                console.log(data.message);
-                setUser(data.user)
-                // if (data.user.isAdmin) {
-                //     navigate('/admin-panel');
-                // }
-                // if (!data.user.isAdmin) {
-                //     navigate('/employee-dashboard');
-                // }
-            }
-        } catch (error) {
-            setUser(null)
-            console.log('catch err');
-            console.log(error);
+        
+        const response = await login(user)
+
+        if (response.status === 200) {
+            // success
+            console.log("success", response);
+            // navigate('/')
+        } else if (response.status === 400) {
+            // validation error
+            console.log("validation", response.data.error.details[0].message);
+        } else if (response.status === 401) {
+            // Authentication error
+            console.log("Authentication", response);
+        } else {
+            // Any other error
+            console.log("other", response);
         }
 
-        setEmail('');
-        setPassword('');
+        // setEmail('');
+        // setPassword('');
     };
 
     return (
@@ -78,7 +60,7 @@ function Login() {
                 action="/login"
                 method="post"
                 onSubmit={(e) => {
-                    submitHandler(e);
+                    handleLogin(e);
                 }}
                 className="flex flex-col text-2xl px-36 py-12 rounded-xl gap-4 border border-emerald-900 items-center justify-center"
             >

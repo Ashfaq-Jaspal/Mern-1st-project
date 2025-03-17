@@ -4,8 +4,23 @@ import { useNavigate } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
 
 const Logout = () => {
-    const {backendUrl,  user, setUser, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
+    const {
+        backendUrl,
+        user,
+        setUser,
+        loading,
+        setLoading,
+        employees,
+        setEmployees,
+        projects,
+        setProjects,
+        clickedEmployee,
+        setClickedEmployee,
+        clickedProject,
+        setClickedProject,
+        fetchUser,
+    } = useContext(AuthContext);
 
     const logOutUser = async () => {
         try {
@@ -18,14 +33,15 @@ const Logout = () => {
                 console.log('res not ok');
             }
             if (response.ok) {
-                toast.success(data.message);
+                console.log(data.message);
                 setUser(null);
-                setLoading(true);
+                // setLoading(true);
+                console.log('res ok');
                 navigate('/login');
             }
         } catch (error) {
+            console.log('catch error');
             console.log(error);
-            toast.error('Internal frontend side error');
         }
     };
 

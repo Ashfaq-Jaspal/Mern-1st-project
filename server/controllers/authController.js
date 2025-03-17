@@ -10,13 +10,13 @@ const login = async (req, res) => {
         const user = await User.findOne({ email });
         const userWithOutPassword = await User.findOne({ email }).select('-password');
         if (!user) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(401).json({ message: 'Invalid credentials' });
         }
 
         // Compare password
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(401).json({ message: 'Invalid credentials' });
         }
         // Generate token
         const token = await generateToken({ name: user.name, id: user._id.toString(), isAdmin: user.isAdmin });

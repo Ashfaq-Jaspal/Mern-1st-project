@@ -23,12 +23,16 @@ const Home = () => {
 
     useEffect(() => {
         if (user === null) {
+            console.log('user not set');
             fetchUser();
         } else if (user === false) {
+            console.log('token not available');
             navigate('/login');
         } else if (user.isAdmin) {
+            console.log('user is admin');
             navigate('/admin-panel');
         } else {
+            console.log('user is employee');
             navigate('/employee-dashboard');
         }
     }, [user, navigate]);

@@ -19,15 +19,16 @@ const AdminPanel = () => {
             const data = await response.json();
             if (!response.ok) {
                 navigate('/login');
-                toast.error(data.message);
+                console.log(data.message);
+                console.log('res not ok');
+                return
             }
-            if (response.ok) {
-                setUser(data.user.decodedToken);
-                setLoading(false);
-            }
+                console.log('res ok');
+                // setUser(data.user.decodedToken);
+                // setLoading(false);
         } catch (error) {
             console.log(error);
-            toast.error('Internal frontend side error');
+            console.log('catch error');
         }
     };
 

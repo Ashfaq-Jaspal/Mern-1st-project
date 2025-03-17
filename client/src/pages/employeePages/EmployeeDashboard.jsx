@@ -5,8 +5,23 @@ import { AuthContext } from '../../context/AuthContext';
 import { CalendarDaysIcon, ClockIcon } from "@heroicons/react/24/solid";
 
 const EmployeeDashboard = () => {
-    const { backendUrl, user, setUser, employees, setEmployees, loading, setLoading, projects, setProjects } = useContext(AuthContext);
     const navigate = useNavigate();
+    const {
+        backendUrl,
+        user,
+        setUser,
+        loading,
+        setLoading,
+        employees,
+        setEmployees,
+        projects,
+        setProjects,
+        clickedEmployee,
+        setClickedEmployee,
+        clickedProject,
+        setClickedProject,
+        fetchUser,
+    } = useContext(AuthContext);
 
     const authenticate = async () => {
         try {
@@ -20,16 +35,19 @@ const EmployeeDashboard = () => {
             const data = await response.json();
             if (!response.ok) {
                 navigate('/login');
-                toast.error(data.message);
+                console.log(data.message);
+                console.log('res not ok');
             }
             if (response.ok) {
-                setUser(data.user.decodedToken);
-                setLoading(false);
-                setProjects(data.projects)
+                console.log(data);
+                console.log('res ok');
+                // setUser(data.user.decodedToken);
+                // setLoading(false);
+                // setProjects(data.projects)
             }
         } catch (error) {
             console.log(error);
-            toast.error('Internal frontend side error');
+            console.log('catch error');
         }
     };
 

@@ -26,19 +26,25 @@ const Employees = () => {
                 credentials: 'include',
             });
             const data = await response.json();
+
             if (!response.ok) {
                 navigate('/');
-                toast.error(data.message);
+                console.log('res not ok');
+                console.log(data);
+                // setClickedEmployee(data.employee[0]);
+                // setUser(data.user.decodedToken);
+                // setProjects([]);
+                return
             }
-            if (response.ok) {
-                setUser(data.user.decodedToken);
-                setEmployees(data.employees);
-            }
+            console.log('res ok');
+            console.log(data);
+                // setUser(data.user.decodedToken);
+                // setEmployees(data.employees);
         } catch (error) {
             console.log(error);
-            toast.error('Internal frontend side error');
-        } finally {
-            setLoading(false)
+            console.log('catch error');
+        // } finally {
+        //     setLoading(false);
         }
     };
 
