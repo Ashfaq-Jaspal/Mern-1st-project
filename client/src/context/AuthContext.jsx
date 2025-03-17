@@ -9,7 +9,9 @@ export const AuthProvider = ({ children }) => {
     const [clickedEmployee, setClickedEmployee] = useState('');
     const [clickedProject, setClickedProject] = useState('');
     const [employees, setEmployees] = useState([]);
+    const [numOfEmployees, setNumOfEmployees] = useState(0);
     const [projects, setProjects] = useState([]);
+    const [numOfProjects, setNumOfProjects] = useState(0);
 
     return (
         <AuthContext.Provider
@@ -27,6 +29,10 @@ export const AuthProvider = ({ children }) => {
                 setClickedEmployee,
                 clickedProject,
                 setClickedProject,
+                numOfEmployees,
+                setNumOfEmployees,
+                numOfProjects,
+                setNumOfProjects,
             }}
         >
             {children}

@@ -5,15 +5,29 @@ import { AuthContext } from '../../context/AuthContext';
 import { fetchUsersAndProjects } from '../../api/internal';
 
 const AdminPanel = () => {
-    const {backendUrl, user, setUser, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
+    const {
+        backendUrl,
+        user,
+        setUser,
+        employees,
+        setEmployees,
+        loading,
+        setLoading,
+        numOfEmployees,
+        setNumOfEmployees,
+        numOfProjects,
+        setNumOfProjects,
+    } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
         const allUsersAndProjects = async () => {
             try {
                 const response = await fetchUsersAndProjects();
-                    setUser(response.data.user);
-                    console.log(response);
+                setUser(response.data.user);
+                console.log(response.data.numberOfEmployees)
+                console.log(response.data.numberOfProjects)
+                // console.log(response);
             } catch (error) {
                 console.log(error);
             }

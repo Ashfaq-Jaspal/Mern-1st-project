@@ -4,7 +4,7 @@ import User from "../models/user-model.js";
 // Admin Dashboard
 const Admin = async (req, res) => {
     try {
-        const employees = await User.find({idAdmin: false})
+        const employees = await User.find({isAdmin: false})
         const numberOfEmployees = employees.length
         const projects = await Project.find()
         const numberOfProjects = projects.length
