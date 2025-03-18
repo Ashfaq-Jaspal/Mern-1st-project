@@ -25,24 +25,24 @@ const EmployeeDetails = () => {
         const fetchClickedEmployeeData = async () => {
             try {
                 const response = await fetchProjectsOfClickedEmployee(employeeId);
-                console.log(response);
+                // console.log(response);
                 if (response.status === 200) {
-                    setUser(response.data.user)
-                    setProjects(response.data.projects)
-                    setClickedEmployee(response.data.employee)
+                    setUser(response.data.user);
+                    setProjects(response.data.projects);
+                    setClickedEmployee(response.data.employee);
                 } else {
                     // projects not found
-                    setUser(response.response.data.user)
-                    setProjects([])
-                    setClickedEmployee(response.response.data.employee[0])
+                    setUser(response.response.data.user);
+                    setProjects([]);
+                    setClickedEmployee(response.response.data.employee[0]);
                 }
             } catch (error) {
                 console.log(error);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
         };
-        fetchClickedEmployeeData()
+        fetchClickedEmployeeData();
     }, [employeeId]);
 
     if (loading) {
@@ -60,7 +60,7 @@ const EmployeeDetails = () => {
                 {/* Employee Details */}
                 <div className="flex items-center space-x-4 border-b border-gray-700 pb-4">
                     <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-16 w-16 flex items-center justify-center rounded-full text-2xl font-semibold shadow-lg">
-                        {clickedEmployee.name.charAt(0)}
+                        {clickedEmployee?.name?.charAt(0)}
                     </div>
                     <div>
                         <h1 className="text-3xl font-bold">{clickedEmployee.name}</h1>

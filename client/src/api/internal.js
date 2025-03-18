@@ -47,27 +47,7 @@ export const logout = async () => {
     } catch (error) {
         return error;
     }
-};
-
-// employees
-export const fetchEmployees = async () => {
-    try {
-        const response = await api.get('/employees');
-        return response;
-    } catch (error) {
-        return error;
-    }
-};    
-
-// projects
-export const fetchProjects = async () => {
-    try {
-        const response = await api.get('/projects');
-        return response;
-    } catch (error) {
-        return error;
-    }
-};    
+}; 
 
 // clicked employee
 export const fetchProjectsOfClickedEmployee = async (employeeId) => {
@@ -83,6 +63,26 @@ export const fetchProjectsOfClickedEmployee = async (employeeId) => {
 export const fetchEmployeesOnClickedProject = async (projectId) => {
     try {
         const response = await api.get(`/projects/${projectId}`);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
+// create user
+export const createUser = async (user) => {
+    try {
+        const response = await api.post(`/create`);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
+// create user
+export const createProject = async (project) => {
+    try {
+        const response = await api.post(`/create-project`);
         return response;
     } catch (error) {
         return error;

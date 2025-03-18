@@ -3,7 +3,6 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router';
 import { UserIcon, CheckBadgeIcon } from '@heroicons/react/24/solid';
-import { fetchEmployees } from '../../api/internal';
 
 const Employees = () => {
     const navigate = useNavigate();
@@ -20,7 +19,6 @@ const Employees = () => {
         clickedEmployee,
         setClickedEmployee,
     } = useContext(AuthContext);
-    console.log(employees);
 
     const handleEmployeeClick = async (employeeId) => {
         setLoading(true);

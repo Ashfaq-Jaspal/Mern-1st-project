@@ -3,7 +3,6 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router';
 import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
-import { fetchProjects } from '../../api/internal';
 
 const Projects = () => {
     const navigate = useNavigate();

@@ -41,19 +41,6 @@ const postCreateProject = async (req, res) => {
     }
 };
 
-// Get all projects
-const allProjects = async (req, res) => {
-    try {
-        const projects = await Project.find();
-        if (projects.length === 0) {
-            return res.status(404).json({ message: 'Projects not found', user: req.user });
-        }
-        res.status(200).json({ projects, user: req.user });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
 // Get all projects of a specific employee
 const projectsOfClickedEmployee = async (req, res) => {
     try {
@@ -69,4 +56,4 @@ const projectsOfClickedEmployee = async (req, res) => {
     }
 };
 
-export { getCreateProject, postCreateProject, allProjects, projectsOfClickedEmployee };
+export { getCreateProject, postCreateProject, projectsOfClickedEmployee };

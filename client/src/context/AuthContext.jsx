@@ -14,28 +14,28 @@ export const AuthProvider = ({ children }) => {
     const [projects, setProjects] = useState([]);
     const [numOfProjects, setNumOfProjects] = useState(0);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const res = await getCurrentUser();
-                if (res.status === 200) {
-                    setUser(res.data.user);
-                    if (res.data.user.isAdmin) {
-                        // all projects and employees (for admin)
-                        setEmployees(res.data.employees);
-                        setProjects(res.data.projects);
-                    } else {
-                        // user's projects (for employee)
-                        setProjects(res.data.projects);
-                    }
+    const fetchUser = async () => {
+        try {
+            const res = await getCurrentUser();
+            if (res.status === 200) {
+                setUser(res.data.user);
+                if (res.data.user.isAdmin) {
+                    // all projects and employees (for admin)
+                    setEmployees(res.data.employees);
+                    setProjects(res.data.projects);
+                } else {
+                    // user's projects (for employee)
+                    setProjects(res.data.projects);
                 }
-            } catch (error) {
-                setUser(null);
-            } finally {
-                setLoading(false);
             }
-        };
+        } catch (error) {
+            setUser(null);
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
         fetchUser();
     }, []);
 
@@ -59,6 +59,7 @@ export const AuthProvider = ({ children }) => {
                 setNumOfEmployees,
                 numOfProjects,
                 setNumOfProjects,
+                fetchUser
             }}
         >
             {children}

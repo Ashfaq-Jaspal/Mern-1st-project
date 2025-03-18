@@ -2,17 +2,8 @@ import Project from '../models/project-model.js';
 import User from '../models/user-model.js';
 import bcrypt from 'bcrypt';
 
-// Get request for create user page
-const getCreate = async (req, res) => {
-    try {
-        res.status(200).json({ user: req.user });
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error' });
-    }
-};
-
 // Create user
-const postCreate = async (req, res) => {
+const createUser = async (req, res) => {
     let { name, email, password, status } = req.body;
     try {
         // Check if user already exists
@@ -39,4 +30,4 @@ const postCreate = async (req, res) => {
     }
 };
 
-export {getCreate, postCreate} ;
+export { createUser } ;

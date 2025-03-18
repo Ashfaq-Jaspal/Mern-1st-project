@@ -10,7 +10,7 @@ const CreateProject = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [selectedEmployees, setSelectedEmployees] = useState([]);
-    const { backendUrl, user, setUser, status, setStatus, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
+    const { backendUrl, user, setUser, status, setStatus, employees, setEmployees, loading, setLoading, fetchUser } = useContext(AuthContext);
     let formattedEmployeesForReactSelect = [];
     let reFormattedEmployeesForBackend = [];
     const navigate = useNavigate();
@@ -61,36 +61,9 @@ const CreateProject = () => {
         setStartDate('');
         setEndDate('');
         setSelectedEmployees([]);
-    };
 
-    const fetchEmployeesData = async () => {
-        try {
-            const response = await fetch(`${backendUrl}/create-project`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                toast.error(data.message);
-                navigate('/');
-            }
-            if (response.ok) {
-                setUser(data.user.decodedToken);
-                setEmployees(data.employees);
-                setLoading(false);
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error('Internal frontend side error');
-        }
+        fetchUser()
     };
-
-    useEffect(() => {
-        fetchEmployeesData();
-    }, [location.pathname]);
 
     {
         if (!loading && employees) {

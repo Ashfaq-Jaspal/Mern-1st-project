@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
 import Select from 'react-select';
+import { createUser } from '../../api/internal';
 
 function SignUp() {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ function SignUp() {
         { label: 'Video Editor', value: 'Video Editor' },
         { label: 'Project Manager', value: 'Project Manager' },
     ]);
-    const { backendUrl, user, setUser, employees, setEmployees, loading, setLoading } = useContext(AuthContext);
+    const { backendUrl, user, setUser, employees, setEmployees, loading, setLoading, fetchUser } = useContext(AuthContext);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -28,22 +29,14 @@ function SignUp() {
             password,
             status: status.value
         };
-        // Post request
-        try {
-            const response = await fetch(`${backendUrl}/create`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(user),
-            });
-            const data = await response.json();
 
-            if (!response.ok) {
+        try {
+            const res = await createUser(user);
+
+            if (res.status === 400) {
                 toast.error(data.message);
             }
-            if (response.ok) {
+            if (res.status === 400) {
                 toast.success(data.message);
             }
         } catch (error) {
@@ -54,36 +47,9 @@ function SignUp() {
         setEmail('');
         setPassword('');
         setStatus('');
-    };
 
-    // Get request
-    const authenticate = async () => {
-        try {
-            const response = await fetch(`${backendUrl}/create`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                navigate('/');
-                toast.error(data.message);
-            }
-            if (response.ok) {
-                setUser(data.user.decodedToken);
-                setLoading(false);
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error('Internal frontend side error');
-        }
+        fetchUser()
     };
-
-    useEffect(() => {
-            authenticate();
-    }, []);
 
     return (
         <form
