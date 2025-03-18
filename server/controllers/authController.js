@@ -35,7 +35,7 @@ const login = async (req, res) => {
         const projects = await Project.find({employees: {$in: user._id}})
         res.status(200).json({  message: 'You logged in successfully', user, projects });
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: error });
     }
 };
 
