@@ -30,7 +30,7 @@ const login = async (req, res) => {
         if (user.isAdmin) {
             const employees = await User.find({ isAdmin: 'false' }).select('_id name');
             const projects = await Project.find();
-            res.status(200).json({ message: 'You logged in successfully', user, employees, projects });
+            return res.status(200).json({ message: 'You logged in successfully', user, employees, projects });
         }
         const projects = await Project.find({employees: {$in: user._id}})
         res.status(200).json({  message: 'You logged in successfully', user, projects });

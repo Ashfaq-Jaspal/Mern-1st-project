@@ -19,6 +19,7 @@ function Login() {
         e.preventDefault();
         try {
             const res = await login(user);
+            console.log(res);
             if (res.status === 200) {
                 setUser(res.data.user);
                 toast.success(res.data.message)
