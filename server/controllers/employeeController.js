@@ -1,4 +1,5 @@
 import Project from '../models/project-model.js';
+import User from '../models/user-model.js'
 
 // Employee Dashboard
 const Employee = async (req, res) => {
@@ -19,7 +20,7 @@ const allEmployees = async (req, res) => {
     try {
         const employees = await User.find({isAdmin: false}).select('name email status')
         if (employees.length === 0) {
-            return res.status(404).json({message: 'Employees are not found'})
+            return res.status(404).json({message: 'Employees not found', user: req.user})
         }
         res.status(200).json({employees, user: req.user})
     } catch (error) {

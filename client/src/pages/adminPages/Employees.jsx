@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router';
 import { UserIcon, CheckBadgeIcon } from '@heroicons/react/24/solid';
+import { fetchEmployees } from '../../api/internal';
 
 const Employees = () => {
     const navigate = useNavigate();
@@ -19,43 +20,24 @@ const Employees = () => {
         clickedEmployee,
         setClickedEmployee,
     } = useContext(AuthContext);
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`${backendUrl}/employees`, {
-                method: 'GET',
-                credentials: 'include',
-            });
-            const data = await response.json();
 
-            if (!response.ok) {
-                navigate('/');
-                console.log('res not ok');
-                console.log(data);
-                // setClickedEmployee(data.employee[0]);
-                // setUser(data.user.decodedToken);
-                // setProjects([]);
-                return
+    useEffect(() => {
+        const fetchEmployeesData = async () => {
+            try {
+                const response = await fetchEmployees()
+                console.log(response);
+            } catch (error) {
+                console.log(error);
             }
-            console.log('res ok');
-            console.log(data);
-                // setUser(data.user.decodedToken);
-                // setEmployees(data.employees);
-        } catch (error) {
-            console.log(error);
-            console.log('catch error');
-        // } finally {
-        //     setLoading(false);
         }
-    };
+        fetchEmployeesData();
+    }, []);
 
     const handleEmployeeClick = async (employeeId) => {
         setLoading(true);
         navigate(`/employees/${employeeId}`);
     };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     return (
         <div className="w-screen min-h-screen absolute top-14 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">

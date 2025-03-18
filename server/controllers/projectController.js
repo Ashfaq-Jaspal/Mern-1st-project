@@ -46,7 +46,7 @@ const allProjects = async (req, res) => {
     try {
         const projects = await Project.find();
         if (projects.length === 0) {
-            return res.status(404).json({ message: 'Projects are not found', user: req.user });
+            return res.status(404).json({ message: 'Projects not found', user: req.user });
         }
         res.status(200).json({ projects, user: req.user });
     } catch (error) {

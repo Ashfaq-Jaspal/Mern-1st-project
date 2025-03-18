@@ -67,3 +67,23 @@ export const fetchUsersAndProjects = async () => {
         return error;
     }
 };    
+
+// all employees
+export const fetchEmployees = async () => {
+    try {
+        const response = await api.get('/employees');
+        return response;
+    } catch (error) {
+        return error;
+    }
+};    
+
+// all projects
+export const fetchProjects = async () => {
+    try {
+        const response = await api.get('/projects');
+        return response;
+    } catch (error) {
+        return error;
+    }
+};    
