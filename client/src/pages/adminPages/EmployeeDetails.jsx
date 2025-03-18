@@ -2,11 +2,12 @@ import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { Link, useParams } from 'react-router';
 import { toast } from 'react-hot-toast';
-import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, UserIcon } from "@heroicons/react/24/solid";
+import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, UserIcon } from '@heroicons/react/24/solid';
+import { fetchProjectsOfClickedEmployee } from '../../api/internal';
 
 const EmployeeDetails = () => {
     const {
-        backendUrl, 
+        backendUrl,
         user,
         setUser,
         projects,
@@ -20,46 +21,37 @@ const EmployeeDetails = () => {
     } = useContext(AuthContext);
     const { employeeId } = useParams();
 
-    const fetchProjects = async () => {
-        try {
-            const response = await fetch(`${backendUrl}/employees/${employeeId}`, {
-                method: 'GET',
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                console.log('res not ok');
-                console.log(data);
-                // setClickedEmployee(data.employee[0]);
-                // setUser(data.user.decodedToken);
-                // setProjects([]);
-                return
-            }
-            console.log('res ok');
-            console.log(data);
-                // setProjects(data.projects);
-                // setClickedEmployee(data.employee[0]);
-                // setUser(data.user.decodedToken);
-        } catch (error) {
-            console.log(error);
-            console.log('catch error');
-        // } finally {
-        //     setLoading(false);
-        }
-    };
-
     useEffect(() => {
-        fetchProjects();
+        const fetchClickedEmployeeData = async () => {
+            try {
+                const response = await fetchProjectsOfClickedEmployee(employeeId);
+                console.log(response);
+                if (response.status === 200) {
+                    setUser(response.data.user)
+                    setProjects(response.data.projects)
+                    setClickedEmployee(response.data.employee)
+                } else {
+                    // projects not found
+                    setUser(response.response.data.user)
+                    setProjects([])
+                    setClickedEmployee(response.response.data.employee[0])
+                }
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false)
+            }
+        };
+        fetchClickedEmployeeData()
     }, [employeeId]);
 
     if (loading) {
         return <h1 className="text-white text-4xl">Loading...</h1>;
     }
-    
+
     return (
         <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-gradient-to-b from-gray-900 to-black min-h-screen text-white flex items-center justify-center p-6 w-full">
             <div className="bg-gray-900 bg-opacity-80 backdrop-blur-md shadow-2xl rounded-lg p-8 w-full max-w-3xl relative">
-                
                 {/* Close Button */}
                 <Link to={'/employees'} className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
                     <XCircleIcon className="h-8 w-8" />
@@ -101,9 +93,13 @@ const EmployeeDetails = () => {
                                 <p className="text-gray-300">{project.description}</p>
                                 <p className="text-sm mt-2 text-gray-400 flex items-center space-x-2">
                                     <CalendarDaysIcon className="h-5 w-5 text-green-400" />
-                                    <span><strong>Start:</strong> {new Date(project.startDate).toLocaleDateString()}</span>
+                                    <span>
+                                        <strong>Start:</strong> {new Date(project.startDate).toLocaleDateString()}
+                                    </span>
                                     <span className="mx-2">|</span>
-                                    <span><strong>End:</strong> {new Date(project.endDate).toLocaleDateString()}</span>
+                                    <span>
+                                        <strong>End:</strong> {new Date(project.endDate).toLocaleDateString()}
+                                    </span>
                                 </p>
                             </div>
                         ))}

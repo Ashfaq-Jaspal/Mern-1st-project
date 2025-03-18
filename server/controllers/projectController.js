@@ -61,7 +61,7 @@ const projectsOfClickedEmployee = async (req, res) => {
         const projects = await Project.find({ employees: employeeId });
         const employee = await User.find({ _id: employeeId });
         if (projects.length === 0) {
-            return res.status(404).json({ message: 'Projects are not found', user: req.user, employee });
+            return res.status(404).json({ message: 'Projects not found', user: req.user, employee });
         }
         res.status(200).json({ projects, employee, user: req.user });
     } catch (error) {

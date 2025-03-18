@@ -68,7 +68,7 @@ export const fetchUsersAndProjects = async () => {
     }
 };    
 
-// all employees
+// employees
 export const fetchEmployees = async () => {
     try {
         const response = await api.get('/employees');
@@ -78,7 +78,7 @@ export const fetchEmployees = async () => {
     }
 };    
 
-// all projects
+// projects
 export const fetchProjects = async () => {
     try {
         const response = await api.get('/projects');
@@ -87,3 +87,23 @@ export const fetchProjects = async () => {
         return error;
     }
 };    
+
+// clicked employee
+export const fetchProjectsOfClickedEmployee = async (employeeId) => {
+    try {
+        const response = await api.get(`/employees/${employeeId}`);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};  
+
+// clicked project
+export const fetchEmployeesOnClickedProject = async (projectId) => {
+    try {
+        const response = await api.get(`/projects/${projectId}`);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};  

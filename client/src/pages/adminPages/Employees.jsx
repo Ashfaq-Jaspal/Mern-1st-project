@@ -25,9 +25,18 @@ const Employees = () => {
         const fetchEmployeesData = async () => {
             try {
                 const response = await fetchEmployees()
-                console.log(response);
+                if (response.status === 200) {
+                    setUser(response.data.user)
+                    setEmployees(response.data.employees)
+                } else {
+                    // employees not found
+                    setUser(response.response.data.user)
+                    setProjects(null)
+                }
             } catch (error) {
                 console.log(error);
+            } finally {
+                setLoading(false)
             }
         }
         fetchEmployeesData();

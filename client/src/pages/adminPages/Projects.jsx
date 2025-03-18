@@ -3,41 +3,38 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router';
 import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
+import { fetchProjects } from '../../api/internal';
 
 const Projects = () => {
     const navigate = useNavigate();
     const { backendUrl, user, setUser, employees, setEmployees, loading, setLoading, projects, setProjects } =
         useContext(AuthContext);
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`${backendUrl}/projects`, {
-                method: 'GET',
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                setUser(data.user.decodedToken);
+        
+        useEffect(() => {
+            const fetchProjectsData = async () => {
+                try {
+                    const response = await fetchProjects()
+                    if (response.status === 200) {
+                        setUser(response.data.user)
+                        setProjects(response.data.projects)
+                    } else {
+                        // projects not found
+                        setUser(response.response.data.user)
+                        setProjects(null)
+                    }
+                } catch (error) {
+                    console.log(error);
+                } finally {
+                    setLoading(false)
+                }
             }
-            if (response.ok) {
-                setUser(data.user.decodedToken);
-                setProjects(data.projects);
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error('Internal frontend side error');
-        } finally {
-            setLoading(false);
-        }
-    };
+            fetchProjectsData();
+        }, []);
 
     const handleProjectClick = async (projectId) => {
         setLoading(true);
         navigate(`/projects/${projectId}`);
     };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     return (
         <div className="w-screen min-h-screen absolute top-10 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">

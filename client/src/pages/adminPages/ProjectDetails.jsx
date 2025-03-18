@@ -3,6 +3,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { Link, useParams } from 'react-router';
 import { toast } from 'react-hot-toast';
 import { BriefcaseIcon, UsersIcon, XCircleIcon, UserIcon } from '@heroicons/react/24/solid';
+import { fetchEmployeesOnClickedProject } from '../../api/internal';
 
 const ProjectDetails = () => {
     const {
@@ -22,31 +23,21 @@ const ProjectDetails = () => {
     } = useContext(AuthContext);
     const { projectId } = useParams();
 
-    const fetchProjects = async () => {
-        try {
-            const response = await fetch(`${backendUrl}/projects/${projectId}`, {
-                method: 'GET',
-                credentials: 'include',
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                console.log('res not ok');
-            }
-            if (response.ok) {
-                setEmployees(data.employees);
-                setClickedProject(data.project[0]);
-                setUser(data.user.decodedToken);
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error('Internal frontend side error');
-        } finally {
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
-        fetchProjects();
+        const fetchClickedProjectData = async () => {
+            try {
+                const response = await fetchEmployeesOnClickedProject(projectId);
+                console.log(response);
+                    setUser(response.data.user)
+                    setEmployees(response.data.employees)
+                    setClickedProject(response.data.project)
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false)
+            }
+        };
+        fetchClickedProjectData()
     }, [projectId]);
 
     if (loading) {
