@@ -9,27 +9,6 @@ const Projects = () => {
     const navigate = useNavigate();
     const { backendUrl, user, setUser, employees, setEmployees, loading, setLoading, projects, setProjects } =
         useContext(AuthContext);
-        
-        useEffect(() => {
-            const fetchProjectsData = async () => {
-                try {
-                    const response = await fetchProjects()
-                    if (response.status === 200) {
-                        setUser(response.data.user)
-                        setProjects(response.data.projects)
-                    } else {
-                        // projects not found
-                        setUser(response.response.data.user)
-                        setProjects(null)
-                    }
-                } catch (error) {
-                    console.log(error);
-                } finally {
-                    setLoading(false)
-                }
-            }
-            fetchProjectsData();
-        }, []);
 
     const handleProjectClick = async (projectId) => {
         setLoading(true);

@@ -20,27 +20,7 @@ const Employees = () => {
         clickedEmployee,
         setClickedEmployee,
     } = useContext(AuthContext);
-
-    useEffect(() => {
-        const fetchEmployeesData = async () => {
-            try {
-                const response = await fetchEmployees()
-                if (response.status === 200) {
-                    setUser(response.data.user)
-                    setEmployees(response.data.employees)
-                } else {
-                    // employees not found
-                    setUser(response.response.data.user)
-                    setProjects(null)
-                }
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setLoading(false)
-            }
-        }
-        fetchEmployeesData();
-    }, []);
+    console.log(employees);
 
     const handleEmployeeClick = async (employeeId) => {
         setLoading(true);

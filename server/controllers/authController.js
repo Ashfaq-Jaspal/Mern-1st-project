@@ -28,7 +28,7 @@ const login = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         if (user.isAdmin) {
-            const employees = await User.find({ isAdmin: false }).select('_id name');
+            const employees = await User.find({ isAdmin: false }).select('name email status');
             const projects = await Project.find();
             return res.status(200).json({ message: 'You logged in successfully', user, employees, projects });
         }

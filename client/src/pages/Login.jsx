@@ -37,8 +37,8 @@ function Login() {
         e.preventDefault();
         try {
             const res = await login(user);
-            console.log(res);
             if (res.status === 200) {
+                res.data.user.password = undefined
                 setUser(res.data.user);
                 toast.success(res.data.message)
                 if (res.data.user.isAdmin) {

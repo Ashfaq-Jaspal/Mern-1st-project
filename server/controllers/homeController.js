@@ -5,7 +5,7 @@ import Project from '../models/project-model.js';
 const CurrentUser = async (req, res) => {
     try {
         if (req.user.isAdmin) {
-            const employees = await User.find({ isAdmin: false }).select('_id name');
+            const employees = await User.find({ isAdmin: false }).select('name email status');
             const projects = await Project.find();
             return res.status(200).json({ user: req.user, employees, projects });
         }
