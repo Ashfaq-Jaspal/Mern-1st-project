@@ -21,4 +21,4 @@ const CurrentUser = async (req, res) => {
 //     }
 // };
 
-export {Home, CurrentUser} ;
+export {CurrentUser} ;
