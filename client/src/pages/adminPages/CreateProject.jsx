@@ -3,6 +3,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-hot-toast';
 import Select from 'react-select';
 import { useLocation, useNavigate } from 'react-router';
+import { createProject } from '../../api/internal';
 
 const CreateProject = () => {
     const [projectName, setProjectName] = useState('');
@@ -18,6 +19,7 @@ const CreateProject = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
+
         reFormattedEmployeesForBackend = selectedEmployees.map((emp) => {
             return emp.value;
         });
@@ -31,29 +33,22 @@ const CreateProject = () => {
         };
 
         try {
-            const response = await fetch(`${backendUrl}/create-project`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(createdProject),
-            });
-            const data = await response.json();
-
-            if (!response.ok) {
-                if (data.errors) {
-                    toast.error(data.errors[0]);
-                } else {
-                    toast.error(data.message);
-                }
-            }
-            if (response.ok) {
-                toast.success(data.message);
-            }
+            const res = await createProject(createdProject);
+            console.log(res);
+            // if (res.status === 201) {
+            //     // success
+            //     toast.success(res.data.message);
+            // }
+            // if (res.status === 409) {
+            //     // email already exists error
+            //     toast.error(res.response.data.message);
+            // }
+            // if (res.status === 400) {
+            //     // validation error
+            //     toast.error(res.response.data.error.details[0].message);
+            // }
         } catch (error) {
-            console.log(error);
-            toast.error('Internal frontend side error');
+            toast.error(error);
         }
 
         setProjectName('');

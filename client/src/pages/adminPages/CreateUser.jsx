@@ -32,25 +32,29 @@ function SignUp() {
 
         try {
             const res = await createUser(user);
-            console.log(res);
-            // if (res.status === 201) {
-            //     toast.error(data.message);
-            // }
-            // if (res.status === 400) {
-            //     toast.success(data.message);
-            // }
+            if (res.status === 201) {
+                // success
+                toast.success(res.data.message);
+            }
+            if (res.status === 409) {
+                // email already exists error
+                toast.error(res.response.data.message);
+            }
+            if (res.status === 400) {
+                // validation error
+                toast.error(res.response.data.error.details[0].message);
+            }
         } catch (error) {
             toast.error(error);
         }
 
-        // setName('');
-        // setEmail('');
-        // setPassword('');
-        // setStatus('');
+        setName('');
+        setEmail('');
+        setPassword('');
+        setStatus('');
 
         fetchUser()
     };
-    console.log();
 
     return (
         <form

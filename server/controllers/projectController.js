@@ -19,12 +19,7 @@ const postCreateProject = async (req, res) => {
         // Validate project
         const existingProject = await Project.find({ name });
         if (existingProject.length > 0) {
-            return res.status(400).json({ message: 'Project name must be unique' });
-        }
-        // Validate employees
-        const employees = await User.find({ _id: { $in: employeeIds } });
-        if (employees.length != employeeIds.length) {
-            return res.status(400).json({ message: 'Some employees not found' });
+            return res.status(409).json({ message: 'Project name must be unique' });
         }
         const project = new Project({
             name,
@@ -35,7 +30,7 @@ const postCreateProject = async (req, res) => {
         });
         await project.save();
 
-        res.status(201).json({ message: 'Project created successfully', project });
+        res.status(201).json({ message: 'Project created successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

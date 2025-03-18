@@ -82,7 +82,7 @@ export const createUser = async (user) => {
 // create user
 export const createProject = async (project) => {
     try {
-        const response = await api.post(`/create-project`);
+        const response = await api.post(`/create-project`, project);
         return response;
     } catch (error) {
         return error;
