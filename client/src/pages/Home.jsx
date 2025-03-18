@@ -6,34 +6,40 @@ import { toast } from 'react-hot-toast';
 
 const Home = () => {
     const navigate = useNavigate();
-    const { setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetchUser();
-                if (response.status === 200) {
-                    // valid user
-                    setUser(response.data.user);
-                    if (response.data.user.isAdmin) {
-                        navigate('/admin-panel');
-                    } else {
-                        navigate('/employee-dashboard');
-                    }
-                }
-                if (response.status === 401) {
-                    // invalid user
-                    setUser(null);
-                    navigate('/login')
-                    toast.error(response.response.data.message);
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
+    if (user.isAdmin) {
+        navigate('/admin-panel');
+    } else {
+        navigate('/employee-dashboard');
+    }
 
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await fetchUser();
+    //             if (response.status === 200) {
+    //                 // valid user
+    //                 setUser(response.data.user);
+    //                 if (response.data.user.isAdmin) {
+    //                     navigate('/admin-panel');
+    //                 } else {
+    //                     navigate('/employee-dashboard');
+    //                 }
+    //             }
+    //             if (response.status === 401) {
+    //                 // invalid user
+    //                 setUser(null);
+    //                 navigate('/login')
+    //                 toast.error(response.response.data.message);
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, []);
 
     return (
         <div className="p-6 bg-gray-950 min-h-screen min-w-full flex justify-center items-center">

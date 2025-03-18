@@ -27,7 +27,6 @@ const ProjectDetails = () => {
         const fetchClickedProjectData = async () => {
             try {
                 const response = await fetchEmployeesOnClickedProject(projectId);
-                console.log(response);
                     setUser(response.data.user)
                     setEmployees(response.data.employees)
                     setClickedProject(response.data.project)

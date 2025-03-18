@@ -1,6 +1,6 @@
 import express from 'express';
 import { login, logout } from '../controllers/authController.js';
-import Home from '../controllers/homeController.js';
+import { Home, CurrentUser } from '../controllers/homeController.js';
 import Admin from '../controllers/adminController.js';
 import {Employee, allEmployees, clickedProject} from '../controllers/employeeController.js';
 import { getCreate, postCreate } from '../controllers/userController.js';
@@ -16,7 +16,8 @@ const router = express.Router();
 //Routes
 
 // Common
-router.route('/').get(verifyJwt, Home);
+// router.route('/').get(verifyJwt, Home);
+router.route('/current-user').get(verifyJwt, CurrentUser);
 router.route('/login').post(validateLogin, login);
 router.route('/logout').post(logout);
 

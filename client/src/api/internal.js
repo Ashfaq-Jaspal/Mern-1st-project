@@ -9,6 +9,17 @@ const api = axios.create({
     },
 });
 
+// set user globally
+export const getCurrentUser = async () => {
+    try {
+        const response = await api.get(`current-user`);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
+
 // login
 export const login = async (data) => {
     try {
@@ -39,14 +50,14 @@ export const logout = async () => {
 };
 
 // home
-export const fetchUser = async () => {
-    try {
-        const response = await api.get('/');
-        return response;
-    } catch (error) {
-        return error;
-    }
-};
+// export const fetchUser = async () => {
+//     try {
+//         const response = await api.get('/');
+//         return response;
+//     } catch (error) {
+//         return error;
+//     }
+// };
 
 // employee dashboard
 export const fetchUsersProjects = async () => {
@@ -106,4 +117,4 @@ export const fetchEmployeesOnClickedProject = async (projectId) => {
     } catch (error) {
         return error;
     }
-};  
+};
