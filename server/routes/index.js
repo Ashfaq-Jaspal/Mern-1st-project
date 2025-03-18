@@ -2,7 +2,7 @@ import express from 'express';
 import { login, logout } from '../controllers/authController.js';
 import { CurrentUser } from '../controllers/homeController.js';
 import Admin from '../controllers/adminController.js';
-import {Employee, allEmployees, clickedProject} from '../controllers/employeeController.js';
+import { allEmployees, clickedProject} from '../controllers/employeeController.js';
 import { getCreate, postCreate } from '../controllers/userController.js';
 import { getCreateProject, postCreateProject, allProjects, projectsOfClickedEmployee } from '../controllers/projectController.js';
 import { validateSignup, validateLogin } from '../middlewares/input-validation.js';
@@ -22,7 +22,7 @@ router.route('/login').post(validateLogin, login);
 router.route('/logout').post(logout);
 
 // Employee protected
-router.route('/employee-dashboard').get(verifyJwt, isEmployee, Employee);
+// router.route('/employee-dashboard').get(verifyJwt, isEmployee, Employee);
 
 // Admin protected
 router.route('/admin-panel').get(verifyJwt, isAdmin, Admin);

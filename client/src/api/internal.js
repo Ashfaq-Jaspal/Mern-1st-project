@@ -59,15 +59,15 @@ export const logout = async () => {
 //     }
 // };
 
-// employee dashboard
-export const fetchUsersProjects = async () => {
-    try {
-        const response = await api.get('/employee-dashboard');
-        return response;
-    } catch (error) {
-        return error;
-    }
-};
+// // employee dashboard
+// export const fetchUsersProjects = async () => {
+//     try {
+//         const response = await api.get('/employee-dashboard');
+//         return response;
+//     } catch (error) {
+//         return error;
+//     }
+// };
 
 // // admin dashboard
 // export const fetchUsersAndProjects = async () => {

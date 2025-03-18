@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
 import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
-import { fetchUsersProjects } from '../../api/internal';
+// import { fetchUsersProjects } from '../../api/internal';
 
 const EmployeeDashboard = () => {
     const navigate = useNavigate();
@@ -14,23 +14,23 @@ const EmployeeDashboard = () => {
         navigate(`/projects/${projectId}`);
     };
 
-    useEffect(() => {
-        const userProjects = async () => {
-            try {
-                const response = await fetchUsersProjects();
-                if (response.status === 200) {
-                    setUser(response.data.user);
-                    setProjects(response.data.projects);
-                } else if (response.status === 404) {
-                    setUser(response.response.data.user);
-                    setProjects(null);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        userProjects();
-    }, []);
+    // useEffect(() => {
+    //     const userProjects = async () => {
+    //         try {
+    //             const response = await fetchUsersProjects();
+    //             if (response.status === 200) {
+    //                 setUser(response.data.user);
+    //                 setProjects(response.data.projects);
+    //             } else if (response.status === 404) {
+    //                 setUser(response.response.data.user);
+    //                 setProjects(null);
+    //             }
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+    //     userProjects();
+    // }, []);
 
     if (!loading) {
         return (
