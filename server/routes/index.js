@@ -1,6 +1,6 @@
 import express from 'express';
 import { login, logout } from '../controllers/authController.js';
-import { Home, CurrentUser } from '../controllers/homeController.js';
+import { CurrentUser } from '../controllers/homeController.js';
 import Admin from '../controllers/adminController.js';
 import {Employee, allEmployees, clickedProject} from '../controllers/employeeController.js';
 import { getCreate, postCreate } from '../controllers/userController.js';
