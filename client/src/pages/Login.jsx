@@ -6,7 +6,25 @@ import { login } from '../api/internal';
 
 function Login() {
     const navigate = useNavigate();
-    const { setUser } = useContext(AuthContext);
+    const {
+        backendUrl,
+        // user,
+        setUser,
+        loading,
+        setLoading,
+        employees,
+        setEmployees,
+        projects,
+        setProjects,
+        clickedEmployee,
+        setClickedEmployee,
+        clickedProject,
+        setClickedProject,
+        numOfEmployees,
+        setNumOfEmployees,
+        numOfProjects,
+        setNumOfProjects,
+    } = useContext(AuthContext);
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
 

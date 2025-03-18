@@ -8,7 +8,7 @@ const login = async (req, res) => {
     let { email, password } = req.body;
     try {
         // Check email
-        const user = await User.findOne({ email }).select('-password');
+        const user = await User.findOne({ email })
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
@@ -28,7 +28,7 @@ const login = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         if (user.isAdmin) {
-            const employees = await User.find({ isAdmin: 'false' }).select('_id name');
+            const employees = await User.find({ isAdmin: false }).select('_id name');
             const projects = await Project.find();
             return res.status(200).json({ message: 'You logged in successfully', user, employees, projects });
         }
