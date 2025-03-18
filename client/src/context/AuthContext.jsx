@@ -18,9 +18,18 @@ export const AuthProvider = ({ children }) => {
         const fetchUser = async () => {
             try {
                 const res = await getCurrentUser(); // Fetch user from API
-                setUser(res.data.user);
-                setEmployees(res.data.employees);
-                setProjects(res.data.projects);
+                console.log(res);
+                if (res.status === 200) {
+                    setUser(res.data.user);
+                    if (res.data.user.isAdmin) {
+                        // all projects and employees (for admin)
+                        setEmployees(res.data.employees);
+                        setProjects(res.data.projects);
+                    } else {
+                        // user's projects (for employee)
+                        setProjects(res.data.projects);
+                    }
+                }
             } catch (error) {
                 setUser(null);
             } finally {
