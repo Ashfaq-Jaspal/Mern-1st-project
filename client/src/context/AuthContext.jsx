@@ -17,8 +17,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await getCurrentUser(); // Fetch user from API
-                console.log(res);
+                const res = await getCurrentUser();
                 if (res.status === 200) {
                     setUser(res.data.user);
                     if (res.data.user.isAdmin) {
@@ -37,7 +36,7 @@ export const AuthProvider = ({ children }) => {
             }
         };
 
-        fetchUser(); // Call API on first render
+        fetchUser();
     }, []);
 
     return (

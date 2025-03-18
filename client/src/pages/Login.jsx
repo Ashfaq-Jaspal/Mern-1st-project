@@ -18,25 +18,26 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await login(user);
-            if (response.status === 200) {
-                // success
-                toast.success(response.data.message);
-    
-                setUser(response.data.user);
-    
-                if (response.data.user.isAdmin) {
+            const res = await login(user);
+            if (res.status === 200) {
+                setUser(res.data.user);
+                toast.success(res.data.message)
+                if (res.data.user.isAdmin) {
+                    // all projects and employees (for admin)
+                    setEmployees(res.data.employees);
+                    setProjects(res.data.projects);
                     navigate('/admin-panel');
                 } else {
+                    // user's projects (for employee)
+                    setProjects(res.data.projects);
                     navigate('/employee-dashboard');
                 }
-            } else {
-                // error
-                toast.error(response);
             }
         } catch (error) {
-            console.error(error);
-        }    
+            setUser(null);
+        } finally {
+            setLoading(false);
+        }
 
         setEmail('');
         setPassword('');

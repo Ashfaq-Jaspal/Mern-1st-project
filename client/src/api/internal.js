@@ -49,36 +49,6 @@ export const logout = async () => {
     }
 };
 
-// home
-// export const fetchUser = async () => {
-//     try {
-//         const response = await api.get('/');
-//         return response;
-//     } catch (error) {
-//         return error;
-//     }
-// };
-
-// // employee dashboard
-// export const fetchUsersProjects = async () => {
-//     try {
-//         const response = await api.get('/employee-dashboard');
-//         return response;
-//     } catch (error) {
-//         return error;
-//     }
-// };
-
-// // admin dashboard
-// export const fetchUsersAndProjects = async () => {
-//     try {
-//         const response = await api.get('/admin-panel');
-//         return response;
-//     } catch (error) {
-//         return error;
-//     }
-// };    
-
 // employees
 export const fetchEmployees = async () => {
     try {
