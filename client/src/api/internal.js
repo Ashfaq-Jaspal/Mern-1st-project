@@ -72,7 +72,7 @@ export const fetchEmployeesOnClickedProject = async (projectId) => {
 // create user
 export const createUser = async (user) => {
     try {
-        const response = await api.post(`/create`);
+        const response = await api.post(`/create`, user);
         return response;
     } catch (error) {
         return error;

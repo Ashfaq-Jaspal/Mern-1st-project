@@ -32,24 +32,25 @@ function SignUp() {
 
         try {
             const res = await createUser(user);
-
-            if (res.status === 400) {
-                toast.error(data.message);
-            }
-            if (res.status === 400) {
-                toast.success(data.message);
-            }
+            console.log(res);
+            // if (res.status === 201) {
+            //     toast.error(data.message);
+            // }
+            // if (res.status === 400) {
+            //     toast.success(data.message);
+            // }
         } catch (error) {
             toast.error(error);
         }
 
-        setName('');
-        setEmail('');
-        setPassword('');
-        setStatus('');
+        // setName('');
+        // setEmail('');
+        // setPassword('');
+        // setStatus('');
 
         fetchUser()
     };
+    console.log();
 
     return (
         <form
