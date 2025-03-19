@@ -9,7 +9,7 @@ const api = axios.create({
     },
 });
 
-// set user globally
+// setting user globally
 export const getCurrentUser = async () => {
     try {
         const response = await api.get(`current-user`);
@@ -18,7 +18,6 @@ export const getCurrentUser = async () => {
         return error;
     }
 };
-
 
 // login
 export const login = async (data) => {
@@ -47,9 +46,9 @@ export const logout = async () => {
     } catch (error) {
         return error;
     }
-}; 
+};
 
-// clicked employee
+// clicked employee data
 export const fetchProjectsOfClickedEmployee = async (employeeId) => {
     try {
         const response = await api.get(`/employees/${employeeId}`);
@@ -57,9 +56,9 @@ export const fetchProjectsOfClickedEmployee = async (employeeId) => {
     } catch (error) {
         return error;
     }
-};  
+};
 
-// clicked project
+// clicked project data
 export const fetchEmployeesOnClickedProject = async (projectId) => {
     try {
         const response = await api.get(`/projects/${projectId}`);
@@ -79,7 +78,7 @@ export const createUser = async (user) => {
     }
 };
 
-// create user
+// create project
 export const createProject = async (project) => {
     try {
         const response = await api.post(`/create-project`, project);

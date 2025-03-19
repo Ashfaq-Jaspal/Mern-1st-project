@@ -6,7 +6,7 @@ import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
 
 const EmployeeDashboard = () => {
     const navigate = useNavigate();
-    const { setUser, loading, setLoading, projects, setProjects } = useContext(AuthContext);
+    const { loading, setLoading, projects } = useContext(AuthContext);
 
     const handleProjectClick = async (projectId) => {
         setLoading(true);
@@ -46,7 +46,7 @@ const EmployeeDashboard = () => {
                         </div>
                     ))
                 ) : (
-                    <p className="text-white text-lg">No projects available</p>
+                    <h1 className="text-3xl font-bold text-gray-100 mb-3">No projects available</h1>
                 )}
             </div>
         );

@@ -20,7 +20,7 @@ function App() {
         <>
             <Toaster />
             <Navbar />
-            <div className='mt-12'>
+            <div className="mt-12">
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/create" element={<CreateUser />} />

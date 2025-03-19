@@ -1,12 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useContext, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
 import Select from 'react-select';
 import { createUser } from '../../api/internal';
 
 function SignUp() {
-    const navigate = useNavigate();
     const [name, setName] = useState(``);
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
@@ -18,7 +16,7 @@ function SignUp() {
         { label: 'Video Editor', value: 'Video Editor' },
         { label: 'Project Manager', value: 'Project Manager' },
     ]);
-    const { backendUrl, user, setUser, employees, setEmployees, loading, setLoading, fetchUser } = useContext(AuthContext);
+    const { setLoading, fetchUser } = useContext(AuthContext);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -27,7 +25,7 @@ function SignUp() {
             name,
             email,
             password,
-            status: status.value
+            status: status.value,
         };
 
         try {
@@ -46,6 +44,8 @@ function SignUp() {
             }
         } catch (error) {
             toast.error(error);
+        } finally {
+            setLoading(false);
         }
 
         setName('');
@@ -53,7 +53,7 @@ function SignUp() {
         setPassword('');
         setStatus('');
 
-        fetchUser()
+        fetchUser();
     };
 
     return (

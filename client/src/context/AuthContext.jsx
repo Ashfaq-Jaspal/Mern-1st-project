@@ -5,13 +5,15 @@ export const AuthContext = createContext();
 // Create provider
 export const AuthProvider = ({ children }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
     const [clickedEmployee, setClickedEmployee] = useState('');
     const [clickedProject, setClickedProject] = useState('');
     const [employees, setEmployees] = useState([]);
-    const [numOfEmployees, setNumOfEmployees] = useState(0);
     const [projects, setProjects] = useState([]);
+    const [projectsOfEmployee, setProjectsOfEmployee] = useState([]);
+    const [employeesOnProject, setEmployeesOnProject] = useState([]);
+    const [numOfEmployees, setNumOfEmployees] = useState(0);
     const [numOfProjects, setNumOfProjects] = useState(0);
 
     const fetchUser = async () => {
@@ -23,13 +25,13 @@ export const AuthProvider = ({ children }) => {
                     // all projects and employees (for admin)
                     setEmployees(res.data.employees);
                     setProjects(res.data.projects);
-                } else {
+                } else if (!res.data.user.isAdmin) {
                     // user's projects (for employee)
                     setProjects(res.data.projects);
                 }
             }
         } catch (error) {
-            setUser(null);
+            console.log(error);
         } finally {
             setLoading(false);
         }
@@ -51,6 +53,10 @@ export const AuthProvider = ({ children }) => {
                 setEmployees,
                 projects,
                 setProjects,
+                projectsOfEmployee,
+                setProjectsOfEmployee,
+                employeesOnProject,
+                setEmployeesOnProject,
                 clickedEmployee,
                 setClickedEmployee,
                 clickedProject,
@@ -59,7 +65,7 @@ export const AuthProvider = ({ children }) => {
                 setNumOfEmployees,
                 numOfProjects,
                 setNumOfProjects,
-                fetchUser
+                fetchUser,
             }}
         >
             {children}

@@ -6,25 +6,7 @@ import { login } from '../api/internal';
 
 function Login() {
     const navigate = useNavigate();
-    const {
-        backendUrl,
-        // user,
-        setUser,
-        loading,
-        setLoading,
-        employees,
-        setEmployees,
-        projects,
-        setProjects,
-        clickedEmployee,
-        setClickedEmployee,
-        clickedProject,
-        setClickedProject,
-        numOfEmployees,
-        setNumOfEmployees,
-        numOfProjects,
-        setNumOfProjects,
-    } = useContext(AuthContext);
+    const { setUser, setLoading, setEmployees, setProjects } = useContext(AuthContext);
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
 
@@ -38,9 +20,9 @@ function Login() {
         try {
             const res = await login(user);
             if (res.status === 200) {
-                res.data.user.password = undefined
+                res.data.user.password = undefined;
                 setUser(res.data.user);
-                toast.success(res.data.message)
+                toast.success(res.data.message);
                 if (res.data.user.isAdmin) {
                     // all projects and employees (for admin)
                     setEmployees(res.data.employees);

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router';
@@ -6,8 +6,7 @@ import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
 
 const Projects = () => {
     const navigate = useNavigate();
-    const { backendUrl, user, setUser, employees, setEmployees, loading, setLoading, projects, setProjects } =
-        useContext(AuthContext);
+    const { loading, setLoading, projects } = useContext(AuthContext);
 
     const handleProjectClick = async (projectId) => {
         setLoading(true);
@@ -32,7 +31,7 @@ const Projects = () => {
                                 <CalendarDaysIcon className="h-5 w-5 text-green-400" />
                                 <span>
                                     <strong className="text-white">Start:</strong>{' '}
-                                    {new Date(project.startDate).toLocaleDateString()}
+                                    {new Date(project.startDate).toDateString()}
                                 </span>
                             </p>
 
@@ -40,8 +39,7 @@ const Projects = () => {
                             <p className="text-gray-300 text-md font-medium flex items-center gap-2">
                                 <ClockIcon className="h-5 w-5 text-red-400" />
                                 <span>
-                                    <strong className="text-white">Due:</strong>{' '}
-                                    {new Date(project.endDate).toLocaleDateString()}
+                                    <strong className="text-white">Due:</strong> {new Date(project.endDate).toDateString()}
                                 </span>
                             </p>
                         </div>

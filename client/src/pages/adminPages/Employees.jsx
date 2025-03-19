@@ -6,25 +6,16 @@ import { UserIcon, CheckBadgeIcon } from '@heroicons/react/24/solid';
 
 const Employees = () => {
     const navigate = useNavigate();
-    const {
-        backendUrl,
-        user,
-        setUser,
-        projects,
-        setProjects,
-        loading,
-        setLoading,
-        employees,
-        setEmployees,
-        clickedEmployee,
-        setClickedEmployee,
-    } = useContext(AuthContext);
+    const { loading, setLoading, employees, fetchUser } = useContext(AuthContext);
 
     const handleEmployeeClick = async (employeeId) => {
         setLoading(true);
         navigate(`/employees/${employeeId}`);
     };
 
+    useEffect(() => {
+        fetchUser();
+    }, []);
 
     return (
         <div className="w-screen min-h-screen absolute top-14 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">

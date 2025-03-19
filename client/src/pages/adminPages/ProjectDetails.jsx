@@ -7,17 +7,12 @@ import { fetchEmployeesOnClickedProject } from '../../api/internal';
 
 const ProjectDetails = () => {
     const {
-        backendUrl, 
         user,
         setUser,
-        projects,
-        setProjects,
+        employeesOnProject,
+        setEmployeesOnProject,
         loading,
         setLoading,
-        employees,
-        setEmployees,
-        clickedEmployee,
-        setClickedEmployee,
         clickedProject,
         setClickedProject,
     } = useContext(AuthContext);
@@ -27,16 +22,16 @@ const ProjectDetails = () => {
         const fetchClickedProjectData = async () => {
             try {
                 const response = await fetchEmployeesOnClickedProject(projectId);
-                    setUser(response.data.user)
-                    setEmployees(response.data.employees)
-                    setClickedProject(response.data.project)
+                setUser(response.data.user);
+                setEmployeesOnProject(response.data.employees);
+                setClickedProject(response.data.project[0]);
             } catch (error) {
                 console.log(error);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
         };
-        fetchClickedProjectData()
+        fetchClickedProjectData();
     }, [projectId]);
 
     if (loading) {
@@ -58,8 +53,8 @@ const ProjectDetails = () => {
                 <div className="flex items-center space-x-4 border-b border-gray-700 pb-4">
                     <BriefcaseIcon className="h-10 w-10 text-blue-400" />
                     <div>
-                        <h1 className="text-3xl font-bold">{clickedProject.name}</h1>
-                        <p className="text-gray-400">{clickedProject.description}</p>
+                        <h1 className="text-3xl font-bold">{clickedProject?.name}</h1>
+                        <p className="text-gray-400">{clickedProject?.description}</p>
                     </div>
                 </div>
 
@@ -70,7 +65,7 @@ const ProjectDetails = () => {
                 </h2>
 
                 <div className="mt-4 space-y-4">
-                    {employees.map((employee) => (
+                    {employeesOnProject.map((employee) => (
                         <div
                             key={employee._id}
                             className="p-5 bg-gray-800 rounded-md shadow-md transition duration-300 flex items-center space-x-4"

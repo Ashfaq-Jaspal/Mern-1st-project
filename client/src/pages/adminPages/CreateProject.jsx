@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-hot-toast';
 import Select from 'react-select';
-import { useLocation, useNavigate } from 'react-router';
 import { createProject } from '../../api/internal';
 
 const CreateProject = () => {
@@ -11,11 +10,9 @@ const CreateProject = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [selectedEmployees, setSelectedEmployees] = useState([]);
-    const { backendUrl, user, setUser, status, setStatus, employees, setEmployees, loading, setLoading, fetchUser } = useContext(AuthContext);
+    const { employees, loading, setLoading, fetchUser } = useContext(AuthContext);
     let formattedEmployeesForReactSelect = [];
     let reFormattedEmployeesForBackend = [];
-    const navigate = useNavigate();
-    const location = useLocation();
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -34,21 +31,22 @@ const CreateProject = () => {
 
         try {
             const res = await createProject(createdProject);
-            console.log(res);
-            // if (res.status === 201) {
-            //     // success
-            //     toast.success(res.data.message);
-            // }
-            // if (res.status === 409) {
-            //     // email already exists error
-            //     toast.error(res.response.data.message);
-            // }
-            // if (res.status === 400) {
-            //     // validation error
-            //     toast.error(res.response.data.error.details[0].message);
-            // }
+            if (res.status === 201) {
+                // success
+                toast.success(res.data.message);
+            }
+            if (res.status === 409) {
+                // email already exists error
+                toast.error(res.response.data.message);
+            }
+            if (res.status === 400) {
+                // validation error
+                toast.error(res.response.data.errors[0]);
+            }
         } catch (error) {
             toast.error(error);
+        } finally {
+            setLoading(false);
         }
 
         setProjectName('');
@@ -57,7 +55,7 @@ const CreateProject = () => {
         setEndDate('');
         setSelectedEmployees([]);
 
-        fetchUser()
+        fetchUser();
     };
 
     {
@@ -68,7 +66,7 @@ const CreateProject = () => {
         }
     }
     return (
-        <div className='items-center'>
+        <div className="items-center">
             <form
                 action="/create-project"
                 method="post"
@@ -181,7 +179,10 @@ const CreateProject = () => {
                 </div>
 
                 <div className="flex">
-                    <button type="submit" className="px-3 text-2xl py-1.5 mt-2 w-80 text-gray-300 bg-emerald-900 border-none rounded-xl">
+                    <button
+                        type="submit"
+                        className="px-3 text-2xl py-1.5 mt-2 w-80 text-gray-300 bg-emerald-900 border-none rounded-lg"
+                    >
                         Create project
                     </button>
                 </div>

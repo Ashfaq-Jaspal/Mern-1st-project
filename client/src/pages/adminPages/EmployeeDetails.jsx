@@ -6,34 +6,22 @@ import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, UserIcon } 
 import { fetchProjectsOfClickedEmployee } from '../../api/internal';
 
 const EmployeeDetails = () => {
-    const {
-        backendUrl,
-        user,
-        setUser,
-        projects,
-        setProjects,
-        loading,
-        setLoading,
-        employees,
-        setEmployees,
-        clickedEmployee,
-        setClickedEmployee,
-    } = useContext(AuthContext);
+    const { setUser, projectsOfEmployee, setProjectsOfEmployee, loading, setLoading, clickedEmployee, setClickedEmployee } =
+        useContext(AuthContext);
     const { employeeId } = useParams();
 
     useEffect(() => {
         const fetchClickedEmployeeData = async () => {
             try {
                 const response = await fetchProjectsOfClickedEmployee(employeeId);
-                // console.log(response);
                 if (response.status === 200) {
                     setUser(response.data.user);
-                    setProjects(response.data.projects);
-                    setClickedEmployee(response.data.employee);
+                    setProjectsOfEmployee(response.data.projects);
+                    setClickedEmployee(response.data.employee[0]);
                 } else {
                     // projects not found
                     setUser(response.response.data.user);
-                    setProjects([]);
+                    setProjectsOfEmployee([]);
                     setClickedEmployee(response.response.data.employee[0]);
                 }
             } catch (error) {
@@ -63,8 +51,8 @@ const EmployeeDetails = () => {
                         {clickedEmployee?.name?.charAt(0)}
                     </div>
                     <div>
-                        <h1 className="text-3xl font-bold">{clickedEmployee.name}</h1>
-                        <p className="text-gray-400">{clickedEmployee.status}</p>
+                        <h1 className="text-3xl font-bold">{clickedEmployee?.name}</h1>
+                        <p className="text-gray-400">{clickedEmployee?.status}</p>
                     </div>
                 </div>
 
@@ -72,7 +60,7 @@ const EmployeeDetails = () => {
                 <div className="mt-4 flex items-center space-x-2">
                     <EnvelopeIcon className="h-5 w-5 text-green-400" />
                     <p className="text-gray-300">
-                        <span className="font-semibold">Email:</span> {clickedEmployee.email}
+                        <span className="font-semibold">Email:</span> {clickedEmployee?.email}
                     </p>
                 </div>
 
@@ -82,9 +70,9 @@ const EmployeeDetails = () => {
                     Assigned Projects
                 </h2>
 
-                {projects.length > 0 ? (
+                {projectsOfEmployee.length > 0 ? (
                     <div className="mt-4 space-y-4">
-                        {projects.map((project) => (
+                        {projectsOfEmployee.map((project) => (
                             <div key={project._id} className="p-5 bg-gray-800 rounded-md shadow-md transition duration-300">
                                 <h3 className="text-xl font-semibold text-blue-400 flex items-center space-x-2">
                                     <UserIcon className="h-5 w-5 text-yellow-400" />
@@ -94,11 +82,12 @@ const EmployeeDetails = () => {
                                 <p className="text-sm mt-2 text-gray-400 flex items-center space-x-2">
                                     <CalendarDaysIcon className="h-5 w-5 text-green-400" />
                                     <span>
-                                        <strong>Start:</strong> {new Date(project.startDate).toLocaleDateString()}
+                                        <strong>Start:</strong> {new Date(project.startDate).toDateString()}
                                     </span>
                                     <span className="mx-2">|</span>
+                                    <CalendarDaysIcon className="h-5 w-5 text-red-500" />
                                     <span>
-                                        <strong>End:</strong> {new Date(project.endDate).toLocaleDateString()}
+                                        <strong>End:</strong> {new Date(project.endDate).toDateString()}
                                     </span>
                                 </p>
                             </div>

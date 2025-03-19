@@ -2,8 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { logout } from '../api/internal';
+import { AuthContext } from '../context/AuthContext';
 
 const Logout = () => {
+    const { setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -14,6 +16,8 @@ const Logout = () => {
                 toast.success(response.data.message);
             } catch (error) {
                 console.error('Logout failed:', error);
+            } finally {
+                setLoading(true);
             }
         };
 
