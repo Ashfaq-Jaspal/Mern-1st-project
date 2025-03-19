@@ -12,7 +12,7 @@ import Projects from './pages/adminPages/Projects';
 import CreateProject from './pages/adminPages/CreateProject';
 import Navbar from './components/Navbar.jsx';
 import Logout from './pages/Logout';
-import EmployeeDetails from './pages/adminPages/employeeDetails';
+import EmployeeDetails from './pages/adminPages/EmployeeDetails';
 import ProjectDetails from './pages/adminPages/ProjectDetails';
 
 function App() {
