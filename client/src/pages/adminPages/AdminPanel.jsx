@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { Link } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
 import { FolderIcon, UsersIcon } from '@heroicons/react/24/solid';
-import Card from '../../components/card';
+import Card from '../../components/Card';
 
 const AdminPanel = () => {
     const { employees, projects } = useContext(AuthContext);
