@@ -9,10 +9,12 @@ const AdminPanel = () => {
     const navigate = useNavigate()
     const { employees, user, loading, projects } = useContext(AuthContext);
 
+if (!loading) {
     if (!user?.isAdmin) {
         navigate('/employee-dashboard');
         toast.error('You are not an admin')
     }
+}
     
 
 if (!loading) {
