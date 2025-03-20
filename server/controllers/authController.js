@@ -1,6 +1,6 @@
 import User from '../models/user-model.js';
 import bcrypt from 'bcrypt';
-import { generateToken } from '../utils/jwt-token.js';
+import { generateToken } from '../utils/jwt-generator.js';
 import Project from '../models/project-model.js';
 
 // Login
