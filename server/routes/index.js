@@ -6,8 +6,6 @@ import { createUser } from '../controllers/userController.js';
 import { postCreateProject, projectsOfClickedEmployee } from '../controllers/projectController.js';
 import { validateSignup, validateLogin } from '../middlewares/input-validation.js';
 import verifyJwt from '../middlewares/verify-jwt.js';
-import isAdmin from '../middlewares/isAdmin.js';
-import isEmployee from '../middlewares/isEmployee.js';
 import validateProject from '../middlewares/project-validation.js';
 
 const router = express.Router();
@@ -22,7 +20,7 @@ router.route('/logout').post(logout);
 // Admin protected
 router.route('/create-user').post(validateSignup, createUser);
 router.route('/create-project').post(validateProject, postCreateProject);
-router.route('/employees/:employeeId').get(verifyJwt, isAdmin, projectsOfClickedEmployee);
+router.route('/employees/:employeeId').get(verifyJwt, projectsOfClickedEmployee);
 
 // Admin + Employee
 router.route('/projects/:projectId').get(verifyJwt, clickedProject);
