@@ -2,7 +2,7 @@ import Project from '../models/project-model.js';
 import User from '../models/user-model.js';
 
 // Create project
-const postCreateProject = async (req, res) => {
+export const postCreateProject = async (req, res) => {
     try {
         const { name, description, startDate, endDate, employeeIds } = req.body;
 
@@ -27,7 +27,7 @@ const postCreateProject = async (req, res) => {
 };
 
 // Get all projects of a specific employee
-const projectsOfClickedEmployee = async (req, res) => {
+export const projectsOfClickedEmployee = async (req, res) => {
     try {
         const { employeeId } = req.params;
         const projects = await Project.find({ employees: employeeId });
@@ -40,5 +40,3 @@ const projectsOfClickedEmployee = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
-export { postCreateProject, projectsOfClickedEmployee };

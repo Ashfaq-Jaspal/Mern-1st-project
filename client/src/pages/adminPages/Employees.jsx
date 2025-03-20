@@ -20,8 +20,6 @@ const Employees = () => {
         navigate(`/employees/${employeeId}`);
     };
 
-
-
 if (!loading) {
     return (
         <div className="w-screen min-h-screen absolute top-14 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">

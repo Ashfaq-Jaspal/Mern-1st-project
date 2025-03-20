@@ -1,9 +1,8 @@
-import Project from '../models/project-model.js';
 import User from '../models/user-model.js';
 import bcrypt from 'bcrypt';
 
 // Create user
-const createUser = async (req, res) => {
+export const createUser = async (req, res) => {
     let { name, email, password, status } = req.body;
     try {
         // Check if user already exists
@@ -29,5 +28,3 @@ const createUser = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
-
-export { createUser } ;

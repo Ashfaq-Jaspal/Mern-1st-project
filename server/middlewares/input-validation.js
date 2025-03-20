@@ -13,7 +13,7 @@ const signupValidationSchema = loginValidationSchema.keys({
 });
 
 // Login Validation Middleware
-const validateLogin = async (req, res, next) => {
+export const validateLogin = async (req, res, next) => {
     const { error } = loginValidationSchema.validate(req.body);
     if (error) {
         return res.status(400).json({ error });
@@ -22,12 +22,10 @@ const validateLogin = async (req, res, next) => {
 };
 
 // Signup Validation Middleware
-const validateSignup = async (req, res, next) => {
+export const validateSignup = async (req, res, next) => {
     const { error } = signupValidationSchema.validate(req.body);
     if (error) {
         return res.status(400).json({ error });
     }
     next();
 };
-
-export { validateSignup, validateLogin };

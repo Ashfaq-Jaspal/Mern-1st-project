@@ -2,7 +2,7 @@ import Project from '../models/project-model.js';
 import User from '../models/user-model.js'
 
 // Get all employees of a specific project
-const clickedProject = async (req, res) => {
+export const clickedProject = async (req, res) => {
     try {
         const {projectId} = req.params
         const project = await Project.find({_id: projectId})
@@ -13,5 +13,3 @@ const clickedProject = async (req, res) => {
         res.status(500).json({message: error.message})
     }
 }
-
-export  { clickedProject};

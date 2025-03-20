@@ -2,7 +2,7 @@ import User from '../models/user-model.js';
 import Project from '../models/project-model.js';
 
 // Home
-const CurrentUser = async (req, res) => {
+export const CurrentUser = async (req, res) => {
     try {
         if (req.user.isAdmin) {
             const employees = await User.find({ isAdmin: false }).select('name email status');
@@ -15,5 +15,3 @@ const CurrentUser = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
-
-export { CurrentUser };
