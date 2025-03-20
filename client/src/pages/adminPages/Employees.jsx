@@ -20,9 +20,7 @@ const Employees = () => {
         navigate(`/employees/${employeeId}`);
     };
 
-    useEffect(() => {
-        fetchUser();
-    }, []);
+
 
 if (!loading) {
     return (
