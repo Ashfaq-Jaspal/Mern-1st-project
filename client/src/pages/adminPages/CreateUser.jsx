@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
 import Select from 'react-select';
 import { createUser } from '../../api/internal';
+import { useNavigate } from 'react-router';
 
 function SignUp() {
     const [name, setName] = useState(``);
@@ -17,6 +18,7 @@ function SignUp() {
         { label: 'Project Manager', value: 'Project Manager' },
     ]);
     const { user, loading, setLoading, fetchUser } = useContext(AuthContext);
+    const navigate = useNavigate()
 
     if (!loading) {
         if (!user?.isAdmin) {

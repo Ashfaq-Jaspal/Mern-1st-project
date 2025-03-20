@@ -3,6 +3,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-hot-toast';
 import Select from 'react-select';
 import { createProject } from '../../api/internal';
+import { useNavigate } from 'react-router';
 
 const CreateProject = () => {
     const [projectName, setProjectName] = useState('');
@@ -11,6 +12,7 @@ const CreateProject = () => {
     const [endDate, setEndDate] = useState('');
     const [selectedEmployees, setSelectedEmployees] = useState([]);
     const { employees, user, loading, setLoading, fetchUser } = useContext(AuthContext);
+    const navigate = useNavigate()
     let formattedEmployeesForReactSelect = [];
     let reFormattedEmployeesForBackend = [];
 
