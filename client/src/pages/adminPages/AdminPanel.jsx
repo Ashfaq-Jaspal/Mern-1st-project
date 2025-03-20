@@ -7,7 +7,7 @@ import Card from '../../components/Card';
 
 const AdminPanel = () => {
     const navigate = useNavigate()
-    const { employees, user, projects } = useContext(AuthContext);
+    const { employees, user, loading, projects } = useContext(AuthContext);
 
     if (!user?.isAdmin) {
         navigate('/employee-dashboard');
@@ -15,6 +15,7 @@ const AdminPanel = () => {
     }
     
 
+if (!loading) {
     return (
         <div className="p-6 bg-gray-950 min-h-screen min-w-full flex justify-around items-center gap-20">
             <Link to="/employees">
@@ -25,6 +26,7 @@ const AdminPanel = () => {
             </Link>
         </div>
     );
+}
 };
 
 export default AdminPanel;
