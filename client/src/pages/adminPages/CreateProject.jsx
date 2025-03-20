@@ -10,7 +10,7 @@ const CreateProject = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [selectedEmployees, setSelectedEmployees] = useState([]);
-    const { employees, loading, setLoading, fetchUser } = useContext(AuthContext);
+    const { employees, user, loading, setLoading, fetchUser } = useContext(AuthContext);
     let formattedEmployeesForReactSelect = [];
     let reFormattedEmployeesForBackend = [];
 

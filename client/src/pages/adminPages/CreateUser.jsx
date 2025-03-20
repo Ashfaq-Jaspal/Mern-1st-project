@@ -16,7 +16,7 @@ function SignUp() {
         { label: 'Video Editor', value: 'Video Editor' },
         { label: 'Project Manager', value: 'Project Manager' },
     ]);
-    const { setLoading, fetchUser } = useContext(AuthContext);
+    const { user, loading, setLoading, fetchUser } = useContext(AuthContext);
 
     if (!loading) {
         if (!user?.isAdmin) {
