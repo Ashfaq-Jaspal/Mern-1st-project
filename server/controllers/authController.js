@@ -1,8 +1,7 @@
 import User from '../models/user-model.js';
 import bcrypt from 'bcrypt';
-import { generateToken } from '../utils/jwt-generator.js';
+import { generateToken } from '../utils/jwt-token.js';
 import Project from '../models/project-model.js';
-import { removeToken } from '../utils/jwt-remover.js';
 
 // Login
 export const login = async (req, res) => {
@@ -43,8 +42,12 @@ export const login = async (req, res) => {
 // Logout
 export const logout = async (req, res) => {
     try {
-        // remove token
-        await removeToken()
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production", // Secure in production
+            sameSite: "None", // Required for cross-origin cookies
+            path: "/", // Ensure it clears across the entire site
+        });
         return res.status(200).json({ message: 'Logged out successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
