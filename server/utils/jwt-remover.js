@@ -1,5 +1,5 @@
 export const removeToken = async () => {
-    res.clearCookie('token', {
+    return res.clearCookie('token', {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production", // Secure in production
         sameSite: "None", // Required for cross-origin cookies
