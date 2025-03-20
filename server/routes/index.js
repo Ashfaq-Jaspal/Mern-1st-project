@@ -4,7 +4,7 @@ import { CurrentUser } from '../controllers/homeController.js';
 import { clickedProject} from '../controllers/employeeController.js';
 import { createUser } from '../controllers/userController.js';
 import { postCreateProject, projectsOfClickedEmployee } from '../controllers/projectController.js';
-import { validateSignup, validateLogin } from '../middlewares/input-validation.js';
+import { validateSignup, validateLogin } from '../middlewares/user-validation.js';
 import verifyJwt from '../middlewares/verify-jwt.js';
 import validateProject from '../middlewares/project-validation.js';
 
