@@ -8,10 +8,12 @@ const EmployeeDashboard = () => {
     const navigate = useNavigate();
     const { loading, setLoading, user, projects } = useContext(AuthContext);
     
+if (!loading) {
     if (user?.isAdmin) {
         navigate('/admin-panel')
         toast.error('You are not a valid employee')
     }
+}
 
     const handleProjectClick = async (projectId) => {
         setLoading(true);
