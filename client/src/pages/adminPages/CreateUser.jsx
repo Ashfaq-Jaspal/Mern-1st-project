@@ -58,7 +58,7 @@ function SignUp() {
 
     return (
         <form
-            action="/create"
+            action="/create-user"
             method="post"
             onSubmit={(e) => {
                 submitHandler(e);

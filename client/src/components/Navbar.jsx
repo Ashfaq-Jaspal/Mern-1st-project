@@ -30,7 +30,7 @@ const Navbar = () => {
                             New Project
                         </NavLink>
                         <NavLink
-                            to="/create"
+                            to="/create-user"
                             className={({ isActive }) =>
                                 ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
                             }

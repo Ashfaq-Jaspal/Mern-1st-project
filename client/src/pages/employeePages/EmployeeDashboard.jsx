@@ -6,7 +6,12 @@ import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
 
 const EmployeeDashboard = () => {
     const navigate = useNavigate();
-    const { loading, setLoading, projects } = useContext(AuthContext);
+    const { loading, setLoading, user, projects } = useContext(AuthContext);
+    
+    if (user?.isAdmin) {
+        navigate('/admin-panel')
+        toast.error('You are not a valid employee')
+    }
 
     const handleProjectClick = async (projectId) => {
         setLoading(true);

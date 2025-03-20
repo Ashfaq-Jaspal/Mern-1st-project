@@ -1,12 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
 import { FolderIcon, UsersIcon } from '@heroicons/react/24/solid';
 import Card from '../../components/Card';
 
 const AdminPanel = () => {
-    const { employees, projects } = useContext(AuthContext);
+    const navigate = useNavigate()
+    const { employees, user, projects } = useContext(AuthContext);
+
+useEffect(()=>{
+    if (!user?.isAdmin) {
+        navigate('/employee-dashboard');
+        toast.error('You are not an admin')
+    }
+},[])
+    
 
     return (
         <div className="p-6 bg-gray-950 min-h-screen min-w-full flex justify-around items-center gap-20">

@@ -1,16 +1,6 @@
 import Project from '../models/project-model.js';
 import User from '../models/user-model.js';
 
-// Get request for create project page
-const getCreateProject = async (req, res) => {
-    try {
-        const employees = await User.find({ isAdmin: 'false' }).select('_id name status');
-        res.status(200).json({ user: req.user, employees });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
 // Create project
 const postCreateProject = async (req, res) => {
     try {
@@ -51,4 +41,4 @@ const projectsOfClickedEmployee = async (req, res) => {
     }
 };
 
-export { getCreateProject, postCreateProject, projectsOfClickedEmployee };
+export { postCreateProject, projectsOfClickedEmployee };

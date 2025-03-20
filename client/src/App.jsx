@@ -23,17 +23,17 @@ function App() {
             <div className="mt-12">
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/create" element={<CreateUser />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/admin-panel" element={<AdminPanel />} />
                     <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
                     <Route path="/employees" element={<Employees />} />
                     <Route path="/projects" element={<Projects />} />
+                    <Route path="/create-user" element={<CreateUser />} />
                     <Route path="/create-project" element={<CreateProject />} />
-                    <Route path="*" element={<Error />} />
                     <Route path={`/employees/:employeeId`} element={<EmployeeDetails />} />
                     <Route path={`/projects/:projectId`} element={<ProjectDetails />} />
+                    <Route path="*" element={<Error />} />
                 </Routes>
             </div>
         </>
