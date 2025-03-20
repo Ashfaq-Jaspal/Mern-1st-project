@@ -6,7 +6,14 @@ import { UserIcon, CheckBadgeIcon } from '@heroicons/react/24/solid';
 
 const Employees = () => {
     const navigate = useNavigate();
-    const { loading, setLoading, employees, fetchUser } = useContext(AuthContext);
+    const { loading, user, setLoading, employees, fetchUser } = useContext(AuthContext);
+
+    if (!loading) {
+        if (!user?.isAdmin) {
+            navigate('/employee-dashboard');
+            toast.error('You are not an admin')
+        }
+    }
 
     const handleEmployeeClick = async (employeeId) => {
         setLoading(true);
@@ -17,6 +24,7 @@ const Employees = () => {
         fetchUser();
     }, []);
 
+if (!loading) {
     return (
         <div className="w-screen min-h-screen absolute top-14 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">
             {loading ? (
@@ -46,6 +54,7 @@ const Employees = () => {
             )}
         </div>
     );
+}
 };
 
 export default Employees;

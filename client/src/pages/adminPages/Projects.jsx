@@ -6,13 +6,21 @@ import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
 
 const Projects = () => {
     const navigate = useNavigate();
-    const { loading, setLoading, projects } = useContext(AuthContext);
+    const { loading, user, setLoading, projects } = useContext(AuthContext);
+
+    if (!loading) {
+        if (!user?.isAdmin) {
+            navigate('/employee-dashboard');
+            toast.error('You are not an admin')
+        }
+    }
 
     const handleProjectClick = async (projectId) => {
         setLoading(true);
         navigate(`/projects/${projectId}`);
     };
 
+if (!loading) {
     return (
         <div className="w-screen min-h-screen absolute top-10 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">
             {loading ? (
@@ -50,6 +58,7 @@ const Projects = () => {
             )}
         </div>
     );
+}
 };
 
 export default Projects;
