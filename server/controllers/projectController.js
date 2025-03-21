@@ -1,8 +1,8 @@
-import Project from '../models/project-model.js';
-import User from '../models/user-model.js';
+import Project from '../models/Project.js';
+import User from '../models/User.js';
 
 // Create project
-export const postCreateProject = async (req, res) => {
+export const createProject = async (req, res) => {
     try {
         const { name, description, startDate, endDate, employeeIds } = req.body;
 
@@ -26,16 +26,14 @@ export const postCreateProject = async (req, res) => {
     }
 };
 
-// Get all projects of a specific employee
-export const projectsOfClickedEmployee = async (req, res) => {
+// get data of clicked project
+export const getProjectDetails = async (req, res) => {
     try {
-        const { employeeId } = req.params;
-        const projects = await Project.find({ employees: employeeId });
-        const employee = await User.find({ _id: employeeId });
-        if (projects.length === 0) {
-            return res.status(404).json({ message: 'Projects not found', user: req.user, employee });
-        }
-        res.status(200).json({ projects, employee, user: req.user });
+        const { projectId } = req.params;
+        const project = await Project.find({ _id: projectId });
+        const employeesIds = project[0].employees;
+        const employees = await User.find({ _id: { $in: employeesIds } });
+        res.status(200).json({ project, employees, user: req.user });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

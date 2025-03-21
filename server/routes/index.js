@@ -1,28 +1,26 @@
 import express from 'express';
-import { login, logout } from '../controllers/authController.js';
-import { CurrentUser } from '../controllers/homeController.js';
-import { clickedProject} from '../controllers/employeeController.js';
-import { createUser } from '../controllers/userController.js';
-import { postCreateProject, projectsOfClickedEmployee } from '../controllers/projectController.js';
-import { validateSignup, validateLogin } from '../middlewares/user-validation.js';
-import verifyJwt from '../middlewares/verify-jwt.js';
-import validateProject from '../middlewares/project-validation.js';
+import { getCurrentUser, login, logout } from '../controllers/authController.js';
+import { createUser, getUserDetails } from '../controllers/userController.js';
+import { createProject, getProjectDetails } from '../controllers/projectController.js';
+import { validateSignup, validateLogin } from '../middlewares/validateUser.js';
+import authenticateJWT from '../middlewares/authenticateJWT.js';
+import validateProject from '../middlewares/validateProject.js';
 
 const router = express.Router();
 
 //Routes
 
 // Common
-router.route('/current-user').get(verifyJwt, CurrentUser);
+router.route('/current-user').get(authenticateJWT, getCurrentUser);
 router.route('/login').post(validateLogin, login);
 router.route('/logout').post(logout);
 
 // Admin protected
 router.route('/create-user').post(validateSignup, createUser);
-router.route('/create-project').post(validateProject, postCreateProject);
-router.route('/employees/:employeeId').get(verifyJwt, projectsOfClickedEmployee);
+router.route('/create-project').post(validateProject, createProject);
+router.route('/employees/:employeeId').get(authenticateJWT, getUserDetails);
 
 // Admin + Employee
-router.route('/projects/:projectId').get(verifyJwt, clickedProject);
+router.route('/projects/:projectId').get(authenticateJWT, getProjectDetails);
 
 export default router;

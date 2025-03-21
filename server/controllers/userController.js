@@ -1,5 +1,5 @@
-import User from '../models/user-model.js';
 import bcrypt from 'bcrypt';
+import User from '../models/User.js';
 
 // Create user
 export const createUser = async (req, res) => {
@@ -21,10 +21,25 @@ export const createUser = async (req, res) => {
             password: hashPassword,
             status,
         });
-        await userCreated.save()
+        await userCreated.save();
 
         res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+// get data of clicked employee
+export const getUserDetails = async (req, res) => {
+    try {
+        const { employeeId } = req.params;
+        const projects = await Project.find({ employees: employeeId });
+        const employee = await User.find({ _id: employeeId });
+        if (projects.length === 0) {
+            return res.status(404).json({ message: 'Projects not found', user: req.user, employee });
+        }
+        res.status(200).json({ projects, employee, user: req.user });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 };
