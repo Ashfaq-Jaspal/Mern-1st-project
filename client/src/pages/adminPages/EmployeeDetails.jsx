@@ -18,7 +18,12 @@ const EmployeeDetails = () => {
                     setUser(response.data.user);
                     setProjectsOfEmployee(response.data.projects);
                     setClickedEmployee(response.data.employee[0]);
-                } else {
+                }
+                if (res.status === 401) {
+                    // unauthorized error
+                    toast.error(res.response.data.message);
+                }
+                if (response.status === 404) {
                     // projects not found
                     setUser(response.response.data.user);
                     setProjectsOfEmployee([]);

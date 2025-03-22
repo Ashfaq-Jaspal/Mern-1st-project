@@ -16,12 +16,12 @@ const CreateProject = () => {
     let formattedEmployeesForReactSelect = [];
     let reFormattedEmployeesForBackend = [];
 
-    if (!loading) {
-        if (!user?.isAdmin) {
-            navigate('/employee-dashboard');
-            toast.error('You are not an admin')
-        }
-    }
+    // if (!loading) {
+    //     if (!user?.isAdmin) {
+    //         navigate('/employee-dashboard');
+    //         toast.error('You are not an admin')
+    //     }
+    // }
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -44,8 +44,8 @@ const CreateProject = () => {
                 // success
                 toast.success(res.data.message);
             }
-            if (res.status === 409) {
-                // email already exists error
+            if (res.status === 401) {
+                // unauthorized error
                 toast.error(res.response.data.message);
             }
             if (res.status === 400) {

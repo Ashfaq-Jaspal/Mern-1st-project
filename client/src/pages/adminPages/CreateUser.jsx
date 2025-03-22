@@ -20,12 +20,12 @@ function SignUp() {
     const { user, loading, setLoading, fetchUser } = useContext(AuthContext);
     const navigate = useNavigate()
 
-    if (!loading) {
-        if (!user?.isAdmin) {
-            navigate('/employee-dashboard');
-            toast.error('You are not an admin')
-        }
-    }
+    // if (!loading) {
+    //     if (!user?.isAdmin) {
+    //         navigate('/employee-dashboard');
+    //         toast.error('You are not an admin')
+    //     }
+    // }
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -42,6 +42,10 @@ function SignUp() {
             if (res.status === 201) {
                 // success
                 toast.success(res.data.message);
+            }
+            if (res.status === 401) {
+                // unauthorized error
+                toast.error(res.response.data.message);
             }
             if (res.status === 409) {
                 // email already exists error
