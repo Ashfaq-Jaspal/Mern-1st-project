@@ -20,12 +20,12 @@ function SignUp() {
     const { user, loading, setLoading, fetchUser } = useContext(AuthContext);
     const navigate = useNavigate()
 
-    // if (!loading) {
-    //     if (!user?.isAdmin) {
-    //         navigate('/employee-dashboard');
-    //         toast.error('You are not an admin')
-    //     }
-    // }
+    if (!loading) {
+        if (!user?.isAdmin) {
+            navigate('/employee-dashboard');
+            toast.error('You are not an admin')
+        }
+    }
 
     const submitHandler = async (e) => {
         e.preventDefault();

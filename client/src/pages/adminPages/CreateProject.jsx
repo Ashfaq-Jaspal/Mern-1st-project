@@ -16,12 +16,12 @@ const CreateProject = () => {
     let formattedEmployeesForReactSelect = [];
     let reFormattedEmployeesForBackend = [];
 
-    // if (!loading) {
-    //     if (!user?.isAdmin) {
-    //         navigate('/employee-dashboard');
-    //         toast.error('You are not an admin')
-    //     }
-    // }
+    if (!loading) {
+        if (!user?.isAdmin) {
+            navigate('/employee-dashboard');
+            toast.error('You are not an admin')
+        }
+    }
 
     const submitHandler = async (e) => {
         e.preventDefault();

@@ -4,7 +4,7 @@ import { createUser, getUserDetails } from '../controllers/userController.js';
 import { createProject, getProjectDetails } from '../controllers/projectController.js';
 import { validateSignup, validateLogin } from '../middlewares/validateUser.js';
 import authenticateJWT from '../middlewares/authenticateJWT.js';
-import isAdmin from '../middlewares/isAdmin.js'
+import isAdmin from '../middlewares/isAdmin.js';
 import validateProject from '../middlewares/validateProject.js';
 
 const router = express.Router();
