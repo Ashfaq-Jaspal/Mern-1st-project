@@ -19,7 +19,7 @@ const EmployeeDetails = () => {
                     setProjectsOfEmployee(response.data.projects);
                     setClickedEmployee(response.data.employee[0]);
                 }
-                if (res.status === 401) {
+                if (response.status === 401) {
                     // unauthorized error
                     toast.error(res.response.data.message);
                 }
