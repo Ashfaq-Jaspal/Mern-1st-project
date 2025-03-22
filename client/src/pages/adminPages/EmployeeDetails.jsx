@@ -21,7 +21,7 @@ const EmployeeDetails = () => {
                 }
                 if (response.status === 401) {
                     // unauthorized error
-                    toast.error(res.response.data.message);
+                    toast.error(response.response.data.message);
                 }
                 if (response.status === 404) {
                     // projects not found
