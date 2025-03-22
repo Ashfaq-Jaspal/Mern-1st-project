@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { Link, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-hot-toast';
 import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, UserIcon } from '@heroicons/react/24/solid';
 import { fetchProjectsOfClickedEmployee } from '../../api/internal';
@@ -8,6 +8,7 @@ import { fetchProjectsOfClickedEmployee } from '../../api/internal';
 const EmployeeDetails = () => {
     const { setUser, projectsOfEmployee, setProjectsOfEmployee, loading, setLoading, clickedEmployee, setClickedEmployee } =
         useContext(AuthContext);
+        const navigate = useNavigate()
     const { employeeId } = useParams();
 
     useEffect(() => {
@@ -22,6 +23,7 @@ const EmployeeDetails = () => {
                 if (response.status === 401) {
                     // unauthorized error
                     toast.error(response.response.data.message);
+                    navigate('/employee-dashboard');
                 }
                 if (response.status === 404) {
                     // projects not found
