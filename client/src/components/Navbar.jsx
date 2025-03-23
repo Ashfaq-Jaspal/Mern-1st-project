@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const Navbar = () => {
@@ -8,54 +8,35 @@ const Navbar = () => {
     if (!loading) {
         if (user?.isAdmin) {
             return (
-                <nav className="bg-gray-400 text-[22px] shadow-md fixed w-full top-0 left-0 z-50 flex  justify-between px-24 py-2 text-black border border-gray-600">
+                <nav className="fixed top-0 left-0 w-full bg-gray-900/80 backdrop-blur-lg shadow-md border-b border-gray-700 px-12 py-2 flex justify-between items-center z-50">
                     <div>
-                        <h1 className="text-3xl">Logo</h1>
+                        <h1 className="text-3xl font-bold text-white tracking-wide">Logo</h1>
                     </div>
-                    <div className="flex justify-between gap-4">
-                        <NavLink
-                            to="/admin-panel"
-                            className={({ isActive }) =>
-                                ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
-                            }
-                        >
-                            Dashboard
-                        </NavLink>
-                        <NavLink
-                            to="/create-project"
-                            className={({ isActive }) =>
-                                ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
-                            }
-                        >
-                            New Project
-                        </NavLink>
-                        <NavLink
-                            to="/create-user"
-                            className={({ isActive }) =>
-                                ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
-                            }
-                        >
-                            Add User
-                        </NavLink>
-                        <NavLink
-                            to="/employees"
-                            className={({ isActive }) =>
-                                ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
-                            }
-                        >
-                            Team
-                        </NavLink>
-                        <NavLink
-                            to="/projects"
-                            className={({ isActive }) =>
-                                ` hover:text-blue-600 ${isActive ? 'font-semibold border-b-2 border-blue-800' : ''}`
-                            }
-                        >
-                            Projects
-                        </NavLink>
+                    <div className="flex items-center gap-8">
+                        {[
+                            { to: '/admin-panel', text: 'Dashboard' },
+                            { to: '/create-project', text: 'New Project' },
+                            { to: '/create-user', text: 'Add User' },
+                            { to: '/employees', text: 'Team' },
+                            { to: '/projects', text: 'Projects' },
+                        ].map((link) => (
+                            <NavLink
+                                key={link.to}
+                                to={link.to}
+                                className={({ isActive }) =>
+                                    `relative text-lg font-medium text-gray-300 transition-all duration-300 hover:text-blue-400 ${
+                                        isActive
+                                            ? "text-blue-500 after:absolute after:content-[''] after:w-full after:h-[2px] after:bg-blue-500 after:left-0 after:-bottom-1"
+                                            : ''
+                                    }`
+                                }
+                            >
+                                {link.text}
+                            </NavLink>
+                        ))}
                         <NavLink
                             to="/logout"
-                            className="px-2 pb-1 bg-gray-400 text-red-800 font-medium shadow-md transition-all duration-300 hover:text-blue-600 border-b-2 border-b-red-800 hover:border-b-blue-800"
+                            className="px-4 py-1 text-lg font-semibold text-white bg-red-600 rounded-full shadow-md transition-all duration-300 hover:bg-red-700 hover:scale-105"
                         >
                             Sign Out
                         </NavLink>
@@ -63,33 +44,36 @@ const Navbar = () => {
                 </nav>
             );
         }
-        if (user) {
-            if (!user.isAdmin) {
-                return (
-                    <nav className="bg-gray-400 text-[22px] shadow-md fixed w-full top-0 left-0 z-50 flex justify-between px-24 py-2 text-black border border-gray-600">
-                        <div>
-                            <h1 className="text-3xl">Logo</h1>
-                        </div>
-                        <div className="flex justify-between gap-4">
-                            <NavLink
-                                to="/employee-dashboard"
-                                className={({ isActive }) =>
-                                    ` hover:text-blue-600 ${isActive ? 'font-semibold mr-5 border-b-2 border-blue-800' : ''}`
-                                }
-                            >
-                                Dashboard
-                            </NavLink>
 
-                            <NavLink
-                                to="/logout"
-                                className="px-2 pb-1 bg-gray-400 text-red-800 font-medium shadow-md transition-all duration-300 hover:text-blue-600 border-b-2 border-b-red-800 hover:border-b-blue-800"
-                            >
-                                Sign Out
-                            </NavLink>
-                        </div>
-                    </nav>
-                );
-            }
+        if (user && !user.isAdmin) {
+            return (
+                <nav className="fixed top-0 left-0 w-full bg-gray-900/80 backdrop-blur-lg shadow-md border-b border-gray-700 px-12 py-2 flex justify-between items-center z-50">
+                    <div>
+                        <h1 className="text-3xl font-bold text-white tracking-wide">Logo</h1>
+                    </div>
+                    <div className="flex items-center gap-8">
+                        <NavLink
+                            to="/employee-dashboard"
+                            className={({ isActive }) =>
+                                `relative text-lg font-medium text-gray-300 transition-all duration-300 hover:text-blue-400 ${
+                                    isActive
+                                        ? "text-blue-500 after:absolute after:content-[''] after:w-full after:h-[2px] after:bg-blue-500 after:left-0 after:-bottom-1"
+                                        : ''
+                                }`
+                            }
+                        >
+                            Dashboard
+                        </NavLink>
+
+                        <NavLink
+                            to="/logout"
+                            className="px-4 py-1 text-lg font-semibold text-white bg-red-600 rounded-full shadow-md transition-all duration-300 hover:bg-red-700 hover:scale-105"
+                        >
+                            Sign Out
+                        </NavLink>
+                    </div>
+                </nav>
+            );
         }
     }
 };

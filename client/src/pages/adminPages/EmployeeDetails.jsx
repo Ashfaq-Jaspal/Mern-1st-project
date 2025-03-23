@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { Link, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-hot-toast';
-import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, UserIcon } from '@heroicons/react/24/solid';
+import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, FolderIcon } from '@heroicons/react/24/solid';
 import { fetchProjectsOfClickedEmployee } from '../../api/internal';
 
 const EmployeeDetails = () => {
@@ -82,7 +82,7 @@ const EmployeeDetails = () => {
                         {projectsOfEmployee.map((project) => (
                             <div key={project._id} className="p-5 bg-gray-800 rounded-md shadow-md transition duration-300">
                                 <h3 className="text-xl font-semibold text-blue-400 flex items-center space-x-2">
-                                    <UserIcon className="h-5 w-5 text-yellow-400" />
+                                    <FolderIcon className="h-5 w-5 text-yellow-400" />
                                     <span>{project.name}</span>
                                 </h3>
                                 <p className="text-gray-300">{project.description}</p>

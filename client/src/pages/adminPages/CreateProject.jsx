@@ -84,7 +84,7 @@ const CreateProject = () => {
                     onSubmit={(e) => {
                         submitHandler(e);
                     }}
-                    className="h-[80vh] text-2xl flex flex-col px-10  rounded-lg gap-2 border border-emerald-900 items-center justify-center"
+                    className="h-[80vh] text-2xl flex flex-col px-10  rounded-lg gap-2 border border-blue-600 items-center justify-center"
                 >
                     <div className="flex gap-10">
                         <div className="flex flex-col gap-5 pt-8">
@@ -97,7 +97,7 @@ const CreateProject = () => {
                                 type="text"
                                 required
                                 placeholder="Project name"
-                                className="text-gray-400 italic border border-emerald-900 outline-none bg-transparent px-3 py-2 rounded-lg w-80"
+                                className="text-gray-400 italic border border-blue-600 outline-none bg-transparent px-3 py-2 rounded-lg w-80"
                             />
                             <textarea
                                 onChange={(e) => {
@@ -107,7 +107,7 @@ const CreateProject = () => {
                                 value={description}
                                 required
                                 placeholder="Project description"
-                                className="text-gray-400 italic border border-emerald-900 outline-none bg-transparent px-3 max-h-32 min-h-32 py-1 rounded-lg w-80"
+                                className="text-gray-400 italic border border-blue-600 outline-none bg-transparent px-3 max-h-32 min-h-32 py-1 rounded-lg w-80"
                             />
                         </div>
                         <div className="flex flex-col gap-4">
@@ -122,7 +122,7 @@ const CreateProject = () => {
                                     value={startDate}
                                     type="date"
                                     required
-                                    className="w-80 italic border border-emerald-900 text-gray-400 bg-transparent text-2xl p-1.5 rounded-lg focus:outline-none "
+                                    className="w-80 italic border border-blue-600 text-gray-400 bg-transparent text-2xl p-1.5 rounded-lg focus:outline-none "
                                 />
                             </label>
                             <label className="text-red-600 text-lg">
@@ -136,7 +136,7 @@ const CreateProject = () => {
                                     value={endDate}
                                     type="date"
                                     required
-                                    className="w-80 italic border  border-emerald-900 text-gray-400 bg-transparent text-2xl p-1.5 rounded-lg focus:outline-none"
+                                    className="w-80 italic border  border-blue-600 text-gray-400 bg-transparent text-2xl p-1.5 rounded-lg focus:outline-none"
                                 />
                             </label>
                             {loading ? (
@@ -157,7 +157,7 @@ const CreateProject = () => {
                                                 ...base,
                                                 fontSize: '1.5rem',
                                                 background: 'transparent',
-                                                borderColor: '#064e3b',
+                                                borderColor: '#2563eb',
                                                 padding: '2px',
                                                 borderRadius: '8px',
                                                 cursor: 'pointer',
@@ -192,7 +192,7 @@ const CreateProject = () => {
                     <div className="flex">
                         <button
                             type="submit"
-                            className="px-3 text-2xl py-1.5 mt-2 w-80 text-gray-300 bg-emerald-900 border-none rounded-lg"
+                            className="px-3 text-2xl py-1.5 mt-2 w-80 text-gray-300 bg-blue-700 border-none rounded-lg"
                         >
                             Create project
                         </button>
