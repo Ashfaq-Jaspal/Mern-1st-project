@@ -2,13 +2,13 @@ import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { Link, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-hot-toast';
-import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, FolderIcon } from '@heroicons/react/24/solid';
-import { fetchProjectsOfClickedEmployee } from '../../api/internal';
+import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, UserIcon, FolderIcon } from '@heroicons/react/24/solid';
+import { deleteUser, fetchProjectsOfClickedEmployee } from '../../api/internal';
 
 const EmployeeDetails = () => {
     const { setUser, projectsOfEmployee, setProjectsOfEmployee, loading, setLoading, clickedEmployee, setClickedEmployee } =
         useContext(AuthContext);
-        const navigate = useNavigate()
+    const navigate = useNavigate();
     const { employeeId } = useParams();
 
     useEffect(() => {
@@ -40,6 +40,16 @@ const EmployeeDetails = () => {
         fetchClickedEmployeeData();
     }, [employeeId]);
 
+    const handleDeleteUser = async () => {
+        navigate(`/delete-user/${clickedEmployee._id}`)
+        try {
+            const res = await deleteUser(clickedEmployee._id)
+            console.log(`response`, res);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     if (loading) {
         return <h1 className="text-white text-4xl">Loading...</h1>;
     }
@@ -53,13 +63,23 @@ const EmployeeDetails = () => {
                 </Link>
 
                 {/* Employee Details */}
-                <div className="flex items-center space-x-4 border-b border-gray-700 pb-4">
+                <div className="flex justify-between items-center  mt-6 space-x-4 border-b border-gray-700 pb-4">
+                    <div className='flex gap-4'>
                     <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-16 w-16 flex items-center justify-center rounded-full text-2xl font-semibold shadow-lg">
                         {clickedEmployee?.name?.charAt(0)}
                     </div>
                     <div>
                         <h1 className="text-3xl font-bold">{clickedEmployee?.name}</h1>
                         <p className="text-gray-400">{clickedEmployee?.status}</p>
+                    </div>
+                    </div>
+                    <div className="flex justify-between items-center gap-3">
+                            <button className="px-10 py-1 text-white text-lg bg-blue-700 hover:bg-blue-800 border-none rounded-full">
+                                Update user
+                            </button>
+                            <button onClick={handleDeleteUser} className="px-10 py-1 text-white text-lg bg-red-700 hover:bg-red-800 border-none rounded-full">
+                                Delete user
+                            </button>
                     </div>
                 </div>
 

@@ -1,6 +1,6 @@
 import express from 'express';
 import { getCurrentUser, login, logout } from '../controllers/authController.js';
-import { createUser, getUserDetails } from '../controllers/userController.js';
+import { createUser, deleteUser, getUserDetails } from '../controllers/userController.js';
 import { createProject, getProjectDetails } from '../controllers/projectController.js';
 import { validateSignup, validateLogin } from '../middlewares/validateUser.js';
 import authenticateJWT from '../middlewares/authenticateJWT.js';
@@ -21,6 +21,7 @@ router.route('/projects/:projectId').get(authenticateJWT, getProjectDetails);
 
 // only dmin
 router.route('/create-user').post(authenticateJWT, isAdmin, validateSignup, createUser);
+router.route('/delete-user/:userId').delete(authenticateJWT, isAdmin, deleteUser);
 router.route('/create-project').post(authenticateJWT, isAdmin, validateProject, createProject);
 router.route('/employees/:employeeId').get(authenticateJWT, isAdmin, getUserDetails);
 
