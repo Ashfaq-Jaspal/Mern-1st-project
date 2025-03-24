@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { Link, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-hot-toast';
 import { BriefcaseIcon, UsersIcon, XCircleIcon, UserIcon } from '@heroicons/react/24/solid';
-import { fetchEmployeesOnClickedProject } from '../../api/internal';
+import { deleteProject, fetchEmployeesOnClickedProject } from '../../api/internal';
 
 const ProjectDetails = () => {
     const {
@@ -15,8 +15,10 @@ const ProjectDetails = () => {
         setLoading,
         clickedProject,
         setClickedProject,
+        fetchUser
     } = useContext(AuthContext);
     const { projectId } = useParams();
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchClickedProjectData = async () => {
@@ -33,6 +35,20 @@ const ProjectDetails = () => {
         };
         fetchClickedProjectData();
     }, [projectId]);
+
+    const handleDeleteProject = async () => {
+        setLoading(true)
+        navigate(`/projects`)
+        try {
+            const res = await deleteProject(clickedProject._id)
+            if (res.status === 200) {
+                toast.success(res.data.message)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        fetchUser()
+    }
 
     if (loading) {
         return <h1 className="text-white text-4xl">Loading...</h1>;
@@ -62,7 +78,7 @@ const ProjectDetails = () => {
                         <button className="px-3 py-1 mt-3 w-full text-white text-lg bg-blue-700 hover:bg-blue-800 border-none rounded-full">
                             Update project
                         </button>
-                        <button className="px-3 py-1 mt-3 w-full text-white text-lg bg-red-700 hover:bg-red-800 border-none rounded-full">
+                        <button onClick={handleDeleteProject} className="px-3 py-1 mt-3 w-full text-white text-lg bg-red-700 hover:bg-red-800 border-none rounded-full">
                             Delete project
                         </button>
                     </div>

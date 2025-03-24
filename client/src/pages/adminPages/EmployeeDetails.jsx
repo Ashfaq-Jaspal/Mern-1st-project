@@ -6,7 +6,7 @@ import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, UserIcon, F
 import { deleteUser, fetchProjectsOfClickedEmployee } from '../../api/internal';
 
 const EmployeeDetails = () => {
-    const { setUser, projectsOfEmployee, setProjectsOfEmployee, loading, setLoading, clickedEmployee, setClickedEmployee } =
+    const { setUser, fetchUser, projectsOfEmployee, setProjectsOfEmployee, loading, setLoading, clickedEmployee, setClickedEmployee } =
         useContext(AuthContext);
     const navigate = useNavigate();
     const { employeeId } = useParams();
@@ -41,13 +41,17 @@ const EmployeeDetails = () => {
     }, [employeeId]);
 
     const handleDeleteUser = async () => {
-        navigate(`/delete-user/${clickedEmployee._id}`)
+        setLoading(true)
+        navigate(`/employees`)
         try {
             const res = await deleteUser(clickedEmployee._id)
-            console.log(`response`, res);
+            if (res.status === 200) {
+                toast.success(res.data.message)
+            }
         } catch (error) {
             console.log(error);
         }
+        fetchUser()
     }
 
     if (loading) {

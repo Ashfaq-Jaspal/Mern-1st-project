@@ -20,12 +20,13 @@ const Projects = () => {
         navigate(`/projects/${projectId}`);
     };
 
-if (!loading) {
+    if (loading) {
+        return <h1 className="text-white text-4xl">Loading...</h1>;
+    }
+
     return (
         <div className="w-screen min-h-screen absolute top-10 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">
-            {loading ? (
-                <p className="text-white text-4xl">Loading...</p>
-            ) : projects?.length ? (
+            {projects?.length ? (
                 projects.map((project) => (
                     <div key={project._id} onClick={() => handleProjectClick(project._id)} className="cursor-pointer">
                         <div className="w-64 h-[187px] p-6 rounded-lg bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-3 justify-center items-center border border-gray-700 hover:bg-gray-700 active:scale-95">
@@ -59,6 +60,5 @@ if (!loading) {
         </div>
     );
 }
-};
 
 export default Projects;

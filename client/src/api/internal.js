@@ -97,3 +97,13 @@ export const deleteUser = async (userId) => {
         return error;
     }
 };
+
+// delete project
+export const deleteProject = async (projectId) => {
+    try {
+        const response = await api.delete(`/delete-project/${projectId}`);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
