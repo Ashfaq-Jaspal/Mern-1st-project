@@ -58,7 +58,7 @@ export const updateProject = async (req, res) => {
     try {
         const { projectId } = req.params;
         const { name, description, startDate, endDate, employeeIds } = req.body;
-        const updatedProject = await Project.findByIdAndUpdate(projectId, { name, description, startDate, endDate, employeeIds }, { new: true });
+        const updatedProject = await Project.findByIdAndUpdate(projectId, { name, description, startDate, endDate, employees: employeeIds }, { new: true });
         if (!updatedProject) {
             return res.status(404).json({ message: 'Project not found' });
         }

@@ -45,6 +45,7 @@ const UpdateProject = () => {
         };
 
         try {
+            console.log(updatedProject.employeeIds);
             const projectId = params.projectId
             const res = await updateProject(projectId, updatedProject);
             if (res.status === 200) {
