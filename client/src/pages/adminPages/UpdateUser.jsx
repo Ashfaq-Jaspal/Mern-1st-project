@@ -52,7 +52,16 @@ function UpdateUser() {
                 toast.success(res.data.message);
             }
             if (res.status === 404) {
+                // user not found error
                 toast.success(res.response.data.message);
+            }
+            if (res.status === 401) {
+                // unauthorized error
+                toast.error(res.response.data.message);
+            }
+            if (res.status === 400) {
+                // validation error
+                toast.error(res.response.data.error.details[0].message);
             }
         } catch (error) {
             toast.error(error);

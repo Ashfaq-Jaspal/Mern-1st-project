@@ -13,7 +13,7 @@ const UpdateProject = () => {
     const [selectedEmployees, setSelectedEmployees] = useState([]);
     const { employees, user, loading, setLoading, fetchUser, clickedProject } = useContext(AuthContext);
     const navigate = useNavigate();
-    const params = useParams()
+    const params = useParams();
     let formattedEmployeesForReactSelect = [];
     let reFormattedEmployeesForBackend = [];
 
@@ -45,15 +45,22 @@ const UpdateProject = () => {
         };
 
         try {
-            console.log(updatedProject.employeeIds);
-            const projectId = params.projectId
+            const projectId = params.projectId;
             const res = await updateProject(projectId, updatedProject);
             if (res.status === 200) {
                 // success
                 toast.success(res.data.message);
             }
+            if (res.status === 401) {
+                // unauthorized error
+                toast.error(res.response.data.message);
+            }
+            if (res.status === 400) {
+                // validation error
+                toast.error(res.response.data.errors[0]);
+            }
             if (res.status === 404) {
-                // project not found
+                // project not found error
                 toast.error(res.response.data.message);
             }
         } catch (error) {
@@ -69,6 +76,8 @@ const UpdateProject = () => {
         setSelectedEmployees([]);
 
         fetchUser();
+
+        navigate('/projects');
     };
 
     {

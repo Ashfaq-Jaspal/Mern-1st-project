@@ -21,10 +21,10 @@ router.route('/projects/:projectId').get(authenticateJWT, getProjectDetails);
 
 // only dmin
 router.route('/create-user').post(authenticateJWT, isAdmin, validateSignup, createUser);
-router.route('/update-user/:userId').put(authenticateJWT, isAdmin, updateUser);
+router.route('/update-user/:userId').put(authenticateJWT, isAdmin, validateSignup, updateUser);
 router.route('/delete-user/:userId').delete(authenticateJWT, isAdmin, deleteUser);
 router.route('/create-project').post(authenticateJWT, isAdmin, validateProject, createProject);
-router.route('/update-project/:projectId').put(authenticateJWT, isAdmin, updateProject);
+router.route('/update-project/:projectId').put(authenticateJWT, isAdmin, validateProject, updateProject);
 router.route('/delete-project/:projectId').delete(authenticateJWT, isAdmin, deleteProject);
 router.route('/employees/:employeeId').get(authenticateJWT, isAdmin, getUserDetails);
 
