@@ -158,7 +158,7 @@ function UpdateUser() {
                     }}
                 ></Select>
                 <button type="submit" className="px-3 py-2 mt-5 w-80 text-white bg-blue-700 border-none rounded-lg">
-                    Create user
+                    Update user
                 </button>
             </form>
         );
