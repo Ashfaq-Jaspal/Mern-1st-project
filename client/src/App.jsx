@@ -15,6 +15,7 @@ import Logout from './pages/Logout';
 import EmployeeDetails from './pages/adminPages/EmployeeDetails';
 import ProjectDetails from './pages/adminPages/ProjectDetails';
 import UpdateUser from './pages/adminPages/UpdateUser';
+import UpdateProject from './pages/adminPages/UpdateProject';
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                     <Route path="/create-user" element={<CreateUser />} />
                     <Route path="/update-user/:userId" element={<UpdateUser />} />
                     <Route path="/create-project" element={<CreateProject />} />
+                    <Route path="/update-project/:projectId" element={<UpdateProject />} />
                     <Route path={`/employees/:employeeId`} element={<EmployeeDetails />} />
                     <Route path={`/projects/:projectId`} element={<ProjectDetails />} />
                     <Route path="*" element={<Error />} />

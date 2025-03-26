@@ -52,3 +52,18 @@ export const deleteProject = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+// update project
+export const updateProject = async (req, res) => {
+    try {
+        const { projectId } = req.params;
+        const { name, description, startDate, endDate, employeeIds } = req.body;
+        const updatedProject = await Project.findByIdAndUpdate(projectId, { name, description, startDate, endDate, employeeIds }, { new: true });
+        if (!updatedProject) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+        res.status(200).json({ message: 'Project updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+};

@@ -18,20 +18,20 @@ function UpdateUser() {
         { label: 'Project Manager', value: 'Project Manager' },
     ]);
     const { user, loading, setLoading, fetchUser, clickedEmployee } = useContext(AuthContext);
-    const navigate = useNavigate()
-    const params = useParams()
+    const navigate = useNavigate();
+    const params = useParams();
 
     if (!loading) {
         if (!user?.isAdmin) {
             navigate('/employee-dashboard');
-            toast.error('You are not an admin')
+            toast.error('You are not an admin');
         }
     }
 
-    useEffect(()=>{
-        setName(clickedEmployee.name)
-        setEmail(clickedEmployee.email)
-    },[])
+    useEffect(() => {
+        setName(clickedEmployee.name);
+        setEmail(clickedEmployee.email);
+    }, []);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -43,27 +43,17 @@ function UpdateUser() {
             status: status.value,
         };
         // console.log(params.userId);
-        const userId = params.userId
+        const userId = params.userId;
 
         try {
-            const res = await updateUser(userId, user)
-            console.log(res);
-            // if (res.status === 201) {
-            //     // success
-            //     toast.success(res.data.message);
-            // }
-            // if (res.status === 401) {
-            //     // unauthorized error
-            //     toast.error(res.response.data.message);
-            // }
-            // if (res.status === 409) {
-            //     // email already exists error
-            //     toast.error(res.response.data.message);
-            // }
-            // if (res.status === 400) {
-            //     // validation error
-            //     toast.error(res.response.data.error.details[0].message);
-            // }
+            const res = await updateUser(userId, user);
+            if (res.status === 200) {
+                // success
+                toast.success(res.data.message);
+            }
+            if (res.status === 404) {
+                toast.success(res.response.data.message);
+            }
         } catch (error) {
             toast.error(error);
         } finally {
@@ -74,6 +64,8 @@ function UpdateUser() {
         setEmail('');
         setPassword('');
         setStatus('');
+
+        navigate('/employees');
 
         fetchUser();
     };
@@ -119,7 +111,7 @@ function UpdateUser() {
                     placeholder="Enter password"
                     className="text-white border border-blue-600 outline-none text-md bg-transparent px-3 py-2 rounded-lg w-96"
                 />
-    
+
                 <Select
                     className="w-full"
                     options={statusOptions}

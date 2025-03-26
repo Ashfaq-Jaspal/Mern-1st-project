@@ -117,3 +117,13 @@ export const updateUser = async (userId, data) => {
         return error;
     }
 };
+
+// update project
+export const updateProject = async (projectId, data) => {
+    try {
+        const response = await api.put(`/update-project/${projectId}`, data);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};

@@ -49,6 +49,9 @@ const EmployeeDetails = () => {
             if (res.status === 200) {
                 toast.success(res.data.message)
             }
+            if (res.status === 404) {
+                toast.success(res.response.data.message)
+            }
         } catch (error) {
             console.log(error);
         }
