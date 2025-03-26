@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router';
 import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
+import Loader from '../../components/Loader';
 
 const Projects = () => {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Projects = () => {
     };
 
     if (loading) {
-        return <h1 className="text-white text-4xl">Loading...</h1>;
+        return <Loader />
     }
 
     return (

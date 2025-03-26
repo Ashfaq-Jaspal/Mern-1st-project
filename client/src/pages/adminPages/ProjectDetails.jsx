@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-hot-toast';
 import { BriefcaseIcon, UsersIcon, XCircleIcon, UserIcon } from '@heroicons/react/24/solid';
 import { deleteProject, fetchEmployeesOnClickedProject } from '../../api/internal';
+import Loader from '../../components/Loader';
 
 const ProjectDetails = () => {
     const {
@@ -51,7 +52,7 @@ const ProjectDetails = () => {
     }
 
     if (loading) {
-        return <h1 className="text-white text-4xl">Loading...</h1>;
+        return <Loader />
     }
 
     return (
@@ -91,7 +92,7 @@ const ProjectDetails = () => {
                 </h2>
 
                 <div className="mt-4 space-y-4">
-                    {employeesOnProject.map((employee) => (
+                    {employeesOnProject.length > 0 ? employeesOnProject.map((employee) => (
                         <div
                             key={employee._id}
                             className="p-5 bg-gray-800 rounded-md shadow-md transition duration-300 flex items-center space-x-4"
@@ -102,7 +103,7 @@ const ProjectDetails = () => {
                                 <p className="text-gray-300">{employee.status}</p>
                             </div>
                         </div>
-                    ))}
+                    )) : <p className='text-red-600'>No employees on this project</p>}
                 </div>
             </div>
         </div>

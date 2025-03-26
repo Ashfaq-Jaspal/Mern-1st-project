@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-hot-toast';
 import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, UserIcon, FolderIcon } from '@heroicons/react/24/solid';
 import { deleteUser, fetchProjectsOfClickedEmployee } from '../../api/internal';
+import Loader from '../../components/Loader';
 
 const EmployeeDetails = () => {
     const { setUser, fetchUser, projectsOfEmployee, setProjectsOfEmployee, loading, setLoading, clickedEmployee, setClickedEmployee } =
@@ -55,7 +56,7 @@ const EmployeeDetails = () => {
     }
 
     if (loading) {
-        return <h1 className="text-white text-4xl">Loading...</h1>;
+        return <Loader />
     }
 
     return (
