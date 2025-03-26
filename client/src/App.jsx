@@ -14,6 +14,7 @@ import Navbar from './components/Navbar.jsx';
 import Logout from './pages/Logout';
 import EmployeeDetails from './pages/adminPages/EmployeeDetails';
 import ProjectDetails from './pages/adminPages/ProjectDetails';
+import UpdateUser from './pages/adminPages/UpdateUser';
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                     <Route path="/employees" element={<Employees />} />
                     <Route path="/projects" element={<Projects />} />
                     <Route path="/create-user" element={<CreateUser />} />
+                    <Route path="/update-user/:userId" element={<UpdateUser />} />
                     <Route path="/create-project" element={<CreateProject />} />
                     <Route path={`/employees/:employeeId`} element={<EmployeeDetails />} />
                     <Route path={`/projects/:projectId`} element={<ProjectDetails />} />

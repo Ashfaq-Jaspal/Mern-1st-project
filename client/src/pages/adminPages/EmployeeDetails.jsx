@@ -55,6 +55,10 @@ const EmployeeDetails = () => {
         fetchUser()
     }
 
+    const handleUpdateUser = async (userId) => {
+        navigate(`/update-user/${userId}`)
+    }
+
     if (loading) {
         return <Loader />
     }
@@ -79,7 +83,7 @@ const EmployeeDetails = () => {
                     </div>
                     </div>
                     <div className="flex justify-between items-center gap-3">
-                            <button className="px-10 py-1 text-white text-lg bg-blue-700 hover:bg-blue-800 border-none rounded-full">
+                            <button  onClick={()=>handleUpdateUser(clickedEmployee._id)} className="px-10 py-1 text-white text-lg bg-blue-700 hover:bg-blue-800 border-none rounded-full">
                                 Update user
                             </button>
                             <button onClick={handleDeleteUser} className="px-10 py-1 text-white text-lg bg-red-700 hover:bg-red-800 border-none rounded-full">
