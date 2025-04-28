@@ -7,9 +7,10 @@ import Card from '../../components/Card';
 
 const AdminPanel = () => {
     const navigate = useNavigate()
-    const { employees, user, loading, projects } = useContext(AuthContext);
+    const { employees, user, loading, projects, accessToken } = useContext(AuthContext);
 
-if (!loading) {
+    if (!loading) {
+    console.log(accessToken);
     if (!user?.isAdmin) {
         navigate('/employee-dashboard');
         toast.error('You are not an admin')

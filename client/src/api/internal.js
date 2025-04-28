@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getToken } from '../utils/tokenService';
 // import { AuthContext } from '../../context/AuthContext';
 // import { useContext } from 'react';
 // const { accessToken, setAccessToken } = useContext(AuthContext);
@@ -12,12 +13,13 @@ const api = axios.create({
     },
 });
 
-// api.interceptors.request.use((config) => {
-//     if (accessToken) {
-//         config.headers.Authorization = `Bearer ${accessToken}`;
-//     }
-//     return config;
-// });
+api.interceptors.request.use((config) => {
+    const accessToken = getToken()
+    if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+});
 
 // // interceptor for access token
 // api.interceptors.response.use(
@@ -56,16 +58,16 @@ export const login = async (data) => {
         const response = await api.post(`/login`, data);
         return response;
     } catch (error) {
-        // if (error.response.status === 400) {
-        //     // validation error
-        //     return error.response.data.error.details[0].message;
-        // } else if (error.response.status === 401) {
-        //     // Authentication error
-        //     return error.response.data.message;
-        // } else {
-        //     // Any other error
-            return error;
-        // }
+        if (error.response.status === 400) {
+            // validation error
+            return error.response.data.error.details[0].message;
+        } else if (error.response.status === 401) {
+            // Authentication error
+            return error.response.data.message;
+        } else {
+            // Any other error
+            return error.message;
+        }
     }
 };
 
