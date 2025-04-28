@@ -1,8 +1,5 @@
 import axios from 'axios';
 import { getToken } from '../utils/tokenService';
-// import { AuthContext } from '../../context/AuthContext';
-// import { useContext } from 'react';
-// const { accessToken, setAccessToken } = useContext(AuthContext);
 
 // api instance
 const api = axios.create({
@@ -13,6 +10,7 @@ const api = axios.create({
     },
 });
 
+// attach access token to every api call
 api.interceptors.request.use((config) => {
     const accessToken = getToken()
     if (accessToken) {

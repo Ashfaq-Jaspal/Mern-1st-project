@@ -5,5 +5,3 @@ export const setToken = (token) => {
 }
 
 export const getToken = () => accessToken
-
-console.log(accessToken);

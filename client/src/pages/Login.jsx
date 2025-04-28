@@ -39,9 +39,6 @@ function Login() {
             } else {
                 toast.error(res);
             }
-            
-    console.log(res.data.accessToken);
-    console.log('login');
     
         } catch (error) {
             setUser(null);

@@ -4,13 +4,14 @@ import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
 import { FolderIcon, UsersIcon } from '@heroicons/react/24/solid';
 import Card from '../../components/Card';
+import { getToken } from '../../utils/tokenService';
 
 const AdminPanel = () => {
     const navigate = useNavigate()
-    const { employees, user, loading, projects, accessToken } = useContext(AuthContext);
+    const { employees, user, loading, projects } = useContext(AuthContext);
 
     if (!loading) {
-    console.log(accessToken);
+    console.log(getToken());
     if (!user?.isAdmin) {
         navigate('/employee-dashboard');
         toast.error('You are not an admin')
