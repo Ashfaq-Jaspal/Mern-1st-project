@@ -1,4 +1,7 @@
 import axios from 'axios';
+// import { AuthContext } from '../../context/AuthContext';
+// import { useContext } from 'react';
+// const { accessToken, setAccessToken } = useContext(AuthContext);
 
 // api instance
 const api = axios.create({
@@ -8,6 +11,34 @@ const api = axios.create({
         'Content-Type': 'application/json',
     },
 });
+
+// api.interceptors.request.use((config) => {
+//     if (accessToken) {
+//         config.headers.Authorization = `Bearer ${accessToken}`;
+//     }
+//     return config;
+// });
+
+// // interceptor for access token
+// api.interceptors.response.use(
+//     (res) => res,
+//     async (error) => {
+//         const originalRequest = error.config;
+//         if (error.response.status === 403 && !originalRequest._retry) {
+//             originalRequest._retry = true;
+//             try {
+//                 const res = await api.get('/auth/refresh');
+//                 const newAccessToken = res.data.accessToken;
+//                 api.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+//                 originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+//                 return api(originalRequest);
+//             } catch (err) {
+//                 return Promise.reject(err);
+//             }
+//         }
+//         return Promise.reject(error);
+//     }
+// );
 
 // setting user globally
 export const getCurrentUser = async () => {
@@ -25,16 +56,16 @@ export const login = async (data) => {
         const response = await api.post(`/login`, data);
         return response;
     } catch (error) {
-        if (error.response.status === 400) {
-            // validation error
-            return error.response.data.error.details[0].message;
-        } else if (error.response.status === 401) {
-            // Authentication error
-            return error.response.data.message;
-        } else {
-            // Any other error
-            return error.message;
-        }
+        // if (error.response.status === 400) {
+        //     // validation error
+        //     return error.response.data.error.details[0].message;
+        // } else if (error.response.status === 401) {
+        //     // Authentication error
+        //     return error.response.data.message;
+        // } else {
+        //     // Any other error
+            return error;
+        // }
     }
 };
 

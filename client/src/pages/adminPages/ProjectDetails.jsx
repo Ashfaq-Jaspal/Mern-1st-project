@@ -73,7 +73,7 @@ const ProjectDetails = () => {
                 {/* Project Details */}
                 <div className="flex justify-between gap-6 mt-9">
                     <div className="flex items-center w-[70%] flex-grow space-x-4 border-b border-gray-700 pb-4">
-                        <BriefcaseIcon className="h-20 w-20 text-blue-400" />
+                        <BriefcaseIcon className="h-10 w-10 text-blue-400" />
                         <div>
                             <h1 className="text-3xl font-bold">{clickedProject?.name}</h1>
                             <p className="text-gray-400">{clickedProject?.description}</p>

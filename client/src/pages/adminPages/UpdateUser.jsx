@@ -3,7 +3,8 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthContext';
 import Select from 'react-select';
 import { updateUser } from '../../api/internal';
-import { useNavigate, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
+import { XCircleIcon } from '@heroicons/react/24/solid';
 
 function UpdateUser() {
     const [name, setName] = useState(``);
@@ -32,6 +33,8 @@ function UpdateUser() {
         setName(clickedEmployee.name);
         setEmail(clickedEmployee.email);
     }, []);
+    
+    const userId = params.userId;
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -42,8 +45,6 @@ function UpdateUser() {
             password,
             status: status.value,
         };
-        // console.log(params.userId);
-        const userId = params.userId;
 
         try {
             const res = await updateUser(userId, user);
@@ -85,8 +86,15 @@ function UpdateUser() {
                 onSubmit={(e) => {
                     submitHandler(e);
                 }}
-                className="flex flex-col text-2xl px-36 py-12 rounded-xl gap-4 border border-blue-600 items-center justify-center"
+                className="flex flex-col relative text-2xl px-36 py-12 rounded-xl gap-4 border border-blue-600 items-center justify-center"
             >
+                {/* Close Button */}
+                <Link
+                    to={`/employees/${userId}`}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition"
+                >
+                    <XCircleIcon className="h-8 w-8" />
+                </Link>
                 <input
                     onChange={(e) => {
                         setName(e.target.value);

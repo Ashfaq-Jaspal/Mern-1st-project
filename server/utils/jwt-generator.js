@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET_KEY } from '../config/index.js';
+import { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } from '../config/index.js';
 
-// Generate token method
-const generateToken = async (user) => {
-    return jwt.sign(user, JWT_SECRET_KEY);
+export const generateAccessToken = async (user) => {
+    return jwt.sign(user, ACCESS_SECRET_KEY, {expiresIn: '30m'});
 };
 
-export default generateToken;
+export const generateRefreshToken = async (user) => {
+    return jwt.sign(user, REFRESH_SECRET_KEY, {expiresIn: '1d'});
+};

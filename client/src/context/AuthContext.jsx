@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [loading, setLoading] = useState(true);
+    const [token, setToken] = useState('');
     const [user, setUser] = useState(null);
     const [clickedEmployee, setClickedEmployee] = useState('');
     const [clickedProject, setClickedProject] = useState('');
@@ -15,6 +16,7 @@ export const AuthProvider = ({ children }) => {
     const [employeesOnProject, setEmployeesOnProject] = useState([]);
     const [numOfEmployees, setNumOfEmployees] = useState(0);
     const [numOfProjects, setNumOfProjects] = useState(0);
+    const [accessToken, setAccessToken] = useState('');
 
     const fetchUser = async () => {
         try {
@@ -49,6 +51,8 @@ export const AuthProvider = ({ children }) => {
                 setUser,
                 loading,
                 setLoading,
+                token,
+                setToken,
                 employees,
                 setEmployees,
                 projects,
@@ -66,6 +70,8 @@ export const AuthProvider = ({ children }) => {
                 numOfProjects,
                 setNumOfProjects,
                 fetchUser,
+                accessToken,
+                setAccessToken,
             }}
         >
             {children}

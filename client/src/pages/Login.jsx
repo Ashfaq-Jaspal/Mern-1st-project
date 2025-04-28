@@ -6,7 +6,7 @@ import { login } from '../api/internal';
 
 function Login() {
     const navigate = useNavigate();
-    const { setUser, setLoading, setEmployees, setProjects } = useContext(AuthContext);
+    const { setUser, setLoading, setToken,  setEmployees, setProjects } = useContext(AuthContext);
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
 
@@ -19,25 +19,32 @@ function Login() {
         e.preventDefault();
         try {
             const res = await login(user);
-            if (res.status === 200) {
-                res.data.user.password = undefined;
-                setUser(res.data.user);
-                toast.success(res.data.message);
-                if (res.data.user.isAdmin) {
-                    // all projects and employees (for admin)
-                    setEmployees(res.data.employees);
-                    setProjects(res.data.projects);
-                    navigate('/admin-panel');
-                } else {
-                    // user's projects (for employee)
-                    setProjects(res.data.projects);
-                    navigate('/employee-dashboard');
-                }
-            }
+            // if (res.status === 200) {
+            //     setLoading(false);
+            //     setToken(res.data.accessToken)
+            //     res.data.user.password = undefined;
+            //     setUser(res.data.user);
+            //     toast.success(res.data.message);
+            //     if (res.data.user.isAdmin) {
+            //         // all projects and employees (for admin)
+            //         setEmployees(res.data.employees);
+            //         setProjects(res.data.projects);
+            //         navigate('/admin-panel');
+            //     } else {
+            //         // user's projects (for employee)
+            //         setProjects(res.data.projects);
+            //         navigate('/employee-dashboard');
+            //     }
+            // } else {
+            //     console.log(res);
+            //     // toast.error(res);
+            // }
+            
+    console.log(res);
+    console.log('login');
+    
         } catch (error) {
             setUser(null);
-        } finally {
-            setLoading(false);
         }
 
         setEmail('');

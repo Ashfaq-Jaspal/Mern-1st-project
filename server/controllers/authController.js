@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import generateToken from '../utils/jwt-generator.js';
+import { generateAccessToken, generateRefreshToken } from '../utils/jwt-generator.js';
 import User from '../models/User.js';
 import Project from '../models/Project.js';
 
@@ -33,24 +33,26 @@ export const login = async (req, res) => {
         if (!isPasswordCorrect) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-        // Generate token
-        const token = await generateToken({ name: user.name, id: user._id.toString(), isAdmin: user.isAdmin });
-        // Store token
-        res.cookie('token', token, {
+        // Generate tokens
+        const accessToken = await generateAccessToken({ name: user.name, id: user._id.toString(), isAdmin: user.isAdmin });
+        const refreshToken = await generateRefreshToken({ name: user.name, id: user._id.toString(), isAdmin: user.isAdmin });
+
+        // Store refresh token in cookie
+        res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-            maxAge: 7 * 24 * 60 * 60 * 1000,
+            maxAge: 24 * 60 * 60 * 1000,
         });
         if (user.isAdmin) {
             const employees = await User.find({ isAdmin: false }).select('name email status');
             const projects = await Project.find();
-            return res.status(200).json({ message: 'You logged in successfully', user, employees, projects });
+            return res.status(200).json({ message: 'You logged in successfully', user, employees, projects, accessToken });
         }
         const projects = await Project.find({ employees: { $in: user._id } });
-        res.status(200).json({ message: 'You logged in successfully', user, projects });
+        res.status(200).json({ message: 'You logged in successfully', user, projects, accessToken });
     } catch (error) {
-        res.status(500).json({ message: error });
+        res.status(500).json({ message: 'hello g' });
     }
 };
 

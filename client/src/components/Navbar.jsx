@@ -36,7 +36,7 @@ const Navbar = () => {
                         ))}
                         <NavLink
                             to="/logout"
-                            className="px-4 py-1 text-lg font-semibold text-white bg-red-600 rounded-full shadow-md transition-all duration-300 hover:bg-red-700 hover:scale-105"
+                            className="px-4 py-1 text-lg font-semibold text-white bg-red-600 rounded-full shadow-md transition-all duration-300 hover:bg-red-700"
                         >
                             Sign Out
                         </NavLink>
@@ -67,7 +67,7 @@ const Navbar = () => {
 
                         <NavLink
                             to="/logout"
-                            className="px-4 py-1 text-lg font-semibold text-white bg-red-600 rounded-full shadow-md transition-all duration-300 hover:bg-red-700 hover:scale-105"
+                            className="px-4 py-1 text-lg font-semibold text-white bg-red-600 rounded-full shadow-md transition-all duration-300 hover:bg-red-700"
                         >
                             Sign Out
                         </NavLink>

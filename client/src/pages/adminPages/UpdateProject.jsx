@@ -3,7 +3,8 @@ import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-hot-toast';
 import Select from 'react-select';
 import { updateProject } from '../../api/internal';
-import { useNavigate, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
+import { XCircleIcon } from '@heroicons/react/24/solid';
 
 const UpdateProject = () => {
     const [projectName, setProjectName] = useState('');
@@ -23,11 +24,13 @@ const UpdateProject = () => {
             toast.error('You are not an admin');
         }
     }
-
+    
     useEffect(() => {
         setProjectName(clickedProject.name);
         setDescription(clickedProject.description);
     }, []);
+    
+    const projectId = params.projectId;
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -45,7 +48,6 @@ const UpdateProject = () => {
         };
 
         try {
-            const projectId = params.projectId;
             const res = await updateProject(projectId, updatedProject);
             if (res.status === 200) {
                 // success
@@ -95,8 +97,15 @@ const UpdateProject = () => {
                     onSubmit={(e) => {
                         submitHandler(e);
                     }}
-                    className="h-[80vh] text-2xl flex flex-col px-10  rounded-lg gap-2 border border-blue-600 items-center justify-center"
+                    className="h-[80vh] text-2xl relative flex flex-col px-10  rounded-lg gap-2 border border-blue-600 items-center justify-center"
                 >
+                    {/* Close Button */}
+                    <Link
+                        to={`/projects/${projectId}`}
+                        className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition"
+                    >
+                        <XCircleIcon className="h-8 w-8" />
+                    </Link>
                     <div className="flex gap-10">
                         <div className="flex flex-col gap-5 pt-8">
                             <input
