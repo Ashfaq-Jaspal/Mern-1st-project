@@ -1,7 +1,9 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { generateAccessToken, generateRefreshToken } from '../utils/jwt-generator.js';
 import User from '../models/User.js';
 import Project from '../models/Project.js';
+import { REFRESH_SECRET_KEY } from '../config/index.js';
 
 // get current user
 export const getCurrentUser = async (req, res) => {
@@ -55,6 +57,27 @@ export const login = async (req, res) => {
         res.status(500).json({ message: error });
     }
 };
+
+// refresh
+export const refresh = async (req, res) => {
+    try {
+        const {refreshToken} = req.cookies
+        if (!refreshToken) {
+            return res.status(401).json({message: 'No token'})
+        }
+
+        jwt.verify(refreshToken, REFRESH_SECRET_KEY, (err, user) => {
+            if (err) {
+                return res.status(403).json({message: 'Invalid token'})
+            }
+
+            const accessToken = generateAccessToken( {name: user.name, id: user.id, isAdmin: user.isAdmin })
+            res.status(200).json({accessToken})
+        })
+    } catch (error) {
+        res.status(500).json({ message: error });
+    }
+}
 
 // logout
 export const logout = async (req, res) => {

@@ -19,26 +19,26 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-// // interceptor for access token
-// api.interceptors.response.use(
-//     (res) => res,
-//     async (error) => {
-//         const originalRequest = error.config;
-//         if (error.response.status === 403 && !originalRequest._retry) {
-//             originalRequest._retry = true;
-//             try {
-//                 const res = await api.get('/auth/refresh');
-//                 const newAccessToken = res.data.accessToken;
-//                 api.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
-//                 originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-//                 return api(originalRequest);
-//             } catch (err) {
-//                 return Promise.reject(err);
-//             }
-//         }
-//         return Promise.reject(error);
-//     }
-// );
+// interceptor for access token
+api.interceptors.response.use(
+    (res) => res,
+    async (error) => {
+        const originalRequest = error.config;
+        if (error.response.status === 403 && !originalRequest._retry) {
+            originalRequest._retry = true;
+            try {
+                const res = await api.post('/refresh', {});
+                const newAccessToken = res.data.accessToken;
+                api.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+                originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+                return api(originalRequest);
+            } catch (err) {
+                return Promise.reject(err);
+            }
+        }
+        return Promise.reject(error);
+    }
+);
 
 // setting user globally
 export const getCurrentUser = async () => {

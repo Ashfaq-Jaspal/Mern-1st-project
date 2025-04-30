@@ -1,5 +1,5 @@
 import express from 'express';
-import { getCurrentUser, login, logout } from '../controllers/authController.js';
+import { getCurrentUser, login, logout, refresh } from '../controllers/authController.js';
 import { createUser, deleteUser, getUserDetails, updateUser } from '../controllers/userController.js';
 import { createProject, deleteProject, getProjectDetails, updateProject } from '../controllers/projectController.js';
 import { validateSignup, validateLogin } from '../middlewares/validateUser.js';
@@ -13,6 +13,7 @@ const router = express.Router();
 
 // Common
 router.route('/login').post(validateLogin, login);
+router.route('/refresh').post(refresh);
 router.route('/logout').post(logout);
 
 // authentication based
