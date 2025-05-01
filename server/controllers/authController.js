@@ -70,12 +70,7 @@ export const refresh = async (req, res) => {
             if (err) {
                 return res.status(403).json({ message: 'Invalid token' });
             }
-            const user = {
-                name: decoded.name,
-                id: decoded.id,
-                isAdmin: decoded.isAdmin,
-            };
-            const accessToken = await generateAccessToken({user});
+            const accessToken = await generateAccessToken({ name: decoded.name, id: decoded.id, isAdmin: decoded.isAdmin });
             res.status(200).json({ accessToken });
         });
     } catch (error) {
