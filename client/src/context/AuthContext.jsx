@@ -43,11 +43,11 @@ export const AuthProvider = ({ children }) => {
         (async function autoLoginApiCall() {
             try {
                 const res = await api.post('/refresh', {})
-                // if (res.status === 200) {
+                if (res.status === 200) {
                     console.log(res);
-                // } else {
-                //     console.log('no refresh token');
-                // }
+                } else {
+                    console.log('no refresh token');
+                }
             } catch (error) {
                 console.log(error);
             }
