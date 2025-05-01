@@ -61,23 +61,27 @@ export const login = async (req, res) => {
 // refresh
 export const refresh = async (req, res) => {
     try {
-        const {refreshToken} = req.cookies
+        const { refreshToken } = req.cookies;
         if (!refreshToken) {
-            return res.status(403).json({message: 'No token'})
+            return res.status(403).json({ message: 'No token' });
         }
 
-        jwt.verify(refreshToken, REFRESH_SECRET_KEY, (err, user) => {
+        jwt.verify(refreshToken, REFRESH_SECRET_KEY, (err, decoded) => {
             if (err) {
-                return res.status(403).json({message: 'Invalid token'})
+                return res.status(403).json({ message: 'Invalid token' });
             }
-
-            const accessToken = generateAccessToken( {name: user.name, id: user.id, isAdmin: user.isAdmin })
-            res.status(200).json({user})
-        })
+            const user = {
+                name: decoded.name,
+                id: decoded.id,
+                isAdmin: decoded.isAdmin,
+            };
+            const accessToken = generateAccessToken({});
+            res.status(200).json({ user });
+        });
     } catch (error) {
         res.status(500).json({ message: error });
     }
-}
+};
 
 // logout
 export const logout = async (req, res) => {
