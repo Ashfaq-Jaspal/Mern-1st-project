@@ -72,7 +72,7 @@ export const refresh = async (req, res) => {
             }
 
             const accessToken = generateAccessToken( {name: user.name, id: user.id, isAdmin: user.isAdmin })
-            res.status(200).json({msg: 'hello'})
+            res.status(200).json({user})
         })
     } catch (error) {
         res.status(500).json({ message: error });
