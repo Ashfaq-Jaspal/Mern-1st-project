@@ -66,7 +66,7 @@ export const refresh = async (req, res) => {
             return res.status(403).json({ message: 'No token' });
         }
 
-        jwt.verify(refreshToken, REFRESH_SECRET_KEY, (err, decoded) => {
+        jwt.verify(refreshToken, REFRESH_SECRET_KEY, async (err, decoded) => {
             if (err) {
                 return res.status(403).json({ message: 'Invalid token' });
             }
