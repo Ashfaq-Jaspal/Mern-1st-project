@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { getCurrentUser } from '../api/internal';
+import { api, getCurrentUser } from '../api/internal';
 // Create context
 export const AuthContext = createContext();
 // Create provider
@@ -40,6 +40,18 @@ export const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
+        (async function autoLoginApiCall() {
+            try {
+                const res = await api.post('/refresh', {})
+                if (res.status === 200) {
+                    console.log(res);
+                } else {
+                    console.log('no refresh token');
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        })()
         fetchUser();
     }, []);
 

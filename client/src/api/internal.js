@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from '../utils/tokenService';
 
 // api instance
-const api = axios.create({
+export const api = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000',
     withCredentials: true,
     headers: {
@@ -33,6 +33,8 @@ api.interceptors.response.use(
                 originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
                 return api(originalRequest);
             } catch (err) {
+                await logout()
+                window.location.href = '/login'
                 return Promise.reject(err);
             }
         }

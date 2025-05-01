@@ -5,11 +5,11 @@ const authenticateJWT = async (req, res, next) => {
     const authHeader = req.headers.authorization;
     const token = authHeader.split(' ')[1]
     if (!token) {
-        return res.status(401)
+        return res.status(403).json({message: 'No token'})
     }
     jwt.verify(token, ACCESS_SECRET_KEY, (err, decodedToken) => {
         if (err) {
-            return res.status(403).json({ message: 'Invalid token, Please login again' });
+            return res.status(403).json({ message: 'Invalid token' });
         }
         req.user = decodedToken;
         next();

@@ -30,11 +30,15 @@ function Login() {
                     // all projects and employees (for admin)
                     setEmployees(res.data.employees);
                     setProjects(res.data.projects);
-                    navigate('/admin-panel');
+                    setTimeout(()=>{
+                        navigate('/admin-panel');
+                    },200)
                 } else {
                     // user's projects (for employee)
                     setProjects(res.data.projects);
-                    navigate('/employee-dashboard');
+                    setTimeout(()=>{
+                        navigate('/employee-dashboard');
+                    },200)
                 }
             } else {
                 toast.error(res);
