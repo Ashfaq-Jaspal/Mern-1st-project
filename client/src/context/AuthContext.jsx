@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { api, getCurrentUser } from '../api/internal';
+import { useNavigate } from 'react-router';
 // Create context
 export const AuthContext = createContext();
 // Create provider
@@ -17,6 +18,7 @@ export const AuthProvider = ({ children }) => {
     const [numOfEmployees, setNumOfEmployees] = useState(0);
     const [numOfProjects, setNumOfProjects] = useState(0);
     const [accessToken, setAccessToken] = useState('');
+    const navigate = useNavigate()
 
     const fetchUser = async () => {
         try {
@@ -42,18 +44,22 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         (async function autoLoginApiCall() {
             try {
-                const res = await api.post('/refresh', {})
+                const res = await api.post('/refresh', {});
                 if (res.status === 200) {
-                    console.log(res);
-                } else {
-                    console.log('no refresh token');
+                    console.log(res.data.accessToken);
+                    fetchUser();
                 }
             } catch (error) {
-                console.log(error);
+                if (error.response && error.response.status === 403) {
+                    console.log('no refresh token');
+                    console.log(error);
+                    navigate('/login')
+                } else {
+                    console.log('Some other error');
+                    console.log(error);
+                }
             }
-            console.log('iifi');
-        })()
-        fetchUser();
+        })();
     }, []);
 
     return (

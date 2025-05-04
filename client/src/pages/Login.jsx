@@ -21,6 +21,7 @@ function Login() {
         try {
             const res = await login(user);
             if (res.status === 200) {
+                console.log(res);
                 setLoading(false);
                 setToken(res.data.accessToken)
                 res.data.user.password = undefined;
@@ -51,6 +52,7 @@ function Login() {
         setEmail('');
         setPassword('');
     };
+    console.log('login page');
 
     return (
         <>
