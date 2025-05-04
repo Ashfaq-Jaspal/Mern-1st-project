@@ -18,6 +18,9 @@ const Home = () => {
         }
     }, [user, loading, navigate]);
 
+    console.log('home page');
+
+
     return (
         <Loader />
     );

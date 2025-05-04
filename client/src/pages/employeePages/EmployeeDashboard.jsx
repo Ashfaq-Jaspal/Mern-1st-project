@@ -20,6 +20,9 @@ if (!loading) {
         navigate(`/projects/${projectId}`);
     };
 
+    console.log('employee dashboard page');
+
+
     if (!loading) {
         return (
             <div className="w-screen min-h-screen absolute top-10 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center mt-16">

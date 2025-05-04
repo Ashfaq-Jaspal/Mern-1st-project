@@ -21,6 +21,9 @@ const Employees = () => {
         navigate(`/employees/${employeeId}`);
     };
 
+    console.log('employees page');
+
+
     if (loading) {
         return <Loader />
     }

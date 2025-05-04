@@ -68,6 +68,7 @@ function SignUp() {
 
         fetchUser();
     };
+    console.log('create user page');
 
     if (!loading) {
         return (

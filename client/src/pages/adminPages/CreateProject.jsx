@@ -67,6 +67,8 @@ const CreateProject = () => {
         fetchUser();
     };
 
+console.log('create project page');
+
     {
         if (!loading && employees) {
             formattedEmployeesForReactSelect = employees.map((emp) => {

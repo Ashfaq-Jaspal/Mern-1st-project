@@ -54,6 +54,8 @@ const ProjectDetails = () => {
     const handleUpdateProject = async (projectId) => {
         navigate(`/update-project/${projectId}`);
     };
+    console.log('project details page');
+
 
     if (loading) {
         return <Loader />;

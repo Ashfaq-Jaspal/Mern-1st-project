@@ -24,6 +24,9 @@ const Logout = () => {
         logOutUser();
     }, []);
 
+    console.log('logout page');
+
+
     return <div>logging out...</div>;
 };
 

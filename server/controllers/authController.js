@@ -44,7 +44,7 @@ export const login = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-            maxAge: 60 * 1000,
+            maxAge: 5 * 60 * 1000,
         });
         if (user.isAdmin) {
             const employees = await User.find({ isAdmin: false }).select('name email status');

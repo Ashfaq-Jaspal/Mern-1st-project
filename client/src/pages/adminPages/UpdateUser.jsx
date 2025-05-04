@@ -80,6 +80,9 @@ function UpdateUser() {
         fetchUser();
     };
 
+    console.log('update user page');
+
+
     if (!loading) {
         return (
             <form

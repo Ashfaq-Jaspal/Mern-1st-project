@@ -65,6 +65,7 @@ const EmployeeDetails = () => {
     if (loading) {
         return <Loader />
     }
+    console.log('employee details page');
 
     return (
         <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-gradient-to-b from-gray-900 to-black min-h-screen text-white flex items-center justify-center p-6 w-full">

@@ -20,6 +20,8 @@ const Projects = () => {
         setLoading(true);
         navigate(`/projects/${projectId}`);
     };
+    console.log('projects page');
+
 
     if (loading) {
         return <Loader />

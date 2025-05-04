@@ -81,6 +81,8 @@ const UpdateProject = () => {
 
         navigate('/projects');
     };
+    console.log('update project page');
+
 
     {
         if (!loading && employees) {
