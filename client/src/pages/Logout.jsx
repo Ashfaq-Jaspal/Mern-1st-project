@@ -17,15 +17,16 @@ const Logout = () => {
             } catch (error) {
                 console.error('Logout failed:', error);
             } finally {
-                setLoading(true);
+                setLoading(false);
             }
         };
 
         logOutUser();
     }, []);
 
-    console.log('logout page');
-
+    useEffect(() => {
+        console.log('logout page');
+    }, []);
 
     return <div>logging out...</div>;
 };

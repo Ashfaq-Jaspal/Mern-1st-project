@@ -25,6 +25,7 @@ const ProjectDetails = () => {
         const fetchClickedProjectData = async () => {
             try {
                 const response = await fetchEmployeesOnClickedProject(projectId);
+                console.log(response);
                 setUser(response.data.user);
                 setEmployeesOnProject(response.data.employees);
                 setClickedProject(response.data.project[0]);
@@ -35,10 +36,9 @@ const ProjectDetails = () => {
             }
         };
         fetchClickedProjectData();
-    }, [projectId]);
+    }, []);
 
     const handleDeleteProject = async () => {
-        setLoading(true);
         navigate(`/projects`);
         try {
             const res = await deleteProject(clickedProject._id);
@@ -54,12 +54,10 @@ const ProjectDetails = () => {
     const handleUpdateProject = async (projectId) => {
         navigate(`/update-project/${projectId}`);
     };
-    console.log('project details page');
 
-
-    if (loading) {
-        return <Loader />;
-    }
+    useEffect(()=>{
+        console.log('project details page');
+    },[])
 
     return (
         <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-gradient-to-b from-gray-900 to-black min-h-screen text-white flex items-center justify-center p-6 w-full">

@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Error = () => {
+
+    useEffect(() => {
+        console.log('error page');
+    }, []);
+    
     return (
         <div className="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-100 p-6">
             <div className="bg-white p-8 rounded-2xl shadow-lg text-center">

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken } from '../utils/tokenService';
+import { getToken, setToken } from '../utils/tokenService';
 
 // api instance
 export const api = axios.create({
@@ -29,6 +29,7 @@ api.interceptors.response.use(
             try {
                 const res = await api.post('/refresh', {});
                 const newAccessToken = res.data.accessToken;
+                setToken(newAccessToken)
                 api.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
                 originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
                 return api(originalRequest);
@@ -45,7 +46,7 @@ api.interceptors.response.use(
 // setting user globally
 export const getCurrentUser = async () => {
     try {
-        const response = await api.get(`current-user`);
+        const response = await api.get(`/current-user`);
         return response;
     } catch (error) {
         return error;

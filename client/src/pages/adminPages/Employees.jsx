@@ -9,52 +9,43 @@ const Employees = () => {
     const navigate = useNavigate();
     const { loading, user, setLoading, employees, fetchUser } = useContext(AuthContext);
 
-    if (!loading) {
-        if (!user?.isAdmin) {
-            navigate('/employee-dashboard');
-            toast.error('You are not an admin');
-        }
-    }
-
     const handleEmployeeClick = async (employeeId) => {
-        setLoading(true);
         navigate(`/employees/${employeeId}`);
+        // setLoading(true)
+        // setTimeout(()=>{
+        //     setLoading(false)
+        // }, 4000)
     };
 
     console.log('employees page');
 
-
-    if (loading) {
-        return <Loader />
-    }
-
-        return (
-            <div className="w-screen min-h-screen absolute top-14 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">
-                {employees?.length ? (
-                    employees.map((emp) => (
-                        <div key={emp._id} onClick={() => handleEmployeeClick(emp._id)} className="cursor-pointer">
-                            <div className="w-64 h-[187px] p-6 rounded-lg bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-3 justify-center items-center border border-gray-700 hover:bg-gray-700 active:scale-95">
-                                {/* Employee Icon */}
-                                <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-16 w-16 flex items-center justify-center rounded-full shadow-lg">
-                                    <UserIcon className="h-8 w-8 text-white" />
-                                </div>
-
-                                {/* Employee Name */}
-                                <h2 className="text-white text-xl font-semibold tracking-wide">{emp.name}</h2>
-
-                                {/* Employee Status */}
-                                <h3 className="text-gray-300 text-sm flex items-center gap-2">
-                                    <CheckBadgeIcon className="h-5 w-5 text-green-400" />
-                                    {emp.status}
-                                </h3>
+    return (
+        <div className="w-screen min-h-screen absolute top-14 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">
+            {employees?.length ? (
+                employees.map((emp) => (
+                    <div key={emp._id} onClick={() => handleEmployeeClick(emp._id)} className="cursor-pointer">
+                        <div className="w-64 h-[187px] p-6 rounded-lg bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-3 justify-center items-center border border-gray-700 hover:bg-gray-700 active:scale-95">
+                            {/* Employee Icon */}
+                            <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-16 w-16 flex items-center justify-center rounded-full shadow-lg">
+                                <UserIcon className="h-8 w-8 text-white" />
                             </div>
+
+                            {/* Employee Name */}
+                            <h2 className="text-white text-xl font-semibold tracking-wide">{emp.name}</h2>
+
+                            {/* Employee Status */}
+                            <h3 className="text-gray-300 text-sm flex items-center gap-2">
+                                <CheckBadgeIcon className="h-5 w-5 text-green-400" />
+                                {emp.status}
+                            </h3>
                         </div>
-                    ))
-                ) : (
-                    <p className="text-white text-4xl">No Employees available</p>
-                )}
-            </div>
-        );
-    }
+                    </div>
+                ))
+            ) : (
+                <p className="text-white text-4xl">No Employees available</p>
+            )}
+        </div>
+    );
+};
 
 export default Employees;

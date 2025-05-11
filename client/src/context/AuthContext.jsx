@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { api, getCurrentUser } from '../api/internal';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
+// import Loader from '../components/Loader';
 // Create context
 export const AuthContext = createContext();
 // Create provider
@@ -18,49 +19,44 @@ export const AuthProvider = ({ children }) => {
     const [numOfEmployees, setNumOfEmployees] = useState(0);
     const [numOfProjects, setNumOfProjects] = useState(0);
     const [accessToken, setAccessToken] = useState('');
-    const navigate = useNavigate()
+    // const navigate = useNavigate();
 
     const fetchUser = async () => {
         try {
             const res = await getCurrentUser();
             if (res.status === 200) {
+                // console.log(res);
                 setUser(res.data.user);
+                setProjects(res.data.projects);
                 if (res.data.user.isAdmin) {
-                    // all projects and employees (for admin)
                     setEmployees(res.data.employees);
-                    setProjects(res.data.projects);
-                } else if (!res.data.user.isAdmin) {
-                    // user's projects (for employee)
-                    setProjects(res.data.projects);
                 }
             }
         } catch (error) {
             console.log(error);
-        } finally {
-            setLoading(false);
         }
     };
 
-    useEffect(() => {
-        (async function autoLoginApiCall() {
-            try {
-                const res = await api.post('/refresh', {});
-                if (res.status === 200) {
-                    console.log(res.data.accessToken);
-                    fetchUser();
-                }
-            } catch (error) {
-                if (error.response && error.response.status === 403) {
-                    console.log('no refresh token');
-                    console.log(error);
-                    navigate('/login')
-                } else {
-                    console.log('Some other error');
-                    console.log(error);
-                }
+    async function autoLoginApiCall() {
+        try {
+            const res = await api.post('/refresh', {});
+            if (res.status === 200) {
+                await fetchUser();
             }
-        })();
+        } catch (error) {
+            // console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        autoLoginApiCall();
     }, []);
+
+    // if (loading) {
+    //     return <Loader />;
+    // }
 
     return (
         <AuthContext.Provider

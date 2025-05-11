@@ -1,25 +1,18 @@
 import React, { useContext, useEffect } from 'react';
-import { toast } from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
 import { FolderIcon, UsersIcon } from '@heroicons/react/24/solid';
 import Card from '../../components/Card';
 
 const AdminPanel = () => {
-    const navigate = useNavigate()
     const { employees, user, loading, projects } = useContext(AuthContext);
 
-    if (!loading) {
-    if (!user?.isAdmin) {
-        navigate('/employee-dashboard');
-        toast.error('You are not an admin')
-    }
-}
+    useEffect(()=>{
     console.log('amin panel page');
+    },[])
 
-if (!loading) {
-    return (
-        <div className="p-6 bg-gray-950 min-h-screen min-w-full flex justify-around items-center gap-20">
+        return (
+            <div className="p-6 bg-gray-950 min-h-screen min-w-full flex justify-around items-center gap-20">
             <Link to="/employees">
                 <Card Icon={UsersIcon} count={employees.length} label='Employees'/>
             </Link>
@@ -29,6 +22,5 @@ if (!loading) {
         </div>
     );
 }
-};
 
 export default AdminPanel;

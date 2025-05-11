@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../context/AuthContext';
@@ -7,7 +7,7 @@ import { setToken } from '../utils/tokenService';
 
 function Login() {
     const navigate = useNavigate();
-    const { setUser, setLoading,  setEmployees, setProjects } = useContext(AuthContext);
+    const { setUser, setLoading, setEmployees, setProjects } = useContext(AuthContext);
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
 
@@ -21,38 +21,36 @@ function Login() {
         try {
             const res = await login(user);
             if (res.status === 200) {
-                console.log(res);
-                setLoading(false);
-                setToken(res.data.accessToken)
+                setToken(res.data.accessToken);
                 res.data.user.password = undefined;
                 setUser(res.data.user);
+                setProjects(res.data.projects);
                 toast.success(res.data.message);
                 if (res.data.user.isAdmin) {
-                    // all projects and employees (for admin)
                     setEmployees(res.data.employees);
-                    setProjects(res.data.projects);
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         navigate('/admin-panel');
-                    },200)
+                    }, 200);
                 } else {
-                    // user's projects (for employee)
-                    setProjects(res.data.projects);
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         navigate('/employee-dashboard');
-                    },200)
+                    }, 200);
                 }
             } else {
                 toast.error(res);
             }
-    
         } catch (error) {
             setUser(null);
+        } finally {
+            setLoading(false);
         }
 
         setEmail('');
         setPassword('');
     };
-    console.log('login page');
+    useEffect(() => {
+        console.log('login page');
+    }, []);
 
     return (
         <>

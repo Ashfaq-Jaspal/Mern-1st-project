@@ -9,23 +9,10 @@ const Projects = () => {
     const navigate = useNavigate();
     const { loading, user, setLoading, projects } = useContext(AuthContext);
 
-    if (!loading) {
-        if (!user?.isAdmin) {
-            navigate('/employee-dashboard');
-            toast.error('You are not an admin')
-        }
-    }
-
     const handleProjectClick = async (projectId) => {
-        setLoading(true);
         navigate(`/projects/${projectId}`);
     };
     console.log('projects page');
-
-
-    if (loading) {
-        return <Loader />
-    }
 
     return (
         <div className="w-screen min-h-screen absolute top-10 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">
@@ -62,6 +49,6 @@ const Projects = () => {
             )}
         </div>
     );
-}
+};
 
 export default Projects;

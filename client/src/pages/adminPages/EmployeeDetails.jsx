@@ -1,14 +1,23 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { Link, useNavigate, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, UserIcon, FolderIcon } from '@heroicons/react/24/solid';
 import { deleteUser, fetchProjectsOfClickedEmployee } from '../../api/internal';
 import Loader from '../../components/Loader';
 
 const EmployeeDetails = () => {
-    const { setUser, fetchUser, projectsOfEmployee, setProjectsOfEmployee, loading, setLoading, clickedEmployee, setClickedEmployee } =
-        useContext(AuthContext);
+    const {
+        user,
+        setUser,
+        fetchUser,
+        projectsOfEmployee,
+        setProjectsOfEmployee,
+        loading,
+        setLoading,
+        clickedEmployee,
+        setClickedEmployee,
+    } = useContext(AuthContext);
     const navigate = useNavigate();
     const { employeeId } = useParams();
 
@@ -24,7 +33,6 @@ const EmployeeDetails = () => {
                 if (response.status === 401) {
                     // unauthorized error
                     toast.error(response.response.data.message);
-                    navigate('/employee-dashboard');
                 }
                 if (response.status === 404) {
                     // projects not found
@@ -39,33 +47,35 @@ const EmployeeDetails = () => {
             }
         };
         fetchClickedEmployeeData();
-    }, [employeeId]);
+    }, []);
 
     const handleDeleteUser = async () => {
-        setLoading(true)
-        navigate(`/employees`)
+        navigate(`/employees`);
         try {
-            const res = await deleteUser(clickedEmployee._id)
+            const res = await deleteUser(clickedEmployee._id);
             if (res.status === 200) {
-                toast.success(res.data.message)
+                toast.success(res.data.message);
             }
             if (res.status === 404) {
-                toast.success(res.response.data.message)
+                toast.success(res.response.data.message);
             }
         } catch (error) {
             console.log(error);
         }
-        fetchUser()
-    }
+        fetchUser();
+    };
 
     const handleUpdateUser = async (userId) => {
-        navigate(`/update-user/${userId}`)
-    }
+        navigate(`/update-user/${userId}`);
+    };
 
-    if (loading) {
-        return <Loader />
-    }
-    console.log('employee details page');
+    useEffect(() => {
+        console.log('employee details page');
+    }, []);
+
+    // if (user) {
+    //     console.log(user);
+    // }
 
     return (
         <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-gradient-to-b from-gray-900 to-black min-h-screen text-white flex items-center justify-center p-6 w-full">
@@ -77,22 +87,28 @@ const EmployeeDetails = () => {
 
                 {/* Employee Details */}
                 <div className="flex justify-between items-center  mt-6 space-x-4 border-b border-gray-700 pb-4">
-                    <div className='flex gap-4'>
-                    <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-16 w-16 flex items-center justify-center rounded-full text-2xl font-semibold shadow-lg">
-                        {clickedEmployee?.name?.charAt(0)}
-                    </div>
-                    <div>
-                        <h1 className="text-3xl font-bold">{clickedEmployee?.name}</h1>
-                        <p className="text-gray-400">{clickedEmployee?.status}</p>
-                    </div>
+                    <div className="flex gap-4">
+                        <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-16 w-16 flex items-center justify-center rounded-full text-2xl font-semibold shadow-lg">
+                            {clickedEmployee?.name?.charAt(0)}
+                        </div>
+                        <div>
+                            <h1 className="text-3xl font-bold">{clickedEmployee?.name}</h1>
+                            <p className="text-gray-400">{clickedEmployee?.status}</p>
+                        </div>
                     </div>
                     <div className="flex justify-between items-center gap-3">
-                            <button  onClick={()=>handleUpdateUser(clickedEmployee._id)} className="px-10 py-1 text-white text-lg bg-blue-700 hover:bg-blue-800 border-none rounded-full">
-                                Update user
-                            </button>
-                            <button onClick={handleDeleteUser} className="px-10 py-1 text-white text-lg bg-red-700 hover:bg-red-800 border-none rounded-full">
-                                Delete user
-                            </button>
+                        <button
+                            onClick={() => handleUpdateUser(clickedEmployee?._id)}
+                            className="px-10 py-1 text-white text-lg bg-blue-700 hover:bg-blue-800 border-none rounded-full"
+                        >
+                            Update user
+                        </button>
+                        <button
+                            onClick={handleDeleteUser}
+                            className="px-10 py-1 text-white text-lg bg-red-700 hover:bg-red-800 border-none rounded-full"
+                        >
+                            Delete user
+                        </button>
                     </div>
                 </div>
 
@@ -110,9 +126,9 @@ const EmployeeDetails = () => {
                     Assigned Projects
                 </h2>
 
-                {projectsOfEmployee.length > 0 ? (
+                {projectsOfEmployee?.length > 0 ? (
                     <div className="mt-4 space-y-4">
-                        {projectsOfEmployee.map((project) => (
+                        {projectsOfEmployee?.map((project) => (
                             <div key={project._id} className="p-5 bg-gray-800 rounded-md shadow-md transition duration-300">
                                 <h3 className="text-xl font-semibold text-blue-400 flex items-center space-x-2">
                                     <FolderIcon className="h-5 w-5 text-yellow-400" />
@@ -139,6 +155,7 @@ const EmployeeDetails = () => {
             </div>
         </div>
     );
+
 };
 
 export default EmployeeDetails;

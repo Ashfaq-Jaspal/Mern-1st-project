@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import Loader from '../components/Loader';
+import Loader from './Loader';
 
-const Home = () => {
+const RedirectByRole = () => {
     const { user, loading } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -18,12 +18,11 @@ const Home = () => {
         }
     }, [user, loading, navigate]);
 
-    console.log('home page');
+    useEffect(() => {
+        console.log('RedirectByRole page');
+    }, []);
 
-
-    return (
-        <Loader />
-    );
+    return <Loader />;
 };
 
-export default Home;
+export default RedirectByRole;
