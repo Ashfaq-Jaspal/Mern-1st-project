@@ -59,18 +59,19 @@ export const login = async (data) => {
         const response = await api.post(`/login`, data);
         return response;
     } catch (error) {
-        if (error.response.status === 400) {
-            // validation error
-            return error.response.data.error.details[0].message;
-        } else if (error.response.status === 401) {
-            // Authentication error
-            return error.response.data.message;
-        } else {
-            // Any other error
-            return error.message;
-        }
+        return error
     }
 };
+
+// auto login
+export const autoLogin = async () => {
+    try {
+        const res = await api.post('/refresh', {});
+        return res
+    } catch (error) {
+        throw error
+    }
+}
 
 // logout
 export const logout = async () => {
@@ -82,8 +83,18 @@ export const logout = async () => {
     }
 };
 
+
+
+
+
+
+
+
+
+
+
 // clicked employee data
-export const fetchProjectsOfClickedEmployee = async (employeeId) => {
+export const fetchProjectsOfEmployee = async (employeeId) => {
     try {
         const response = await api.get(`/employees/${employeeId}`);
         return response;
@@ -93,7 +104,7 @@ export const fetchProjectsOfClickedEmployee = async (employeeId) => {
 };
 
 // clicked project data
-export const fetchEmployeesOnClickedProject = async (projectId) => {
+export const fetchEmployeesOfProject = async (projectId) => {
     try {
         const response = await api.get(`/projects/${projectId}`);
         return response;
@@ -103,7 +114,7 @@ export const fetchEmployeesOnClickedProject = async (projectId) => {
 };
 
 // create user
-export const createUser = async (user) => {
+export const createEmployee = async (employee) => {
     try {
         const response = await api.post(`/create-user`, user);
         return response;
@@ -123,7 +134,7 @@ export const createProject = async (project) => {
 };
 
 // delete user
-export const deleteUser = async (userId) => {
+export const deleteEmployee = async (employeeId) => {
     try {
         const response = await api.delete(`/delete-user/${userId}`);
         return response;
@@ -143,7 +154,7 @@ export const deleteProject = async (projectId) => {
 };
 
 // update user
-export const updateUser = async (userId, data) => {
+export const updateEmployee = async (employeeId, data) => {
     try {
         const response = await api.put(`/update-user/${userId}`, data);
         return response;

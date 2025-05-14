@@ -71,7 +71,8 @@ export const refresh = async (req, res) => {
                 return res.status(403).json({ message: 'Invalid token' });
             }
             const accessToken = await generateAccessToken({ name: decoded.name, id: decoded.id, isAdmin: decoded.isAdmin });
-            res.status(200).json({ accessToken });
+            const user = await User.findById(decoded.id)
+            res.status(200).json({ accessToken, user });
         });
     } catch (error) {
         res.status(500).json({ message: error });
