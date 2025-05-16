@@ -1,5 +1,5 @@
 import express from 'express';
-import { getCurrentUser, login, logout, refresh } from '../controllers/authController.js';
+import { getDataForCurrentUser, login, logout, refresh } from '../controllers/authController.js';
 import { createUser, deleteUser, getUserDetails, updateUser } from '../controllers/userController.js';
 import { createProject, deleteProject, getProjectDetails, updateProject } from '../controllers/projectController.js';
 import { validateSignup, validateLogin } from '../middlewares/validateUser.js';
@@ -17,7 +17,7 @@ router.route('/refresh').post(refresh);
 router.route('/logout').post(logout);
 
 // authentication based
-router.route('/current-user').get(authenticateJWT, getCurrentUser);
+router.route('/current-user-data').get(authenticateJWT, getDataForCurrentUser);
 router.route('/projects/:projectId').get(authenticateJWT, getProjectDetails);
 
 // only dmin

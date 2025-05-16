@@ -25,45 +25,54 @@ function App() {
             {/* <Navbar /> */}
             <div className="mt-12">
                 <Routes>
-                    <Route element={<ProtectedRoute allowedRoles={['admin', 'employee']} />}>
-                        <Route path="/" element={<RedirectByRole />} />
-                    </Route>
-                    {/* <Route path="/" element={<RedirectByRole />} /> */}
+                    <Route path="/" element={<RedirectByRole />} />
+
                     <Route path="/login" element={<Login />} />
-                    <Route path="/admin-panel" element={<AdminPanel />} />
+
                     {/* <Route element={<ProtectedRoute allowedRoles={['admin', 'employee']} />}>
                         <Route path="/logout" element={<Logout />} />
-                    </Route>
+                    </Route> */}
+
                     <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
                         <Route path="/admin-panel" element={<AdminPanel />} />
                     </Route>
-                    <Route element={<ProtectedRoute allowedRoles={['employee']} />}>
+
+                    {/* <Route element={<ProtectedRoute allowedRoles={['employee']} />}>
                         <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
                     </Route>
+
                     <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
                         <Route path="/employees" element={<Employees />} />
                     </Route>
+
                     <Route element={<ProtectedRoute allowedRoles={['admin', 'employee']} />}>
                         <Route path="/projects" element={<Projects />} />
                     </Route>
+
                     <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
                         <Route path="/create-user" element={<CreateUser />} />
                     </Route>
+
                     <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
                         <Route path="/update-user/:userId" element={<UpdateUser />} />
                     </Route>
+
                     <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
                         <Route path="/create-project" element={<CreateProject />} />
                     </Route>
+
                     <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
                         <Route path="/update-project/:projectId" element={<UpdateProject />} />
                     </Route>
+
                     <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
                         <Route path={`/employees/:employeeId`} element={<EmployeeDetails />} />
                     </Route>
+
                     <Route element={<ProtectedRoute allowedRoles={['admin', 'employee']} />}>
                         <Route path={`/projects/:projectId`} element={<ProjectDetails />} />
                     </Route> */}
+
                     <Route path="*" element={<Error />} />
                 </Routes>
             </div>

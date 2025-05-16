@@ -13,7 +13,7 @@ function Login() {
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
     const dispatch = useDispatch();
-    const { user, loading, error } = useSelector((state) => state.auth);
+    const { user, token, loading, error } = useSelector((state) => state.auth);
 
     let userData = {
         email,
@@ -23,10 +23,7 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         dispatch(loginUser(userData));
-        console.log('loading ==> '+loading);
-        console.log('user ==> '+user);
-        console.log('error ==> '+error);
-        navigate('/admin-panel')
+
 
         // try {
         //     const res = await login(user);
@@ -61,6 +58,13 @@ function Login() {
     useEffect(() => {
         console.log('login page');
     }, []);
+
+    if (!loading) {
+        console.log('loading ==> '+loading);
+        console.log(token);
+        console.log('error ==> '+error);
+        // navigate('/admin-panel')
+    }
 
     return (
         <>

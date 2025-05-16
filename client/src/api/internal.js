@@ -44,9 +44,9 @@ api.interceptors.response.use(
 );
 
 // setting user globally
-export const getCurrentUser = async () => {
+export const getCurrentUserData = async () => {
     try {
-        const response = await api.get(`/current-user`);
+        const response = await api.get(`/current-user-data`);
         return response;
     } catch (error) {
         return error;

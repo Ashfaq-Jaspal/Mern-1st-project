@@ -1,44 +1,27 @@
-import { useContext, useEffect } from 'react';
+// import { useContext, useEffect } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+// import { AuthContext } from '../context/AuthContext';
 import Loader from './Loader';
-import { useDispatch, useSelector } from 'react-redux';
-import { autoLoginUser, getCurrentUserThunk } from '../features/auth/authThunks';
+import { useSelector } from 'react-redux';
 
 const ProtectedRoute = ({ allowedRoles }) => {
-    const dispatch = useDispatch();
+    const { loading, user } = useSelector((state) => state.auth);
 
-    useEffect(() => {
-        dispatch(autoLoginUser());
-    }, []);
+    if (loading)
+        return (
+            <div>
+                <Loader />
+            </div>
+        );
 
-    const { token, loading, error, user } = useSelector((state) => state.auth);
+    if (!user) return <Navigate to="/login" />;
 
+    const userRole = user.isAdmin ? 'admin' : 'employee';
+    if (!allowedRoles.includes(userRole)) {
+        return <Navigate to="/login" />;
+    }
 
-
-    useEffect(()=>{
-        if (!loading) {
-            if (user) {
-                console.log(user);
-            }
-        }
-    },[])
-
-    // if (loading)
-    //     return (
-    //         <div>
-    //             <Loader />
-    //         </div>
-    //     );
-
-    // if (!user) return <Navigate to="/login" />;
-
-    // const userRole = user.isAdmin ? 'admin' : 'employee';
-    // if (!allowedRoles.includes(userRole)) {
-    //     return <Navigate to="/login" />;
-    // }
-
-    // return <Outlet />;
+    return <Outlet />;
 };
 
 export default ProtectedRoute;

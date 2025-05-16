@@ -6,7 +6,7 @@ import Project from '../models/Project.js';
 import { REFRESH_SECRET_KEY } from '../config/index.js';
 
 // get current user
-export const getCurrentUser = async (req, res) => {
+export const getDataForCurrentUser = async (req, res) => {
     try {
         if (req.user.isAdmin) {
             const employees = await User.find({ isAdmin: false }).select('name email status');

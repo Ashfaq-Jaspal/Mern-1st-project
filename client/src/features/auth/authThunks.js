@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getCurrentUser, login, logout, autoLogin } from '../../api/internal';
+import { getCurrentUserData, login, logout, autoLogin } from '../../api/internal';
 
-export const getCurrentUserThunk = createAsyncThunk('auth/getCurrentUser', async (_, thunkAPI) => {
+export const getCurrentUserDataThunk = createAsyncThunk('auth/getCurrentUser', async (_, thunkAPI) => {
     try {
-        const res = await getCurrentUser();
-        return { user: res.data.user };
+        const res = await getCurrentUserData();
+        return { userData: res.data.user };
     } catch (err) {
         return thunkAPI.rejectWithValue({
             message: 'user nhi mila',
@@ -29,7 +29,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (userData, thu
     try {
         const res = await login(userData);
         if (res.data) {
-            return { res };
+            return { data: res.data };
         } else if (res.response.status === 400) {
             // validation error
             return thunkAPI.rejectWithValue(res.response.data.error.details[0].message);
