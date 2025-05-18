@@ -7,7 +7,10 @@ import {
 } from './employeeThunks';
 
 const initialState = {
-    employees: [],
+    user: null,
+    message: null,
+    clickedProject: {},
+    employeesOnProject: [],
     loading: false,
     error: null,
 };
@@ -23,13 +26,15 @@ const employeeSlice = createSlice({
             })
             .addCase(fetchEmployeesOfProjectThunk.fulfilled, (state, action) => {
                 state.loading = false;
-                state.employees.push(action.payload);
+                state.user = action.payload.user;
+                state.employeesOnProject = action.payload.employees;
+                state.clickedProject = action.payload.project[0];
             })
             .addCase(createEmployeeThunk.fulfilled, (state, action) => {
                 state.employees.push(action.payload);
             })
-            .addCase(deleteEmployeeThunk.fulfilled, (state, action) => {
-                state.employees.push(action.payload);
+            .addCase(deleteEmployeeThunk.fulfilled, (state) => {
+                state.message = 'User deleted';
             })
             .addCase(updateEmployeeThunk.fulfilled, (state, action) => {
                 state.employees.push(action.payload);

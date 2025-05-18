@@ -1,68 +1,25 @@
-import React, { useContext, useEffect } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import React, { useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { BriefcaseIcon, EnvelopeIcon, XCircleIcon, CalendarDaysIcon, UserIcon, FolderIcon } from '@heroicons/react/24/solid';
-import { deleteUser, fetchProjectsOfClickedEmployee } from '../../api/internal';
 import Loader from '../../components/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProjectsOfEmployeeThunk } from '../../features/projects/projectThunks';
+import { deleteEmployeeThunk } from '../../features/employees/employeeThunks';
 
 const EmployeeDetails = () => {
-    const {
-        user,
-        setUser,
-        fetchUser,
-        projectsOfEmployee,
-        setProjectsOfEmployee,
-        loading,
-        setLoading,
-        clickedEmployee,
-        setClickedEmployee,
-    } = useContext(AuthContext);
-    const navigate = useNavigate();
     const { employeeId } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { loading, user, message, clickedEmployee, projectsOfEmployee } = useSelector((state) => state.projects);
 
     useEffect(() => {
-        const fetchClickedEmployeeData = async () => {
-            try {
-                const response = await fetchProjectsOfClickedEmployee(employeeId);
-                if (response.status === 200) {
-                    setUser(response.data.user);
-                    setProjectsOfEmployee(response.data.projects);
-                    setClickedEmployee(response.data.employee[0]);
-                }
-                if (response.status === 401) {
-                    // unauthorized error
-                    toast.error(response.response.data.message);
-                }
-                if (response.status === 404) {
-                    // projects not found
-                    setUser(response.response.data.user);
-                    setProjectsOfEmployee([]);
-                    setClickedEmployee(response.response.data.employee[0]);
-                }
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchClickedEmployeeData();
+        dispatch(fetchProjectsOfEmployeeThunk(employeeId));
     }, []);
 
     const handleDeleteUser = async () => {
+        dispatch(deleteEmployeeThunk(clickedEmployee._id));
         navigate(`/employees`);
-        try {
-            const res = await deleteUser(clickedEmployee._id);
-            if (res.status === 200) {
-                toast.success(res.data.message);
-            }
-            if (res.status === 404) {
-                toast.success(res.response.data.message);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        fetchUser();
     };
 
     const handleUpdateUser = async (userId) => {
@@ -73,9 +30,14 @@ const EmployeeDetails = () => {
         console.log('employee details page');
     }, []);
 
-    // if (user) {
-    //     console.log(user);
-    // }
+    if (loading) return <Loader />;
+
+    if (!loading) {
+        console.log(clickedEmployee);
+        console.log(projectsOfEmployee);
+        console.log(user);
+        console.log(message);
+    }
 
     return (
         <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-gradient-to-b from-gray-900 to-black min-h-screen text-white flex items-center justify-center p-6 w-full">
@@ -155,7 +117,6 @@ const EmployeeDetails = () => {
             </div>
         </div>
     );
-
 };
 
 export default EmployeeDetails;

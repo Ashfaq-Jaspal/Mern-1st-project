@@ -2,8 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchProjectsOfEmployeeThunk, createProjectThunk, deleteProjectThunk, updateProjectThunk } from './projectThunks';
 
 const initialState = {
-    projects: [],
+    message: null,
     loading: false,
+    clickedEmployee: {},
+    projectsOfEmployee: [],
     error: null,
 };
 
@@ -18,14 +20,16 @@ const projectSlice = createSlice({
             })
             .addCase(fetchProjectsOfEmployeeThunk.fulfilled, (state, action) => {
                 state.loading = false;
-                const existing = state.projects.find((p) => p._id === action.payload._id);
-                if (!existing) state.projects.push(action.payload);
+                state.message = 'fullfill';
+                // state.user = action.payload.user;
+                    state.projectsOfEmployee = action;
+                    state.clickedEmployee = action.payload;
             })
             .addCase(createProjectThunk.fulfilled, (state, action) => {
                 state.projects.push(action.payload);
             })
-            .addCase(deleteProjectThunk.fulfilled, (state, action) => {
-                state.projects = state.projects.filter((proj) => proj._id !== action.payload);
+            .addCase(deleteProjectThunk.fulfilled, (state) => {
+                state.message = 'project deleted'
             })
             .addCase(updateProjectThunk.fulfilled, (state, action) => {
                 const index = state.projects.findIndex((proj) => proj._id === action.payload._id);

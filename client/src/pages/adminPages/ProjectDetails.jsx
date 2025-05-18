@@ -1,70 +1,42 @@
-import React, { useContext, useEffect } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import React, { useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
-import { toast } from 'react-hot-toast';
 import { BriefcaseIcon, UsersIcon, XCircleIcon, UserIcon } from '@heroicons/react/24/solid';
-import { deleteProject, fetchEmployeesOnClickedProject } from '../../api/internal';
 import Loader from '../../components/Loader';
+import { fetchEmployeesOfProjectThunk } from '../../features/employees/employeeThunks';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteProjectThunk } from '../../features/projects/projectThunks';
 
 const ProjectDetails = () => {
-    const {
-        user,
-        setUser,
-        employeesOnProject,
-        setEmployeesOnProject,
-        loading,
-        setLoading,
-        clickedProject,
-        setClickedProject,
-        fetchUser,
-    } = useContext(AuthContext);
     const { projectId } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { loading, user, clickedProject, employeesOnProject } = useSelector((state) => state.employees);
 
     useEffect(() => {
-        const fetchClickedProjectData = async () => {
-            try {
-                const response = await fetchEmployeesOnClickedProject(projectId);
-                console.log(response);
-                setUser(response.data.user);
-                setEmployeesOnProject(response.data.employees);
-                setClickedProject(response.data.project[0]);
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchClickedProjectData();
+        dispatch(fetchEmployeesOfProjectThunk(projectId));
     }, []);
 
     const handleDeleteProject = async () => {
+        dispatch(deleteProjectThunk(clickedProject._id));
         navigate(`/projects`);
-        try {
-            const res = await deleteProject(clickedProject._id);
-            if (res.status === 200) {
-                toast.success(res.data.message);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-        fetchUser();
     };
 
     const handleUpdateProject = async (projectId) => {
         navigate(`/update-project/${projectId}`);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log('project details page');
-    },[])
+    }, []);
+
+    if (loading) return <Loader />;
 
     return (
         <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-gradient-to-b from-gray-900 to-black min-h-screen text-white flex items-center justify-center p-6 w-full">
             <div className="bg-gray-900 bg-opacity-80 backdrop-blur-md shadow-2xl rounded-lg p-8 w-full max-w-3xl">
                 {/* Close Button */}
                 <Link
-                    to={user.isAdmin ? '/projects' : '/employee-dashboard'}
+                    to={user?.isAdmin ? '/projects' : '/employee-dashboard'}
                     className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition"
                 >
                     <XCircleIcon className="h-8 w-8" />

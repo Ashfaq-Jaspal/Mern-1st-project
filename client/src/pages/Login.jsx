@@ -1,15 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-hot-toast';
-import { AuthContext } from '../context/AuthContext';
-import { login } from '../api/internal';
-import { setToken } from '../utils/tokenService';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../features/auth/authThunks';
 
 function Login() {
     const navigate = useNavigate();
-    // const { setUser, setLoading, setEmployees, setProjects } = useContext(AuthContext);
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
     const dispatch = useDispatch();
@@ -24,46 +20,22 @@ function Login() {
         e.preventDefault();
         dispatch(loginUser(userData));
 
-
-        // try {
-        //     const res = await login(user);
-        //     if (res.status === 200) {
-        //         setToken(res.data.accessToken);
-        //         res.data.user.password = undefined;
-        //         setUser(res.data.user);
-        //         setProjects(res.data.projects);
-        //         toast.success(res.data.message);
-        //         if (res.data.user.isAdmin) {
-        //             setEmployees(res.data.employees);
-        //             setTimeout(() => {
-        //                 navigate('/admin-panel');
-        //             }, 200);
-        //         } else {
-        //             setTimeout(() => {
-        //                 navigate('/employee-dashboard');
-        //             }, 200);
-        //         }
-        //     } else {
-        //         toast.error(res);
-        //     }
-        // } catch (error) {
-        //     setUser(null);
-        // } finally {
-        //     setLoading(false);
-        // }
-
-        // setEmail('');
-        // setPassword('');
+        setEmail('');
+        setPassword('');
     };
+
     useEffect(() => {
         console.log('login page');
     }, []);
 
     if (!loading) {
-        console.log('loading ==> '+loading);
-        console.log(token);
-        console.log('error ==> '+error);
-        // navigate('/admin-panel')
+        if (user) {
+            if (user.isAdmin) {
+                navigate('/admin-panel');
+            } else {
+                navigate('/employee-dashboard');
+            }
+        }
     }
 
     return (

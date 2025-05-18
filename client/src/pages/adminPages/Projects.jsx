@@ -1,18 +1,33 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router';
 import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
 import Loader from '../../components/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
 
 const Projects = () => {
     const navigate = useNavigate();
-    const { loading, user, setLoading, projects } = useContext(AuthContext);
+    const dispatch = useDispatch();
+    const { loading, projects } = useSelector((state) => state.auth);
+    const { message } = useSelector((state) => state.projects);
+
+    useEffect(() => {
+        dispatch(getCurrentUserDataThunk());
+    }, []);
+
+    useEffect(() => {
+        if (message) {
+            toast.success(message);
+        }
+    }, [message]);
 
     const handleProjectClick = async (projectId) => {
         navigate(`/projects/${projectId}`);
     };
     console.log('projects page');
+
+    if (loading) return <Loader />;
 
     return (
         <div className="w-screen min-h-screen absolute top-10 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">

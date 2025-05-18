@@ -4,12 +4,9 @@ import { getCurrentUserData, login, logout, autoLogin } from '../../api/internal
 export const getCurrentUserDataThunk = createAsyncThunk('auth/getCurrentUser', async (_, thunkAPI) => {
     try {
         const res = await getCurrentUserData();
-        return { userData: res.data.user };
+        return { userData: res.data };
     } catch (err) {
-        return thunkAPI.rejectWithValue({
-            message: 'user nhi mila',
-            status: err.response.status
-        });
+        return thunkAPI.rejectWithValue(err);
     }
 });
 

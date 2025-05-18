@@ -1,24 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Route, Routes } from 'react-router';
 import { Toaster } from 'react-hot-toast';
 // import CreateUser from './pages/adminPages/CreateUser';
 import Login from './pages/Login';
 import AdminPanel from './pages/adminPages/AdminPanel';
-// import EmployeeDashboard from './pages/employeePages/EmployeeDashboard';
+import EmployeeDashboard from './pages/employeePages/EmployeeDashboard';
 import Error from './pages/Error';
-// import Employees from './pages/adminPages/Employees';
-// import Projects from './pages/adminPages/Projects';
+import Employees from './pages/adminPages/Employees';
+import Projects from './pages/adminPages/Projects';
 // import CreateProject from './pages/adminPages/CreateProject';
 // import Navbar from './components/Navbar.jsx';
 // import Logout from './pages/Logout';
-// import EmployeeDetails from './pages/adminPages/EmployeeDetails';
-// import ProjectDetails from './pages/adminPages/ProjectDetails';
+import EmployeeDetails from './pages/adminPages/EmployeeDetails';
+import ProjectDetails from './pages/adminPages/ProjectDetails';
 // import UpdateUser from './pages/adminPages/UpdateUser';
 // import UpdateProject from './pages/adminPages/UpdateProject';
-import ProtectedRoute from './components/ProtectedRoute';
+// import ProtectedRoute from './components/ProtectedRoute';
 import RedirectByRole from './components/RedirectByRole';
+// import { autoLoginUser } from './features/auth/authThunks';
+// import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
+
     return (
         <>
             <Toaster />
@@ -33,45 +36,45 @@ function App() {
                         <Route path="/logout" element={<Logout />} />
                     </Route> */}
 
-                    <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+                    {/* <Route element={<ProtectedRoute allowedRoles={['admin']} />}> */}
                         <Route path="/admin-panel" element={<AdminPanel />} />
-                    </Route>
+                    {/* </Route> */}
 
-                    {/* <Route element={<ProtectedRoute allowedRoles={['employee']} />}>
+                    {/* <Route element={<ProtectedRoute allowedRoles={['employee']} />}> */}
                         <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
-                    </Route>
+                    {/* </Route> */}
 
-                    <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+                    {/* <Route element={<ProtectedRoute allowedRoles={['admin']} />}> */}
                         <Route path="/employees" element={<Employees />} />
-                    </Route>
+                    {/* </Route> */}
 
-                    <Route element={<ProtectedRoute allowedRoles={['admin', 'employee']} />}>
+                    {/* <Route element={<ProtectedRoute allowedRoles={['admin', 'employee']} />}> */}
                         <Route path="/projects" element={<Projects />} />
-                    </Route>
+                    {/* </Route> */}
 
-                    <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-                        <Route path="/create-user" element={<CreateUser />} />
-                    </Route>
+                    {/* <Route element={<ProtectedRoute allowedRoles={['admin']} />}> */}
+                        {/* <Route path="/create-user" element={<CreateUser />} /> */}
+                    {/* </Route> */}
 
-                    <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-                        <Route path="/update-user/:userId" element={<UpdateUser />} />
-                    </Route>
+                    {/* <Route element={<ProtectedRoute allowedRoles={['admin']} />}> */}
+                        {/* <Route path="/update-user/:userId" element={<UpdateUser />} /> */}
+                    {/* </Route> */}
 
-                    <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-                        <Route path="/create-project" element={<CreateProject />} />
-                    </Route>
+                    {/* <Route element={<ProtectedRoute allowedRoles={['admin']} />}> */}
+                        {/* <Route path="/create-project" element={<CreateProject />} /> */}
+                    {/* </Route> */}
 
-                    <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-                        <Route path="/update-project/:projectId" element={<UpdateProject />} />
-                    </Route>
+                    {/* <Route element={<ProtectedRoute allowedRoles={['admin']} />}> */}
+                        {/* <Route path="/update-project/:projectId" element={<UpdateProject />} /> */}
+                    {/* </Route> */}
 
-                    <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+                    {/* <Route element={<ProtectedRoute allowedRoles={['admin']} />}> */}
                         <Route path={`/employees/:employeeId`} element={<EmployeeDetails />} />
-                    </Route>
+                    {/* </Route> */}
 
-                    <Route element={<ProtectedRoute allowedRoles={['admin', 'employee']} />}>
+                    {/* <Route element={<ProtectedRoute allowedRoles={['admin', 'employee']} />}> */}
                         <Route path={`/projects/:projectId`} element={<ProjectDetails />} />
-                    </Route> */}
+                    {/* </Route> */}
 
                     <Route path="*" element={<Error />} />
                 </Routes>

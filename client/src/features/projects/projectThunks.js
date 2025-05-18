@@ -21,8 +21,8 @@ export const createProjectThunk = createAsyncThunk('projects/create', async (pro
 
 export const deleteProjectThunk = createAsyncThunk('projects/delete', async (projectId, thunkAPI) => {
     try {
-        await deleteProject(projectId);
-        return id;
+        const res = await deleteProject(projectId);
+        return res.data;
     } catch (err) {
         return thunkAPI.rejectWithValue(err);
     }

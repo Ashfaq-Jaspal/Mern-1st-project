@@ -1,23 +1,34 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router';
 import { UserIcon, CheckBadgeIcon } from '@heroicons/react/24/solid';
 import Loader from '../../components/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
 
 const Employees = () => {
     const navigate = useNavigate();
-    const { loading, user, setLoading, employees, fetchUser } = useContext(AuthContext);
+    const dispatch = useDispatch();
+    const { loading, employees } = useSelector((state) => state.auth);
+    const { message } = useSelector((state) => state.employees);
 
+    useEffect(() => {
+        dispatch(getCurrentUserDataThunk());
+    }, []);
+
+    useEffect(() => {
+        if (message) {
+            toast.success(message);
+        }
+    }, [message]);
+    
     const handleEmployeeClick = async (employeeId) => {
         navigate(`/employees/${employeeId}`);
-        // setLoading(true)
-        // setTimeout(()=>{
-        //     setLoading(false)
-        // }, 4000)
     };
 
     console.log('employees page');
+
+    if (loading) return <Loader />;
 
     return (
         <div className="w-screen min-h-screen absolute top-14 -translate-x-1/2 p-5 flex flex-wrap gap-4 justify-center items-center">

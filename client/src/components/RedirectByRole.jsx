@@ -1,12 +1,10 @@
 import { useContext, useEffect } from 'react';
-// import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Loader from './Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { autoLoginUser } from '../features/auth/authThunks';
 
 const RedirectByRole = () => {
-    // const { user, loading } = useContext(AuthContext);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
