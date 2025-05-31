@@ -7,18 +7,24 @@ import {
 } from './employeeThunks';
 
 const initialState = {
-    user: null,
+    loading: false,
+    error: null,
     message: null,
     clickedProject: {},
     employeesOnProject: [],
-    loading: false,
-    error: null,
 };
 
 const employeeSlice = createSlice({
     name: 'employees',
     initialState,
-    reducers: {},
+    reducers: {
+        resetMessage: (state) => {
+            state.message = null;
+        },
+        resetError: (state) => {
+            state.error = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchEmployeesOfProjectThunk.pending, (state) => {
@@ -26,20 +32,36 @@ const employeeSlice = createSlice({
             })
             .addCase(fetchEmployeesOfProjectThunk.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user = action.payload.user;
                 state.employeesOnProject = action.payload.employees;
                 state.clickedProject = action.payload.project[0];
             })
-            .addCase(createEmployeeThunk.fulfilled, (state, action) => {
-                state.employees.push(action.payload);
+            .addCase(createEmployeeThunk.pending, (state) => {
+                state.loading = true;
             })
-            .addCase(deleteEmployeeThunk.fulfilled, (state) => {
-                state.message = 'User deleted';
+            .addCase(createEmployeeThunk.fulfilled, (state, action) => {
+                state.loading = false;
+                state.message = action.payload;
+            })
+            .addCase(createEmployeeThunk.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(deleteEmployeeThunk.fulfilled, (state, action) => {
+                state.message = action.payload;
+            })
+            .addCase(updateEmployeeThunk.pending, (state) => {
+                state.loading = true;
             })
             .addCase(updateEmployeeThunk.fulfilled, (state, action) => {
-                state.employees.push(action.payload);
+                state.loading = false;
+                state.message = action.payload;
+            })
+            .addCase(updateEmployeeThunk.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     },
 });
 
+export const { resetMessage, resetError } = employeeSlice.actions;
 export default employeeSlice.reducer;

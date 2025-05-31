@@ -5,12 +5,13 @@ import { UserIcon, CheckBadgeIcon } from '@heroicons/react/24/solid';
 import Loader from '../../components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
+import { resetError, resetMessage } from '../../features/employees/employeeSlice';
 
 const Employees = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { loading, employees } = useSelector((state) => state.auth);
-    const { message } = useSelector((state) => state.employees);
+    const { message, error } = useSelector((state) => state.employees);
 
     useEffect(() => {
         dispatch(getCurrentUserDataThunk());
@@ -19,14 +20,28 @@ const Employees = () => {
     useEffect(() => {
         if (message) {
             toast.success(message);
+            dispatch(resetMessage());
         }
     }, [message]);
-    
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+            dispatch(resetError());
+        }
+    }, [error]);
+
+    if (error) {
+        console.log(error);
+    }
+
     const handleEmployeeClick = async (employeeId) => {
         navigate(`/employees/${employeeId}`);
     };
 
-    console.log('employees page');
+    useEffect(() => {
+        console.log('employees page');
+    }, []);
 
     if (loading) return <Loader />;
 

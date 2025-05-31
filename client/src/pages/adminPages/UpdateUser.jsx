@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { AuthContext } from '../../context/AuthContext';
+// import { AuthContext } from '../../context/AuthContext';
 import Select from 'react-select';
-import { updateUser } from '../../api/internal';
+// import { updateUser } from '../../api/internal';
 import { Link, useNavigate, useParams } from 'react-router';
 import { XCircleIcon } from '@heroicons/react/24/solid';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateEmployeeThunk } from '../../features/employees/employeeThunks';
 
 function UpdateUser() {
     const [name, setName] = useState(``);
@@ -18,9 +20,10 @@ function UpdateUser() {
         { label: 'Video Editor', value: 'Video Editor' },
         { label: 'Project Manager', value: 'Project Manager' },
     ]);
-    const { user, loading, setLoading, fetchUser, clickedEmployee } = useContext(AuthContext);
+    const { clickedEmployee } = useSelector(state => state.projects);
     const navigate = useNavigate();
     const params = useParams();
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setName(clickedEmployee.name);
@@ -39,29 +42,7 @@ function UpdateUser() {
             status: status.value,
         };
 
-        try {
-            const res = await updateUser(userId, user);
-            if (res.status === 200) {
-                // success
-                toast.success(res.data.message);
-            }
-            if (res.status === 404) {
-                // user not found error
-                toast.success(res.response.data.message);
-            }
-            if (res.status === 401) {
-                // unauthorized error
-                toast.error(res.response.data.message);
-            }
-            if (res.status === 400) {
-                // validation error
-                toast.error(res.response.data.error.details[0].message);
-            }
-        } catch (error) {
-            toast.error(error);
-        } finally {
-            setLoading(false);
-        }
+        dispatch(updateEmployeeThunk({userId, user}))
 
         setName('');
         setEmail('');
@@ -69,12 +50,9 @@ function UpdateUser() {
         setStatus('');
 
         navigate('/employees');
-
-        fetchUser();
     };
 
     useEffect(()=>{
-
         console.log('update user page');
     },[])
 

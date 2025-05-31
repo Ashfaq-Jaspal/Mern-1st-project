@@ -12,10 +12,12 @@ const AdminPanel = () => {
     useEffect(() => {
         dispatch(getCurrentUserDataThunk());
     }, []);
-
+    
     const { loading, employees, projects } = useSelector(state => state.auth);
-
-    console.log('amin panel page');
+    
+    useEffect(() => {
+        console.log('amin panel page');
+    }, []);
 
     if (!loading) {
         return (

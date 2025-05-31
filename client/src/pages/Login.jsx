@@ -26,17 +26,16 @@ function Login() {
 
     useEffect(() => {
         console.log('login page');
-    }, []);
-
-    if (!loading) {
-        if (user) {
-            if (user.isAdmin) {
-                navigate('/admin-panel');
-            } else {
-                navigate('/employee-dashboard');
+        if (!loading) {
+            if (user) {
+                if (user.isAdmin) {
+                    navigate('/admin-panel');
+                } else {
+                    navigate('/employee-dashboard');
+                }
             }
         }
-    }
+    }, []);
 
     return (
         <>

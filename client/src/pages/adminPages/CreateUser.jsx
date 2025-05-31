@@ -1,9 +1,10 @@
-import { useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { AuthContext } from '../../context/AuthContext';
 import Select from 'react-select';
-import { createUser } from '../../api/internal';
 import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { createEmployeeThunk } from '../../features/employees/employeeThunks';
+import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
 
 function SignUp() {
     const [name, setName] = useState(``);
@@ -17,8 +18,12 @@ function SignUp() {
         { label: 'Video Editor', value: 'Video Editor' },
         { label: 'Project Manager', value: 'Project Manager' },
     ]);
-    const { user, loading, setLoading, fetchUser } = useContext(AuthContext);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getCurrentUserDataThunk());
+    }, []);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -30,38 +35,19 @@ function SignUp() {
             status: status.value,
         };
 
-        try {
-            const res = await createUser(user);
-            if (res.status === 201) {
-                // success
-                toast.success(res.data.message);
-            }
-            if (res.status === 401) {
-                // unauthorized error
-                toast.error(res.response.data.message);
-            }
-            if (res.status === 409) {
-                // email already exists error
-                toast.error(res.response.data.message);
-            }
-            if (res.status === 400) {
-                // validation error
-                toast.error(res.response.data.error.details[0].message);
-            }
-        } catch (error) {
-            toast.error(error);
-        } finally {
-            setLoading(false);
-        }
+        dispatch(createEmployeeThunk(user));
 
         setName('');
         setEmail('');
         setPassword('');
         setStatus('');
 
-        fetchUser();
+        navigate('/employees');
     };
-    console.log('create user page');
+
+    useEffect(() => {
+        console.log('create user page');
+    }, []);
 
     return (
         <form

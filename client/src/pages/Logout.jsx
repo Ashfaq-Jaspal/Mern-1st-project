@@ -1,27 +1,16 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { logout } from '../api/internal';
-import { AuthContext } from '../context/AuthContext';
+import { logoutUser } from '../features/auth/authThunks';
 
 const Logout = () => {
-    const { setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        const logOutUser = async () => {
-            try {
-                const response = await logout();
-                navigate('/login');
-                toast.success(response.data.message);
-            } catch (error) {
-                console.error('Logout failed:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        logOutUser();
+        dispatch(logoutUser());
+        navigate('/login');
     }, []);
 
     useEffect(() => {

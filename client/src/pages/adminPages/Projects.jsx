@@ -5,12 +5,13 @@ import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
 import Loader from '../../components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
+import { resetError, resetMessage } from '../../features/projects/projectSlice';
 
 const Projects = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { loading, projects } = useSelector((state) => state.auth);
-    const { message } = useSelector((state) => state.projects);
+    const { message, error } = useSelector((state) => state.projects);
 
     useEffect(() => {
         dispatch(getCurrentUserDataThunk());
@@ -19,13 +20,24 @@ const Projects = () => {
     useEffect(() => {
         if (message) {
             toast.success(message);
+            dispatch(resetMessage());
         }
     }, [message]);
+
+    useEffect(() => {
+        if (error) {
+            toast.error(error);
+            dispatch(resetError());
+        }
+    }, [error]);
 
     const handleProjectClick = async (projectId) => {
         navigate(`/projects/${projectId}`);
     };
-    console.log('projects page');
+
+    useEffect(() => {
+        console.log('projects page');
+    }, []);
 
     if (loading) return <Loader />;
 

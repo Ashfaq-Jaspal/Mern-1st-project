@@ -13,26 +13,45 @@ export const fetchProjectsOfEmployeeThunk = createAsyncThunk('projects/fetchProj
 export const createProjectThunk = createAsyncThunk('projects/create', async (project, thunkAPI) => {
     try {
         const res = await createProject(project);
-        return res.data;
+        return res.data.message;
     } catch (err) {
-        return thunkAPI.rejectWithValue(err);
+        if (err.status === 401) {
+            // unauthorized error
+            return thunkAPI.rejectWithValue(err.response.data.message);
+        }
+        if (err.status === 400) {
+            // validation error
+            return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+        }
     }
 });
 
 export const deleteProjectThunk = createAsyncThunk('projects/delete', async (projectId, thunkAPI) => {
     try {
         const res = await deleteProject(projectId);
-        return res.data;
+        console.log(res);
+        return res.data.message;
     } catch (err) {
         return thunkAPI.rejectWithValue(err);
     }
 });
 
-export const updateProjectThunk = createAsyncThunk('projects/update', async ({projectId, data}, thunkAPI) => {
+export const updateProjectThunk = createAsyncThunk('projects/update', async ({ projectId, updatedData }, thunkAPI) => {
     try {
-        const res = await updateProject(projectId, data);
-        return res.data;
+        const res = await updateProject(projectId, updatedData);
+        return res.data.message;
     } catch (err) {
-        return thunkAPI.rejectWithValue(err);
+        if (err.status === 401) {
+            // unauthorized error
+            return thunkAPI.rejectWithValue(err.response.data.message);
+        }
+        if (err.status === 400) {
+            // validation error
+            return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+        }
+        if (err.status === 404) {
+            // project not found error
+            return thunkAPI.rejectWithValue(err.response.data.message);
+        }
     }
 });

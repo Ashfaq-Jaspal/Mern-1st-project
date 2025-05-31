@@ -2,10 +2,10 @@ import Joi from 'joi';
 
 // Validation schema
 const projectSchema = Joi.object({
-    name: Joi.string().min(3).max(18).pattern(/^(?!\d+$).+/).required().messages({
+    name: Joi.string().min(3).max(20).pattern(/^(?!\d+$).+/).required().messages({
         'string.empty': 'Project name is required',
         'string.min': 'Project name must be at least 3 characters',
-        'string.max': 'Project name must be less than 18 characters',
+        'string.max': 'Project name must be less than 20 characters',
         "string.pattern.base": "Project name cannot contain only numbers",
     }),
 

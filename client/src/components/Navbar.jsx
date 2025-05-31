@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
-    const { user, loading } = useContext(AuthContext);
+    const { user, loading } = useSelector(state => state.auth);
 
     if (!loading) {
         if (user?.isAdmin) {

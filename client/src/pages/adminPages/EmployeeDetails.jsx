@@ -11,7 +11,7 @@ const EmployeeDetails = () => {
     const { employeeId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { loading, user, message, clickedEmployee, projectsOfEmployee } = useSelector((state) => state.projects);
+    const { loading, clickedEmployee, projectsOfEmployee } = useSelector((state) => state.projects);
 
     useEffect(() => {
         dispatch(fetchProjectsOfEmployeeThunk(employeeId));
@@ -31,13 +31,6 @@ const EmployeeDetails = () => {
     }, []);
 
     if (loading) return <Loader />;
-
-    if (!loading) {
-        console.log(clickedEmployee);
-        console.log(projectsOfEmployee);
-        console.log(user);
-        console.log(message);
-    }
 
     return (
         <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-gradient-to-b from-gray-900 to-black min-h-screen text-white flex items-center justify-center p-6 w-full">

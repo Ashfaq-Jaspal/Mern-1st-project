@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+// import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-hot-toast';
 import Select from 'react-select';
 import { updateProject } from '../../api/internal';
 import { Link, useNavigate, useParams } from 'react-router';
 import { XCircleIcon } from '@heroicons/react/24/solid';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProjectThunk } from '../../features/projects/projectThunks';
 
 const UpdateProject = () => {
     const [projectName, setProjectName] = useState('');
@@ -12,9 +14,11 @@ const UpdateProject = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [selectedEmployees, setSelectedEmployees] = useState([]);
-    const { employees, user, loading, setLoading, fetchUser, clickedProject } = useContext(AuthContext);
+    const { employees, loading } = useSelector((state) => state.auth);
+    const { clickedProject } = useSelector((state) => state.employees);
     const navigate = useNavigate();
     const params = useParams();
+    const dispatch = useDispatch();
     let formattedEmployeesForReactSelect = [];
     let reFormattedEmployeesForBackend = [];
 
@@ -32,7 +36,7 @@ const UpdateProject = () => {
             return emp.value;
         });
 
-        const updatedProject = {
+        const updatedData = {
             name: projectName,
             description,
             startDate,
@@ -40,29 +44,7 @@ const UpdateProject = () => {
             employeeIds: reFormattedEmployeesForBackend,
         };
 
-        try {
-            const res = await updateProject(projectId, updatedProject);
-            if (res.status === 200) {
-                // success
-                toast.success(res.data.message);
-            }
-            if (res.status === 401) {
-                // unauthorized error
-                toast.error(res.response.data.message);
-            }
-            if (res.status === 400) {
-                // validation error
-                toast.error(res.response.data.errors[0]);
-            }
-            if (res.status === 404) {
-                // project not found error
-                toast.error(res.response.data.message);
-            }
-        } catch (error) {
-            toast.error(error);
-        } finally {
-            setLoading(false);
-        }
+        dispatch(updateProjectThunk({ projectId, updatedData }));
 
         setProjectName('');
         setDescription('');
@@ -70,15 +52,12 @@ const UpdateProject = () => {
         setEndDate('');
         setSelectedEmployees([]);
 
-        fetchUser();
-
         navigate('/projects');
     };
 
-    useEffect(()=>{
-
+    useEffect(() => {
         console.log('update project page');
-    },[])
+    }, []);
 
     {
         if (!loading && employees) {

@@ -1,9 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import React, { useContext, useEffect, useState } from 'react';
+// import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-hot-toast';
 import Select from 'react-select';
 import { createProject } from '../../api/internal';
 import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { createProjectThunk } from '../../features/projects/projectThunks';
+import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
 
 const CreateProject = () => {
     const [projectName, setProjectName] = useState('');
@@ -11,10 +14,16 @@ const CreateProject = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [selectedEmployees, setSelectedEmployees] = useState([]);
-    const { employees, user, loading, setLoading, fetchUser } = useContext(AuthContext);
+    const { employees, loading } = useSelector(state => state.auth);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     let formattedEmployeesForReactSelect = [];
     let reFormattedEmployeesForBackend = [];
+
+    useEffect(() => {
+        dispatch(getCurrentUserDataThunk());
+    }, []);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -31,25 +40,7 @@ const CreateProject = () => {
             employeeIds: reFormattedEmployeesForBackend,
         };
 
-        try {
-            const res = await createProject(createdProject);
-            if (res.status === 201) {
-                // success
-                toast.success(res.data.message);
-            }
-            if (res.status === 401) {
-                // unauthorized error
-                toast.error(res.response.data.message);
-            }
-            if (res.status === 400) {
-                // validation error
-                toast.error(res.response.data.errors[0]);
-            }
-        } catch (error) {
-            toast.error(error);
-        } finally {
-            setLoading(false);
-        }
+        dispatch(createProjectThunk(createdProject));
 
         setProjectName('');
         setDescription('');
@@ -57,10 +48,12 @@ const CreateProject = () => {
         setEndDate('');
         setSelectedEmployees([]);
 
-        fetchUser();
+        navigate('/projects')
     };
 
-    console.log('create project page');
+    useEffect(() => {
+        console.log('create project page');
+    }, []);
 
     {
         if (!loading && employees) {
