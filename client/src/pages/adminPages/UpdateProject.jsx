@@ -182,7 +182,7 @@ const UpdateProject = () => {
                         type="submit"
                         className="px-3 text-2xl py-1.5 mt-2 w-80 text-gray-300 bg-blue-700 border-none rounded-lg"
                     >
-                        Update project
+                        Edit
                     </button>
                 </div>
             </form>

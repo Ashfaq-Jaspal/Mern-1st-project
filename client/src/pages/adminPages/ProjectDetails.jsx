@@ -56,13 +56,13 @@ const ProjectDetails = () => {
                             onClick={() => handleUpdateProject(clickedProject._id)}
                             className="px-3 py-1 mt-3 w-full text-white text-lg bg-blue-700 hover:bg-blue-800 border-none rounded-full"
                         >
-                            Update project
+                            Edit
                         </button>
                         <button
                             onClick={handleDeleteProject}
                             className="px-3 py-1 mt-3 w-full text-white text-lg bg-red-700 hover:bg-red-800 border-none rounded-full"
                         >
-                            Delete project
+                            Delete
                         </button>
                     </div>
                 </div>

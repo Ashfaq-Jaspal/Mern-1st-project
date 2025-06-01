@@ -31,12 +31,12 @@ export const createEmployeeThunk = createAsyncThunk('employees/create', async (e
 });
 
 export const deleteEmployeeThunk = createAsyncThunk('employees/delete', async (employeeId, thunkAPI) => {
+    console.log(employeeId);
     try {
         const res = await deleteEmployee(employeeId);
-        console.log(res);
         return res.data.message;
     } catch (err) {
-        return thunkAPI.rejectWithValue(err);
+        return thunkAPI.rejectWithValue(err.response?.data?.message);
     }
 });
 

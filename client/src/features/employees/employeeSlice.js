@@ -49,6 +49,9 @@ const employeeSlice = createSlice({
             .addCase(deleteEmployeeThunk.fulfilled, (state, action) => {
                 state.message = action.payload;
             })
+            .addCase(deleteEmployeeThunk.rejected, (state, action) => {
+                state.error = action.payload;
+            })
             .addCase(updateEmployeeThunk.pending, (state) => {
                 state.loading = true;
             })

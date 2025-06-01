@@ -56,13 +56,13 @@ const EmployeeDetails = () => {
                             onClick={() => handleUpdateUser(clickedEmployee?._id)}
                             className="px-10 py-1 text-white text-lg bg-blue-700 hover:bg-blue-800 border-none rounded-full"
                         >
-                            Update user
+                            Edit
                         </button>
                         <button
                             onClick={handleDeleteUser}
                             className="px-10 py-1 text-white text-lg bg-red-700 hover:bg-red-800 border-none rounded-full"
                         >
-                            Delete user
+                            Delete
                         </button>
                     </div>
                 </div>

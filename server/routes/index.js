@@ -22,8 +22,8 @@ router.route('/projects/:projectId').get(authenticateJWT, getProjectDetails);
 
 // only dmin
 router.route('/create-user').post(authenticateJWT, isAdmin, validateSignup, createUser);
-router.route('/update-user/:userId').put(authenticateJWT, isAdmin, validateSignup, updateUser);
-router.route('/delete-user/:userId').delete(authenticateJWT, isAdmin, deleteUser);
+router.route('/update-user/:employeeId').put(authenticateJWT, isAdmin, validateSignup, updateUser);
+router.route('/delete-user/:employeeId').delete(authenticateJWT, isAdmin, deleteUser);
 router.route('/create-project').post(authenticateJWT, isAdmin, validateProject, createProject);
 router.route('/update-project/:projectId').put(authenticateJWT, isAdmin, validateProject, updateProject);
 router.route('/delete-project/:projectId').delete(authenticateJWT, isAdmin, deleteProject);
