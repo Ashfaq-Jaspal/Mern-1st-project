@@ -1,21 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router';
 import { FolderIcon, UsersIcon } from '@heroicons/react/24/solid';
 import Card from '../../components/Card';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
 import Loader from '../../components/Loader';
+import { getAdminDataThunk } from '../../features/admin/adminThunks';
 
 const AdminPanel = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
+    const { loading, employees, projects, error } = useSelector((state) => state.admin);
 
     useEffect(() => {
-        dispatch(getCurrentUserDataThunk());
-    }, []);
-    
-    const { loading, employees, projects } = useSelector(state => state.auth);
-    
-    useEffect(() => {
+        if (!(projects && employees && error)) {
+            dispatch(getAdminDataThunk())
+        }
         console.log('amin panel page');
     }, []);
 

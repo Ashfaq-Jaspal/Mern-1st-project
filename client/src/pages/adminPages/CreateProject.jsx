@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-// import { AuthContext } from '../../context/AuthContext';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Select from 'react-select';
-import { createProject } from '../../api/internal';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProjectThunk } from '../../features/projects/projectThunks';
-import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
 
 const CreateProject = () => {
     const [projectName, setProjectName] = useState('');
@@ -14,16 +11,12 @@ const CreateProject = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [selectedEmployees, setSelectedEmployees] = useState([]);
-    const { employees, loading } = useSelector(state => state.auth);
+    const { employees, loading } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     let formattedEmployeesForReactSelect = [];
     let reFormattedEmployeesForBackend = [];
-
-    useEffect(() => {
-        dispatch(getCurrentUserDataThunk());
-    }, []);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -48,7 +41,7 @@ const CreateProject = () => {
         setEndDate('');
         setSelectedEmployees([]);
 
-        navigate('/projects')
+        navigate('/projects');
     };
 
     useEffect(() => {

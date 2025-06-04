@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-// import { AuthContext } from '../../context/AuthContext';
 import Select from 'react-select';
-// import { updateUser } from '../../api/internal';
 import { Link, useNavigate, useParams } from 'react-router';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,10 +18,10 @@ function UpdateUser() {
         { label: 'Video Editor', value: 'Video Editor' },
         { label: 'Project Manager', value: 'Project Manager' },
     ]);
-    const { clickedEmployee } = useSelector(state => state.projects);
+    const { clickedEmployee } = useSelector((state) => state.projects);
     const navigate = useNavigate();
     const params = useParams();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setName(clickedEmployee.name);
@@ -42,7 +40,7 @@ function UpdateUser() {
             status: status.value,
         };
 
-        dispatch(updateEmployeeThunk({userId, user}))
+        dispatch(updateEmployeeThunk({ userId, user }));
 
         setName('');
         setEmail('');
@@ -52,9 +50,12 @@ function UpdateUser() {
         navigate('/employees');
     };
 
-    useEffect(()=>{
-        console.log('update user page');
-    },[])
+    // useEffect(() => {
+    //     if (!name) {
+    //         navigate('/')
+    //     }
+    //     console.log('update user page');
+    // }, []);
 
     return (
         <form

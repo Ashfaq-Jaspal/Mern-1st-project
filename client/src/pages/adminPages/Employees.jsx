@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router';
 import { UserIcon, CheckBadgeIcon } from '@heroicons/react/24/solid';
 import Loader from '../../components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
 import { resetError, resetMessage } from '../../features/employees/employeeSlice';
 
 const Employees = () => {
@@ -12,10 +11,6 @@ const Employees = () => {
     const dispatch = useDispatch();
     const { loading, employees } = useSelector((state) => state.auth);
     const { message, error } = useSelector((state) => state.employees);
-
-    useEffect(() => {
-        dispatch(getCurrentUserDataThunk());
-    }, []);
 
     useEffect(() => {
         if (message) {
@@ -30,10 +25,6 @@ const Employees = () => {
             dispatch(resetError());
         }
     }, [error]);
-
-    if (error) {
-        console.log(error);
-    }
 
     const handleEmployeeClick = async (employeeId) => {
         navigate(`/employees/${employeeId}`);

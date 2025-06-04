@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Select from 'react-select';
 import { useNavigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createEmployeeThunk } from '../../features/employees/employeeThunks';
-import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
 
 function SignUp() {
     const [name, setName] = useState(``);
@@ -20,10 +19,6 @@ function SignUp() {
     ]);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getCurrentUserDataThunk());
-    }, []);
 
     const submitHandler = async (e) => {
         e.preventDefault();

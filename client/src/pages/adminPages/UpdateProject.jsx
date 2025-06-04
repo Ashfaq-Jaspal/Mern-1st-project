@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-// import { AuthContext } from '../../context/AuthContext';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Select from 'react-select';
-import { updateProject } from '../../api/internal';
 import { Link, useNavigate, useParams } from 'react-router';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { useDispatch, useSelector } from 'react-redux';

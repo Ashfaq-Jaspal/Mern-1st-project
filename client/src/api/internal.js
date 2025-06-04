@@ -40,7 +40,7 @@ api.interceptors.response.use(
                 return api(originalRequest);
             } catch (err) {
                 await logout();
-                window.location.href = '/login';
+                // window.location.href = '/login';
                 return Promise.reject(err);
             }
         }
@@ -48,10 +48,10 @@ api.interceptors.response.use(
     }
 );
 
-// setting user globally
-export const getCurrentUserData = async () => {
+// getting admin data
+export const getAdminData = async () => {
     try {
-        const response = await api.get(`/current-user-data`);
+        const response = await api.get(`/get-admin-data`);
         return response;
     } catch (error) {
         throw error;

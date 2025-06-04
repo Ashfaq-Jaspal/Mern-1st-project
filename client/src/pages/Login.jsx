@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginUser } from '../features/auth/authThunks';
 
 function Login() {
@@ -9,7 +9,6 @@ function Login() {
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
     const dispatch = useDispatch();
-    const { user, token, loading, error } = useSelector((state) => state.auth);
 
     let userData = {
         email,
@@ -19,22 +18,16 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         dispatch(loginUser(userData));
+        // dispatch(getCurrentUserDataThunk());
+
+        navigate('/');
 
         setEmail('');
         setPassword('');
     };
 
     useEffect(() => {
-        console.log('login page');
-        if (!loading) {
-            if (user) {
-                if (user.isAdmin) {
-                    navigate('/admin-panel');
-                } else {
-                    navigate('/employee-dashboard');
-                }
-            }
-        }
+        console.log('Login page');
     }, []);
 
     return (

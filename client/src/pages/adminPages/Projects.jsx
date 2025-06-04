@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
 import Loader from '../../components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
 import { resetError, resetMessage } from '../../features/projects/projectSlice';
 
 const Projects = () => {
@@ -12,10 +11,6 @@ const Projects = () => {
     const dispatch = useDispatch();
     const { loading, projects } = useSelector((state) => state.auth);
     const { message, error } = useSelector((state) => state.projects);
-
-    useEffect(() => {
-        dispatch(getCurrentUserDataThunk());
-    }, []);
 
     useEffect(() => {
         if (message) {

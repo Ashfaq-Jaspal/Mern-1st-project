@@ -31,7 +31,6 @@ export const createEmployeeThunk = createAsyncThunk('employees/create', async (e
 });
 
 export const deleteEmployeeThunk = createAsyncThunk('employees/delete', async (employeeId, thunkAPI) => {
-    console.log(employeeId);
     try {
         const res = await deleteEmployee(employeeId);
         return res.data.message;

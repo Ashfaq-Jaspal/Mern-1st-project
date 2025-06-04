@@ -2,15 +2,10 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loader from './Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { autoLoginUser } from '../features/auth/authThunks';
 
 const RedirectByRole = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(autoLoginUser());
-    }, []);
 
     const { loading, user } = useSelector((state) => state.auth);
 
@@ -18,6 +13,7 @@ const RedirectByRole = () => {
         if (loading) return;
         if (!loading) {
             if (user) {
+                // console.log(user);
                 if (user.isAdmin) {
                     navigate('/admin-panel');
                 } else {

@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { logoutUser } from '../features/auth/authThunks';
+import { resetUser } from '../features/auth/authSlice';
 
 const Logout = () => {
     const navigate = useNavigate();
@@ -10,6 +11,8 @@ const Logout = () => {
 
     useEffect(() => {
         dispatch(logoutUser());
+        dispatch(resetUser())
+        console.log('cleared user');
         navigate('/login');
     }, []);
 

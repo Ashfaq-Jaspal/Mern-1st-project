@@ -3,16 +3,15 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { CalendarDaysIcon, ClockIcon } from '@heroicons/react/24/solid';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentUserDataThunk } from '../../features/auth/authThunks';
 import Loader from '../../components/Loader';
 
 const EmployeeDashboard = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getCurrentUserDataThunk());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(getCurrentUserDataThunk());
+    // }, []);
 
     const { loading, projects } = useSelector((state) => state.auth);
 

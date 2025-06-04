@@ -6,6 +6,7 @@ import { validateSignup, validateLogin } from '../middlewares/validateUser.js';
 import authenticateJWT from '../middlewares/authenticateJWT.js';
 import isAdmin from '../middlewares/isAdmin.js';
 import validateProject from '../middlewares/validateProject.js';
+import { getAdminData } from '../controllers/adminController.js';
 
 const router = express.Router();
 
@@ -17,10 +18,10 @@ router.route('/refresh').post(refresh);
 router.route('/logout').post(logout);
 
 // authentication based
-router.route('/current-user-data').get(authenticateJWT, getDataForCurrentUser);
 router.route('/projects/:projectId').get(authenticateJWT, getProjectDetails);
 
-// only dmin
+// only admin
+router.route('/get-admin-data').get(authenticateJWT, isAdmin, getAdminData);
 router.route('/create-user').post(authenticateJWT, isAdmin, validateSignup, createUser);
 router.route('/update-user/:employeeId').put(authenticateJWT, isAdmin, validateSignup, updateUser);
 router.route('/delete-user/:employeeId').delete(authenticateJWT, isAdmin, deleteUser);

@@ -10,7 +10,8 @@ const ProjectDetails = () => {
     const { projectId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { loading, user, clickedProject, employeesOnProject } = useSelector((state) => state.employees);
+    const { loading, clickedProject, employeesOnProject } = useSelector((state) => state.employees);
+    const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
         dispatch(fetchEmployeesOfProjectThunk(projectId));
